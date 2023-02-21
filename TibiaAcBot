@@ -9,5 +9,7 @@ OpenCV seems to have more support and tutorials accepts template matching of mul
 Tasks
 =================================================================================================
 
-1. Be able to find your own character in the screen
-2. Be able to read your health bar
+1. Be able to import the screenshot
+2. Be able to process the screenshot with opencv
+3. Be able to find your own character in the screen
+4. Be able to read your health bar
