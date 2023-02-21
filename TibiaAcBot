@@ -1,0 +1,13 @@
+TibiaBot
+=================================================================================================
+
+Template matching library python: Mahotas and OpenCV
+
+OpenCV seems to have more support and tutorials accepts template matching of multiple objects in the screen.
+
+
+Tasks
+=================================================================================================
+
+1. Be able to find your own character in the screen
+2. Be able to read your health bar
