@@ -1,5 +1,6 @@
 import pyautogui
-from ScreenAnalizerPackage import Scanner, ScreenRegion
+from .Scanner import Scanner
+from .ScreenRegion import ScreenRegion
 
 
 class HitPoint:
@@ -17,8 +18,8 @@ class HitPoint:
         return Scanner.number(
             ScreenRegion(
                 hitpointLabelLocationRightCorner + 30,
-                hitpointLabelLocation.top + 5,
-                9,
+                hitpointLabelLocation.top,
+                10,
                 12
             )
         )

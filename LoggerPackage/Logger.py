@@ -1,4 +1,4 @@
 class Logger:
     @staticmethod
-    def log(message) -> None:
+    def log(message: str) -> None:
         print(f'[TibiaAcBot]: {message}')

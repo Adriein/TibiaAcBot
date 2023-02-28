@@ -7,7 +7,9 @@ class Scanner:
     def number(region: ScreenRegion) -> int:
         for number in range(10):
             numberOnScreen = pyautogui.locateOnScreen(
-                f'Wiki/Number/${number}.png',
+                f'Wiki/Number/{number}.png',
+                confidence=0.3,
+                grayscale=True,
                 region=(region.left, region.top, region.width, region.height)
             )
 
