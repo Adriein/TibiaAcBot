@@ -4,14 +4,18 @@ from ScreenAnalizerPackage import ScreenRegion
 
 class Scanner:
     @staticmethod
-    def number(region: ScreenRegion) -> int:
+    def number(region: ScreenRegion) -> dict[int, int]:
+        numberYPositionDictonary = {}
+
         for number in range(10):
-            numberOnScreen = pyautogui.locateOnScreen(
+            numberPositionOnScreen = pyautogui.locateOnScreen(
                 f'Wiki/Number/{number}.png',
-                confidence=0.3,
+                confidence=0.8,
                 grayscale=True,
                 region=(region.left, region.top, region.width, region.height)
             )
+            print(numberPositionOnScreen)
+            if numberPositionOnScreen:
+                numberYPositionDictonary[numberPositionOnScreen.left] = number
 
-            if numberOnScreen:
-                return number
+        return numberYPositionDictonary

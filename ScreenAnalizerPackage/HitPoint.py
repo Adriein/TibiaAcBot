@@ -13,13 +13,13 @@ class HitPoint:
             region=(1549, 74, 500, 1000)
         )
 
-        hitpointLabelLocationRightCorner = hitpointLabelLocation.left + hitpointLabelLocation.width
-
-        return Scanner.number(
+        print(Scanner.number(
             ScreenRegion(
-                hitpointLabelLocationRightCorner + 30,
+                hitpointLabelLocation.left,
                 hitpointLabelLocation.top,
-                10,
-                12
+                150,
+                20
             )
-        )
+        ))
+
+        return 0
