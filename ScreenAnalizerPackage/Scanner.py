@@ -1,21 +1,21 @@
 import pyautogui
-from ScreenAnalizerPackage import ScreenRegion
+from .ScreenRegion import ScreenRegion
 
 
 class Scanner:
     @staticmethod
-    def number(region: ScreenRegion) -> dict[int, int]:
-        numberYPositionDictonary = {}
-
+    def number(region: ScreenRegion) -> tuple[ScreenRegion, int] | None:
         for number in range(10):
-            numberPositionOnScreen = pyautogui.locateOnScreen(
+            number_position_on_screen = pyautogui.locateOnScreen(
                 f'Wiki/Number/{number}.png',
-                confidence=0.8,
                 grayscale=True,
+                confidence=0.7,
                 region=(region.left, region.top, region.width, region.height)
             )
-            print(numberPositionOnScreen)
-            if numberPositionOnScreen:
-                numberYPositionDictonary[numberPositionOnScreen.left] = number
 
-        return numberYPositionDictonary
+            if number_position_on_screen:
+                region = ScreenRegion.from_box(number_position_on_screen)
+                print(number)
+                return region, number
+
+        return None
