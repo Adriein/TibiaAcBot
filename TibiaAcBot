@@ -9,7 +9,7 @@ OpenCV seems to have more support and tutorials accepts template matching of mul
 Github
 =================================================================================================
 https://github.com/MuriloChianfa/TibiaAuto12
-
+https://github.com/lucasmonstro/PyTibia
 
 Tasks
 =================================================================================================
@@ -18,3 +18,11 @@ Tasks
 2. Be able to process the screenshot with opencv
 3. Be able to find your own character in the screen
 4. Be able to read your health bar
+
+Issues
+=================================================================================================
+Trying to find the health using the Hitpoint label was impossible since there is a coma in the
+middle of the numbers and the screenLocation function mistakes some numbers
+
+The approach now is trying to read the health bar using color matching and trying to find out
+how % of hp left you have in real time
