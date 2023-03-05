@@ -3,6 +3,7 @@ from LoggerPackage import Logger as TibiaAcBotLogger
 from ScreenAnalizerPackage import HitPoint
 import pyautogui
 
+
 class TibiaAcBot:
     def init(self):
         try:
@@ -12,9 +13,9 @@ class TibiaAcBot:
             while True:
                 time.sleep(3)
                 TibiaAcBotLogger.info('Listening...')
-                #print(pyautogui.position())
+                # print(pyautogui.position())
                 hp = HitPoint()
-                hp.get()
+                print(hp.get())
         except KeyboardInterrupt:
             TibiaAcBotLogger.info('Graceful shutdown')
             raise SystemExit

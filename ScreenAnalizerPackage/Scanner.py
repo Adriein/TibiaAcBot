@@ -1,6 +1,6 @@
 import cv2
 from glob import glob
-from Error import ImageIsNotNumber
+from .ImageIsNotNumber import ImageIsNotNumber
 from FilesystemPackage import Cv2File
 
 
@@ -18,8 +18,6 @@ class Scanner:
             match = cv2.matchTemplate(number_image, number_template, cv2.TM_CCOEFF_NORMED)
 
             [_, max_coincidence, _, _] = cv2.minMaxLoc(match)
-
-            print(max_coincidence)
 
             if Scanner.__ensure_confidence_threshold(confidence, max_coincidence):
                 continue
@@ -45,7 +43,7 @@ class Scanner:
 
     @staticmethod
     def __ensure_some_match(coincidence_found: float) -> bool:
-        return coincidence_found == 0.5
+        return coincidence_found <= 0.5
 
     @staticmethod
     def __is_not_better_match(number_coincidence: list[tuple[any, int]], coincidence_found: float) -> bool:

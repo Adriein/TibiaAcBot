@@ -1,9 +1,10 @@
 import pyautogui
 
-from Error import ImageIsNotNumber
+from .ImageIsNotNumber import ImageIsNotNumber
 from .Scanner import Scanner
 from .ScreenRegion import ScreenRegion
 from FilesystemPackage import File
+from LoggerPackage import Logger
 
 
 class HitPoint:
@@ -29,16 +30,17 @@ class HitPoint:
 
                 result = Scanner.number(confidence=0.6)
 
-                print(result)
-
                 number_collection.append(result)
 
                 self.__clean_number_image()
 
                 region = self.__move_needle(region)
-        except ImageIsNotNumber:
+        except ImageIsNotNumber as error:
+            Logger.debug(str(error))
+
             self.__clean_number_image()
-            return number_collection[0]
+
+            return int(str.join("", map(str, number_collection)))
 
     def __move_needle(self, region: ScreenRegion) -> ScreenRegion:
         return ScreenRegion(
@@ -49,12 +51,14 @@ class HitPoint:
         )
 
     def __take_number_screenshot(self, region: ScreenRegion):
+        """
         pyautogui.screenshot(f'Tmp/{region.left}.png', region=(
             region.left,
             region.top,
             region.width,
             region.height
         ))
+        """
         pyautogui.screenshot(f'Tmp/PlayerStatus/{region.left}.png', region=(
             region.left,
             region.top,
