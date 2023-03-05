@@ -6,17 +6,17 @@ import pyautogui
 class TibiaAcBot:
     def init(self):
         try:
-            TibiaAcBotLogger.log('Started...')
-            TibiaAcBotLogger.log('Press Ctrl+C to stop the execution')
+            TibiaAcBotLogger.info('Started...')
+            TibiaAcBotLogger.info('Press Ctrl+C to stop the execution')
 
             while True:
                 time.sleep(3)
-                TibiaAcBotLogger.log('Listening...')
+                TibiaAcBotLogger.info('Listening...')
                 #print(pyautogui.position())
                 hp = HitPoint()
                 hp.get()
         except KeyboardInterrupt:
-            TibiaAcBotLogger.log('Graceful shutdown')
+            TibiaAcBotLogger.info('Graceful shutdown')
             raise SystemExit
 
 

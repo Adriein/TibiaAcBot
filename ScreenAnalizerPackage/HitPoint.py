@@ -1,6 +1,9 @@
 import pyautogui
+
+from Error import ImageIsNotNumber
 from .Scanner import Scanner
 from .ScreenRegion import ScreenRegion
+from FilesystemPackage import File
 
 
 class HitPoint:
@@ -12,7 +15,6 @@ class HitPoint:
             region=(1600, 0, 500, 1000)
         )
 
-        print(hit_point_label_location)
         number_collection = []
         region = ScreenRegion(
             hit_point_label_location.left + 108,
@@ -21,47 +23,44 @@ class HitPoint:
             12
         )
 
-        for number in range(3):
-            print(region.left)
-            result = Scanner.number(region)
+        try:
+            while True:
+                self.__take_number_screenshot(region)
 
-            if not result:
-                break
+                result = Scanner.number(confidence=0.6)
 
-            number_collection.append(result)
-            region = self.__move_needle(result[0])
+                print(result)
 
-        raise Exception
-        """
-        for number in range(3):
-            result = Scanner.number(region)
+                number_collection.append(result)
 
-            if not result:
-                break
+                self.__clean_number_image()
 
-            number_collection.append(result)
-            region = self.__move_needle(result[0])
-            
-        
-                hit_points = pyautogui.screenshot(f'Tmp/screenshot.png', region=(
-            hit_point_label_location.left + 108,
-            hit_point_label_location.top,
-            8,
-            12
-        ))
-        """
-        return 0
+                region = self.__move_needle(region)
+        except ImageIsNotNumber:
+            self.__clean_number_image()
+            return number_collection[0]
 
     def __move_needle(self, region: ScreenRegion) -> ScreenRegion:
-        pyautogui.screenshot(f'Tmp/{region.left}.png', region=(
-            region.left + 7,
-            region.top,
-            region.width + 2,
-            region.height
-        ))
         return ScreenRegion(
             region.left + 7,
             region.top,
-            region.width + 2,
+            region.width + 1,
             region.height
         )
+
+    def __take_number_screenshot(self, region: ScreenRegion):
+        pyautogui.screenshot(f'Tmp/{region.left}.png', region=(
+            region.left,
+            region.top,
+            region.width,
+            region.height
+        ))
+        pyautogui.screenshot(f'Tmp/PlayerStatus/{region.left}.png', region=(
+            region.left,
+            region.top,
+            region.width,
+            region.height
+        ))
+
+    def __clean_number_image(self):
+        File.delete_png('Tmp/PlayerStatus')
