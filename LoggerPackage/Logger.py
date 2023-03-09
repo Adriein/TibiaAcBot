@@ -1,4 +1,3 @@
-import string
 import traceback
 
 from UtilPackage import Time
