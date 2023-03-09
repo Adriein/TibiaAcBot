@@ -1,4 +1,8 @@
+import string
+import traceback
+
 from UtilPackage import Time
+from UtilPackage import Array
 
 
 class Logger:
@@ -12,4 +16,14 @@ class Logger:
 
     @staticmethod
     def error(message: str) -> None:
+        if not message:
+            message = 'Fatal Exception without message'
+
         print(f'[{Time.now()}][TibiaAcBot][ERROR]: {message}')
+        print(f'  [TibiaAcBot][TRACE]:')
+        for index, stack_trace in enumerate(Array.reverse(traceback.format_stack())):
+            stack_list = stack_trace.strip().replace("\n", "").split(",")
+            print(f'    > [{index}] {stack_list[0]}')
+            print(f'    > [{index}] {stack_list[1].strip()}')
+            print(f'    > [{index}] {stack_list[2].strip()}')
+            print("")

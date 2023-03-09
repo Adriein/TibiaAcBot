@@ -17,14 +17,16 @@ class TibiaAcBot:
                 # print(pyautogui.position())
                 player = Player.create()
 
+                raise Exception
+
                 player.health()
                 player.mana()
         except KeyboardInterrupt:
             TibiaAcBotLogger.info('Graceful shutdown')
             raise SystemExit
-        except Exception as fatal:
-            TibiaAcBotLogger.error(f'Fatal Exception: {str(fatal)}')
-            raise SystemExit
+        except Exception as error:
+            TibiaAcBotLogger.error(str(error))
+            raise SystemExit from error
 
 
 app = TibiaAcBot()
