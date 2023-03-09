@@ -6,14 +6,11 @@ from LoggerPackage import Logger
 class Player:
     @staticmethod
     def create() -> 'Player':
-        hp = HitPoint()
-        mana = Mana()
+        return Player(HitPoint(), Mana())
 
-        return Player(hp, mana)
-
-    def __init__(self, hp: HitPoint, mana: Mana):
+    def __init__(self, hp: HitPoint, mana_bar: Mana):
         self.hp = hp
-        self.mana = mana
+        self.mana_bar = mana_bar
 
     def health(self) -> int:
         player_health = self.hp.get()
@@ -22,6 +19,6 @@ class Player:
         return player_health
 
     def mana(self) -> int:
-        player_mana = self.mana.get()
+        player_mana = self.mana_bar.get()
         Logger.debug(f'mana: {player_mana}')
         return player_mana

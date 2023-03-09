@@ -1,7 +1,5 @@
 import time
 from LoggerPackage import Logger as TibiaAcBotLogger
-from ScreenAnalizerPackage import HitPoint
-from ScreenAnalizerPackage import Mana
 from CaveBot.Player import Player
 
 import pyautogui
@@ -20,6 +18,7 @@ class TibiaAcBot:
                 player = Player.create()
 
                 player.health()
+                player.mana()
         except KeyboardInterrupt:
             TibiaAcBotLogger.info('Graceful shutdown')
             raise SystemExit
