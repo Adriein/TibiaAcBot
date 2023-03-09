@@ -13,6 +13,7 @@ class Scanner:
             number_image = Cv2File.load_image(f'Wiki/Number/{number}.png')
 
             [number_template_path] = glob('Tmp/PlayerStatus/*.png')
+
             number_template = Cv2File.load_image(number_template_path)
 
             match = cv2.matchTemplate(number_image, number_template, cv2.TM_CCOEFF_NORMED)
