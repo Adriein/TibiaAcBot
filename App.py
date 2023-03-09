@@ -17,8 +17,6 @@ class TibiaAcBot:
                 # print(pyautogui.position())
                 player = Player.create()
 
-                raise Exception
-
                 player.health()
                 player.mana()
         except KeyboardInterrupt:
