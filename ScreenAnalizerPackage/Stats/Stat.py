@@ -3,6 +3,7 @@ from ScreenAnalizerPackage.ImageIsNotNumber import ImageIsNotNumber
 from ScreenAnalizerPackage.Scanner import Scanner
 from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
 from ScreenAnalizerPackage.Shared.Screen import Screen
+from .StatNotFound import StatNotFound
 from UtilPackage import Array
 from FilesystemPackage import File
 from LoggerPackage import Logger
@@ -15,6 +16,9 @@ class Stat(ABC):
 
     def get(self) -> int:
         stat_location = self.find_stat_location()
+
+        if not stat_location:
+            raise StatNotFound
 
         number_collection = []
 
@@ -41,6 +45,9 @@ class Stat(ABC):
             Logger.debug(str(error))
 
             self.__clean_number_image()
+
+            if not number_collection:
+                raise StatNotFound
 
             return int(str.join("", Array.reverse(number_collection)))
 

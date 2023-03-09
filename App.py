@@ -22,6 +22,9 @@ class TibiaAcBot:
         except KeyboardInterrupt:
             TibiaAcBotLogger.info('Graceful shutdown')
             raise SystemExit
+        except Exception as fatal:
+            TibiaAcBotLogger.error(f'Fatal Exception: {str(fatal)}')
+            raise SystemExit
 
 
 app = TibiaAcBot()
