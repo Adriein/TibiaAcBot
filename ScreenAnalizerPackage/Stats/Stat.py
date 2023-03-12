@@ -52,6 +52,7 @@ class Stat(ABC):
             return int(str.join("", Array.reverse(number_collection)))
 
     def __take_number_screenshot(self, region: ScreenRegion):
+        Screen.roi_screenshot(f'Tmp/{region.left}.png', region)
         Screen.roi_screenshot(f'Tmp/PlayerStatus/{region.left}.png', region)
 
     def __clean_number_image(self):
