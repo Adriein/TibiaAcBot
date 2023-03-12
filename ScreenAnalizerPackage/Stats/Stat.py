@@ -8,6 +8,7 @@ from UtilPackage import Array
 from FilesystemPackage import File
 from LoggerPackage import Logger
 import math
+import traceback
 
 
 class Stat(ABC):
@@ -27,7 +28,6 @@ class Stat(ABC):
             width=stats_pixel_width,
             height=stats_pixel_height
         )
-
 
     def get(self) -> int:
         stat_location = self.find_stat_location()

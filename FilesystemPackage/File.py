@@ -11,6 +11,6 @@ class File:
         for image in images:
             try:
                 os.remove(image)
-            except OSError:
-                Logger.error(OSError.strerror)
+            except OSError as error:
+                Logger.error(OSError.strerror, error)
                 raise OSError

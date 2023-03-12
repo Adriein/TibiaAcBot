@@ -24,7 +24,7 @@ class TibiaAcBot:
             TibiaAcBotLogger.info('Graceful shutdown')
             raise SystemExit
         except Exception as error:
-            TibiaAcBotLogger.error(str(error))
+            TibiaAcBotLogger.error(str(error), error)
             raise SystemExit from error
 
 
