@@ -6,7 +6,8 @@ import pyautogui
 
 
 class TibiaAcBot:
-    def init(self):
+    @staticmethod
+    def init():
         try:
             TibiaAcBotLogger.info('Started...')
             TibiaAcBotLogger.info('Press Ctrl+C to stop the execution')
@@ -27,6 +28,4 @@ class TibiaAcBot:
             raise SystemExit from error
 
 
-app = TibiaAcBot()
-
-app.init()
+TibiaAcBot().init()

@@ -21,8 +21,4 @@ Tasks
 
 Issues
 =================================================================================================
-Trying to find the health using the Hitpoint label was impossible since there is a coma in the
-middle of the numbers and the screenLocation function mistakes some numbers
-
-The approach now is trying to read the health bar using color matching and trying to find out
-how % of hp left you have in real time
+Error stack trace are not being printed propely

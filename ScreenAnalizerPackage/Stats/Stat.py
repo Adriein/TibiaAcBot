@@ -7,12 +7,27 @@ from .StatNotFound import StatNotFound
 from UtilPackage import Array
 from FilesystemPackage import File
 from LoggerPackage import Logger
+import math
 
 
 class Stat(ABC):
     @abstractmethod
     def find_stat_location(self) -> any:
         pass
+
+    def get_stat_roi(self) -> ScreenRegion:
+        monitor = Screen.size()
+
+        stats_pixel_width = math.ceil(monitor.width * 20 / 100)
+        stats_pixel_height = math.ceil(monitor.height / 2)
+
+        return ScreenRegion(
+            left=monitor.width - stats_pixel_width,
+            top=0,
+            width=stats_pixel_width,
+            height=stats_pixel_height
+        )
+
 
     def get(self) -> int:
         stat_location = self.find_stat_location()

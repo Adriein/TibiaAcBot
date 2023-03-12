@@ -1,5 +1,6 @@
 import pyautogui
 from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
+from ScreenAnalizerPackage.Shared.Monitor import Monitor
 
 
 class Screen:
@@ -20,3 +21,9 @@ class Screen:
             region.width,
             region.height
         )
+
+    @staticmethod
+    def size() -> Monitor:
+        [width, height] = pyautogui.size()
+
+        return Monitor(width, height)
