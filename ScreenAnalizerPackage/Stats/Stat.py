@@ -74,5 +74,5 @@ class Stat(ABC):
 
     @staticmethod
     def setup_global_variables() -> None:
-        if os.getenv('READ_SAMPLE'):
+        if eval(os.getenv('READ_SAMPLE')):
             Stat.BASE_STAT_DISTANCE = 108
