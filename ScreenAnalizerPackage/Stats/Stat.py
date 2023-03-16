@@ -8,22 +8,22 @@ from UtilPackage import Array
 from FilesystemPackage import File
 from LoggerPackage import Logger
 import math
-import traceback
+import os
 
 
 class Stat(ABC):
+    BASE_STAT_DISTANCE = 116
     @abstractmethod
     def find_stat_location(self) -> any:
         pass
 
     def get_stat_roi(self) -> ScreenRegion:
-        monitor = Screen.size()
-
-        stats_pixel_width = math.ceil(monitor.width * 20 / 100)
-        stats_pixel_height = math.ceil(monitor.height / 2)
+        print(Screen.MONITOR.width)
+        stats_pixel_width = math.ceil(Screen.MONITOR.width * 20 / 100)
+        stats_pixel_height = math.ceil(Screen.MONITOR.height / 2)
 
         return ScreenRegion(
-            left=monitor.width - stats_pixel_width,
+            left=Screen.MONITOR.width - stats_pixel_width,
             top=0,
             width=stats_pixel_width,
             height=stats_pixel_height
@@ -38,7 +38,7 @@ class Stat(ABC):
         number_collection = []
 
         region = ScreenRegion(
-            stat_location.left + 108,
+            stat_location.left + Stat.BASE_STAT_DISTANCE,
             stat_location.top,
             8,
             12
@@ -72,3 +72,8 @@ class Stat(ABC):
 
     def __clean_number_image(self):
         File.delete_png('Tmp/PlayerStatus')
+
+    @staticmethod
+    def setup_global_variables() -> None:
+        if os.getenv('READ_SAMPLE'):
+            Stat.BASE_STAT_DISTANCE = 108
