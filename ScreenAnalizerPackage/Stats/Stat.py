@@ -38,7 +38,7 @@ class Stat(ABC):
         number_collection = []
 
         region = ScreenRegion(
-            stat_location.left + 129,
+            stat_location.left + 108,
             stat_location.top,
             8,
             12
@@ -54,7 +54,7 @@ class Stat(ABC):
 
                 self.__clean_number_image()
 
-                region = Screen.move_roi_pointer_left(7, region)
+                region = Screen.move_roi_pointer_right(7, region)
 
         except ImageIsNotNumber as error:
             Logger.debug(str(error))
@@ -64,7 +64,7 @@ class Stat(ABC):
             if not number_collection:
                 raise StatNotFound
 
-            return int(str.join("", Array.reverse(number_collection)))
+            return int(str.join("", Array.to_string(number_collection)))
 
     def __take_number_screenshot(self, region: ScreenRegion):
         Screen.roi_screenshot(f'Tmp/{region.left}.png', region)

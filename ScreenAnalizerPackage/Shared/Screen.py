@@ -23,6 +23,15 @@ class Screen:
         )
 
     @staticmethod
+    def move_roi_pointer_right(pixels: int | float, region: ScreenRegion) -> ScreenRegion:
+        return ScreenRegion(
+            region.left + pixels,
+            region.top,
+            region.width,
+            region.height
+        )
+
+    @staticmethod
     def size() -> Monitor:
         [width, height] = pyautogui.size()
 
