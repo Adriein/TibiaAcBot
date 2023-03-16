@@ -18,7 +18,6 @@ class Stat(ABC):
         pass
 
     def get_stat_roi(self) -> ScreenRegion:
-        print(Screen.MONITOR.width)
         stats_pixel_width = math.ceil(Screen.MONITOR.width * 20 / 100)
         stats_pixel_height = math.ceil(Screen.MONITOR.height / 2)
 
