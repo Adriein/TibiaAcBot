@@ -4,6 +4,7 @@ from ScreenAnalizerPackage.Shared.Screen import Screen
 from ScreenAnalizerPackage.Stats.Stat import Stat
 from CaveBot.Player import Player
 from dotenv import load_dotenv
+import pyautogui
 
 
 class TibiaAcBot:
@@ -23,6 +24,8 @@ class TibiaAcBot:
 
                 player.health()
                 player.mana()
+
+                pyautogui.press('w')
         except KeyboardInterrupt:
             TibiaAcBotLogger.info('Graceful shutdown')
             raise SystemExit
