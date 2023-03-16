@@ -12,7 +12,8 @@ import os
 
 
 class Stat(ABC):
-    BASE_STAT_DISTANCE = 116
+    BASE_STAT_DISTANCE = 117
+    BASE_STAT_SEPARATION = 9
     @abstractmethod
     def find_stat_location(self) -> any:
         pass
@@ -66,7 +67,6 @@ class Stat(ABC):
             return int(str.join("", Array.to_string(number_collection)))
 
     def __take_number_screenshot(self, region: ScreenRegion):
-        Screen.roi_screenshot(f'Tmp/{region.left}.png', region)
         Screen.roi_screenshot(f'Tmp/PlayerStatus/{region.left}.png', region)
 
     def __clean_number_image(self):
@@ -76,3 +76,4 @@ class Stat(ABC):
     def setup_global_variables() -> None:
         if eval(os.getenv('READ_SAMPLE')):
             Stat.BASE_STAT_DISTANCE = 108
+            Stat.BASE_STAT_SEPARATION = 8
