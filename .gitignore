@@ -5,3 +5,5 @@
 /httpRequests/
 /.idea
 .env
+__pycache__/
+*.pyc

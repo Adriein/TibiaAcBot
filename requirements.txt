@@ -1,4 +1,3 @@
 opencv-python==4.5.5.62
 PyAutoGUI==0.9.53
 python-dotenv==1.0.0
-ahk==0.14.2
