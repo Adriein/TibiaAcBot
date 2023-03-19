@@ -52,6 +52,6 @@ class Screen:
 
         args = shlex.split(fr'xdotool search --name "\b"{Screen.WINDOW_NAME}"\b"')
 
-        process = subprocess.run(args, universal_newlines=True)
+        process = subprocess.run(args, stdout=subprocess.PIPE,  universal_newlines=True)
 
         print(process)
