@@ -3,6 +3,8 @@ import subprocess
 import shlex
 from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
 from ScreenAnalizerPackage.Shared.Monitor import Monitor
+from CaveBot.CommandExecutionError import CommandExecutionError
+from UtilPackage.Array import Array
 
 
 class Screen:
@@ -38,20 +40,33 @@ class Screen:
         )
 
     @staticmethod
-    def size() -> Monitor:
+    def __size() -> Monitor:
         [width, height] = pyautogui.size()
 
         return Monitor(width, height)
 
     @staticmethod
-    def setup_global_variables() -> None:
-
-        [width, height] = pyautogui.size()
-
-        Screen.MONITOR = Monitor(width, height)
-
+    def __window_id() -> int:
         args = shlex.split(fr'xdotool search --name "\b"{Screen.WINDOW_NAME}"\b"')
 
-        process = subprocess.run(args, stdout=subprocess.PIPE,  universal_newlines=True)
+        process = subprocess.run(args, stdout=subprocess.PIPE, universal_newlines=True)
 
-        print(process)
+        try:
+            process.check_returncode()
+        except subprocess.CalledProcessError:
+            raise CommandExecutionError(args, process.stderr)
+
+        if Array.is_array(process.stdout):
+            for window_id in process.stdout:
+                args = shlex.split(f'xdotool getwindowpid {window_id}')
+                process = subprocess.run(args, stdout=subprocess.PIPE, universal_newlines=True)
+                print(process)
+
+        return 0
+
+    @staticmethod
+    def setup_global_variables() -> None:
+
+        Screen.MONITOR = Screen.__size()
+
+        Screen.__window_id()
