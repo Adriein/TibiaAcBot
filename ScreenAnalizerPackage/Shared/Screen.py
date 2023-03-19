@@ -50,7 +50,7 @@ class Screen:
 
         Screen.MONITOR = Monitor(width, height)
 
-        args = shlex.split(f'xdotool search --name "\b"{Screen.WINDOW_NAME}"\b"')
+        args = shlex.split(fr'xdotool search --name "\b"{Screen.WINDOW_NAME}"\b"')
 
         process = subprocess.run(args, universal_newlines=True)
 
