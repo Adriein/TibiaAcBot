@@ -1,10 +1,14 @@
 import pyautogui
+import subprocess
+import shlex
 from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
 from ScreenAnalizerPackage.Shared.Monitor import Monitor
 
 
 class Screen:
     MONITOR = None
+    WINDOW_NAME = "Tibia"
+    WINDOW_ID = None
 
     @staticmethod
     def roi_screenshot(path: str, region: ScreenRegion) -> None:
@@ -45,3 +49,9 @@ class Screen:
         [width, height] = pyautogui.size()
 
         Screen.MONITOR = Monitor(width, height)
+
+        args = shlex.split(f'xdotool search --name "{Screen.WINDOW_NAME}"')
+        print(args)
+        process = subprocess.run(args)
+
+        print(process)
