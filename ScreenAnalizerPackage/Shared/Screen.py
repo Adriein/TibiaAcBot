@@ -1,10 +1,10 @@
 import pyautogui
-import subprocess
-import shlex
 from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
 from ScreenAnalizerPackage.Shared.Monitor import Monitor
 from ScreenAnalizerPackage.Error.WindowSearchCommandError import WindowSearchCommandError
 from UtilPackage.Array import Array
+from ConsolePackage.Console import Console
+from LoggerPackage.Logger import Logger
 
 
 class Screen:
@@ -47,24 +47,27 @@ class Screen:
 
     @staticmethod
     def __window_id() -> int:
-        args = shlex.split(fr'xdotool search --name "\b"{Screen.WINDOW_NAME}"\b"')
-
-        process = subprocess.run(args, stdout=subprocess.PIPE, text=True)
-
         try:
-            process.check_returncode()
-        except subprocess.CalledProcessError:
+            window_ids = Console.execute(fr'xdotool search --name "\b"{Screen.WINDOW_NAME}"\b"')
+            window_ids_parsed_result = list(filter(None, window_ids.split('\n')))
+
+            if Array.is_array(window_ids_parsed_result):
+                for window_id in window_ids_parsed_result:
+                    window_pid = Console.execute(f'xdotool getwindowpid {window_id}')
+
+                    if not window_pid:
+                        continue
+
+                    pid_info = Console.execute(f' pwdx {window_pid}')
+
+                    print(pid_info)
+
+                    # use pwdx <pid> to know if it's a process or not
+        except Exception as exception:
+            Logger.error(str(exception))
             raise WindowSearchCommandError(Screen.WINDOW_NAME)
 
-        result = list(filter(None, process.stdout.split('\n')))
 
-        if Array.is_array(result):
-            for window_id in result:
-                args = shlex.split(f'xdotool getwindowpid {window_id}')
-                process = subprocess.run(args, stdout=subprocess.PIPE, text=True)
-                print(process)
-
-                # use pwdx <pid> to know if it's a process or not
 
         return 0
 
