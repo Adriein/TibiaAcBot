@@ -53,12 +53,12 @@ class Screen:
 
             if Array.is_array(window_ids_parsed_result):
                 for window_id in window_ids_parsed_result:
-                    window_pid = Console.execute(f'xdotool getwindowpid {window_id}')
+                    window_pid = Console.execute(f'xdotool getwindowpid {window_id}', check_return_code=False)
 
                     if not window_pid:
                         continue
 
-                    pid_info = Console.execute(f' pwdx {window_pid}')
+                    pid_info = Console.execute(f'pwdx {window_pid}')
 
                     print(pid_info)
 
