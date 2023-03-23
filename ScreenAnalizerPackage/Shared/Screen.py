@@ -49,19 +49,19 @@ class Screen:
     def __window_id() -> int:
         args = shlex.split(fr'xdotool search --name "\b"{Screen.WINDOW_NAME}"\b"')
 
-        process = subprocess.run(args, stdout=subprocess.PIPE, universal_newlines=True)
+        process = subprocess.run(args, stdout=subprocess.PIPE, text=True)
 
         try:
             process.check_returncode()
         except subprocess.CalledProcessError:
             raise WindowSearchCommandError(Screen.WINDOW_NAME)
 
-        result = process.stdout.split('\n')
+        result = list(filter(None, process.stdout.split('\n')))
 
         if Array.is_array(result):
             for window_id in result:
                 args = shlex.split(f'xdotool getwindowpid {window_id}')
-                process = subprocess.run(args, stdout=subprocess.PIPE, universal_newlines=True)
+                process = subprocess.run(args, stdout=subprocess.PIPE, text=True)
                 print(process)
 
                 # use pwdx <pid> to know if it's a process or not
