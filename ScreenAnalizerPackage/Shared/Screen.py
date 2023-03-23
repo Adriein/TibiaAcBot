@@ -4,6 +4,7 @@ from ScreenAnalizerPackage.Shared.Monitor import Monitor
 from ScreenAnalizerPackage.Error.WindowSearchCommandError import WindowSearchCommandError
 from UtilPackage.Array import Array
 from ConsolePackage.Console import Console
+from ConsolePackage.CommandExecutionError import CommandExecutionError
 from LoggerPackage.Logger import Logger
 
 
@@ -11,6 +12,7 @@ class Screen:
     MONITOR = None
     WINDOW_NAME = "Tibia"
     WINDOW_ID = None
+    TIBIA_PID_BIN_PATH = "gmbh/tibia/packages/tibia/bin"
 
     @staticmethod
     def roi_screenshot(path: str, region: ScreenRegion) -> None:
@@ -53,23 +55,20 @@ class Screen:
 
             if Array.is_array(window_ids_parsed_result):
                 for window_id in window_ids_parsed_result:
-                    window_pid = Console.execute(f'xdotool getwindowpid {window_id}', check_return_code=False)
+                    try:
+                        window_pid = Console.execute(f'xdotool getwindowpid {window_id}')
 
-                    if not window_pid:
+                        pid_info = Console.execute(f'pwdx {window_pid}')
+
+                        if Screen.TIBIA_PID_BIN_PATH in pid_info.lower():
+                            return int(window_id)
+
+                    except CommandExecutionError:
                         continue
 
-                    pid_info = Console.execute(f'pwdx {window_pid}')
-
-                    print(pid_info)
-
-                    # use pwdx <pid> to know if it's a process or not
         except Exception as exception:
             Logger.error(str(exception), exception)
             raise WindowSearchCommandError(Screen.WINDOW_NAME)
-
-
-
-        return 0
 
     @staticmethod
     def setup_global_variables() -> None:
