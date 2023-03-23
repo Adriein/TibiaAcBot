@@ -1,6 +1,3 @@
-import collections.abc
-
-
 class Array:
     @staticmethod
     def reverse(arr: list) -> list[str]:
@@ -12,4 +9,4 @@ class Array:
 
     @staticmethod
     def is_array(arr: any) -> bool:
-        return isinstance(arr, collections.abc.Sequence)
+        return isinstance(arr, list)

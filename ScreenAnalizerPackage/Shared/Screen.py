@@ -56,7 +56,9 @@ class Screen:
         except subprocess.CalledProcessError:
             raise WindowSearchCommandError(Screen.WINDOW_NAME)
 
-        if Array.is_array(process.stdout):
+        result = process.stdout.split('\n')
+
+        if Array.is_array(result):
             for window_id in process.stdout:
                 args = shlex.split(f'xdotool getwindowpid {window_id}')
                 process = subprocess.run(args, stdout=subprocess.PIPE, universal_newlines=True)
