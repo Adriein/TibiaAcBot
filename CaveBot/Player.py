@@ -24,5 +24,6 @@ class Player:
         return player_mana
 
     def move_north(self) -> None:
+        Logger.debug('try to move north')
         Keyboard.press('w')
 
