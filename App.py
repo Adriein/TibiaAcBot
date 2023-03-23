@@ -23,6 +23,8 @@ class TibiaAcBot:
 
                 player.health()
                 player.mana()
+
+                player.move_north()
         except KeyboardInterrupt:
             TibiaAcBotLogger.info('Graceful shutdown')
             raise SystemExit

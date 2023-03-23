@@ -1,7 +1,7 @@
 from ScreenAnalizerPackage import HitPoint
 from ScreenAnalizerPackage import Mana
 from LoggerPackage import Logger
-
+from .Keyboard import Keyboard
 
 class Player:
     @staticmethod
@@ -22,3 +22,7 @@ class Player:
         player_mana = self.mana_bar.get()
         Logger.debug(f'mana: {player_mana}')
         return player_mana
+
+    def move_north(self) -> None:
+        Keyboard.press('w')
+
