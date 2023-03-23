@@ -59,7 +59,7 @@ class Screen:
         result = process.stdout.split('\n')
 
         if Array.is_array(result):
-            for window_id in process.stdout:
+            for window_id in result:
                 args = shlex.split(f'xdotool getwindowpid {window_id}')
                 process = subprocess.run(args, stdout=subprocess.PIPE, universal_newlines=True)
                 print(process)
