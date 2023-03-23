@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from ScreenAnalizerPackage.ImageIsNotNumber import ImageIsNotNumber
+from ScreenAnalizerPackage.Error.ImageIsNotNumber import ImageIsNotNumber
 from ScreenAnalizerPackage.Scanner import Scanner
 from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
 from ScreenAnalizerPackage.Shared.Screen import Screen

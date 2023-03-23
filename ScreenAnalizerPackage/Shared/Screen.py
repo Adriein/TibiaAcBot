@@ -3,7 +3,7 @@ import subprocess
 import shlex
 from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
 from ScreenAnalizerPackage.Shared.Monitor import Monitor
-from CaveBot.CommandExecutionError import CommandExecutionError
+from ScreenAnalizerPackage.Error.WindowSearchCommandError import WindowSearchCommandError
 from UtilPackage.Array import Array
 
 
@@ -54,13 +54,15 @@ class Screen:
         try:
             process.check_returncode()
         except subprocess.CalledProcessError:
-            raise CommandExecutionError(args, process.stderr)
+            raise WindowSearchCommandError(Screen.WINDOW_NAME)
 
         if Array.is_array(process.stdout):
             for window_id in process.stdout:
                 args = shlex.split(f'xdotool getwindowpid {window_id}')
                 process = subprocess.run(args, stdout=subprocess.PIPE, universal_newlines=True)
                 print(process)
+
+                # use pwdx <pid> to know if it's a process or not
 
         return 0
 
@@ -69,4 +71,4 @@ class Screen:
 
         Screen.MONITOR = Screen.__size()
 
-        Screen.__window_id()
+        Screen.WINDOW_ID = Screen.__window_id()
