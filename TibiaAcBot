@@ -14,10 +14,21 @@ https://github.com/lucasmonstro/PyTibia
 Tasks
 =================================================================================================
 
-1. Be able to import the screenshot
-2. Be able to process the screenshot with opencv
-3. Be able to find your own character in the screen
-4. Be able to read your health bar
+1. Be able to import the screenshot -> done
+2. Be able to process the screenshot with opencv -> done
+3. Be able to find your own character in the screen -> done
+4. Be able to read your health bar and mana -> done
+5. Be able to move -> done
+6. Be able to explore
+7. Be able to identify battle list and attack
+8. Be able to loot dead corpses
+
+CaveBot steps
+=================================================================================================
+
+1. Simple cavebot with preregistered instructions to move
+2. Be able to map a maze
+3. Have some sort of decisions in this maze (randomize between multiple shorter paths)
 
 Issues
 =================================================================================================
