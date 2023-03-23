@@ -64,7 +64,7 @@ class Screen:
 
                     # use pwdx <pid> to know if it's a process or not
         except Exception as exception:
-            Logger.error(str(exception))
+            Logger.error(str(exception), exception)
             raise WindowSearchCommandError(Screen.WINDOW_NAME)
 
 
