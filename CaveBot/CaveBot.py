@@ -14,5 +14,5 @@ class CaveBot:
         #mana_thread = Thread(daemon=True, target=player.watch_mana).start()
 
         while True:
-            time.sleep(5)
+            time.sleep(1)
             player.move_north()
