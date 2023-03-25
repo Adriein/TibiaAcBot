@@ -2,7 +2,7 @@ import time
 from LoggerPackage import Logger as TibiaAcBotLogger
 from ScreenAnalizerPackage.Shared.Screen import Screen
 from ScreenAnalizerPackage.Stats.Stat import Stat
-from CaveBot.Player import Player
+from CaveBot.CaveBot import CaveBot
 from dotenv import load_dotenv
 
 
@@ -15,16 +15,12 @@ class TibiaAcBot:
             TibiaAcBotLogger.info('Started...')
             TibiaAcBotLogger.info('Press Ctrl+C to stop the execution')
 
-            while True:
-                time.sleep(3)
-                TibiaAcBotLogger.info('Listening...')
+            TibiaAcBotLogger.info('Listening...')
 
-                player = Player.create()
+            cave_bot = CaveBot()
 
-                player.health()
-                player.mana()
+            cave_bot.start()
 
-                player.move_north()
         except KeyboardInterrupt:
             TibiaAcBotLogger.info('Graceful shutdown')
             raise SystemExit
