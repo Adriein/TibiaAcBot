@@ -27,8 +27,6 @@ class Player:
             time.sleep(3)
             current_hp = self.health()
 
-            print(self.auto_healer.have_to_be_healed(current_hp))
-
             if self.auto_healer.have_to_be_healed(current_hp):
                 self.auto_healer.heal()
 
