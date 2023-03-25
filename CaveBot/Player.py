@@ -31,13 +31,13 @@ class Player:
                 self.auto_healer.heal()
 
     def mana(self) -> int:
-        time.sleep(3)
         player_mana = self.mana_bar.get()
         Logger.debug(f'mana: {player_mana}')
         return player_mana
 
     def watch_mana(self) -> None:
         while True:
+            time.sleep(3)
             current_mana = self.mana()
 
             if self.auto_healer.need_mana(current_mana):
