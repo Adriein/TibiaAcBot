@@ -9,10 +9,10 @@ class AutoHealer:
         TibiaAcBotLogger.debug(f'player healed')
 
     def have_to_be_healed(self, hp: int) -> bool:
-        return self.HIT_POINT_THRESHOLD <= hp
+        return hp <= self.HIT_POINT_THRESHOLD
 
     def use_mana_potion(self) -> None:
         TibiaAcBotLogger.debug(f'player used mana potion')
 
     def need_mana(self, mana: int) -> bool:
-        return self.MANA_THRESHOLD <= mana
+        return mana <= self.MANA_THRESHOLD
