@@ -3,6 +3,7 @@ from ScreenAnalizerPackage import Mana
 from LoggerPackage import Logger
 from .Keyboard import Keyboard
 from .AutoHealer import AutoHealer
+import time
 
 
 class Player:
@@ -23,12 +24,14 @@ class Player:
 
     def watch_health(self) -> None:
         while True:
+            time.sleep(3)
             current_hp = self.health()
 
             if self.auto_healer.have_to_be_healed(current_hp):
                 self.auto_healer.heal()
 
     def mana(self) -> int:
+        time.sleep(3)
         player_mana = self.mana_bar.get()
         Logger.debug(f'mana: {player_mana}')
         return player_mana
