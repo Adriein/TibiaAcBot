@@ -1,6 +1,7 @@
 from .Player import Player
 from LoggerPackage import Logger as TibiaAcBotLogger
 from threading import Thread
+import time
 
 
 class CaveBot:
@@ -13,4 +14,5 @@ class CaveBot:
         mana_thread = Thread(daemon=True, target=player.watch_mana).start()
 
         while True:
+            time.sleep(5)
             player.move_north()
