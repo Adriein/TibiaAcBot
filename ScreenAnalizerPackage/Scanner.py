@@ -6,13 +6,13 @@ from FilesystemPackage import Cv2File
 
 class Scanner:
     @staticmethod
-    def number(confidence: float) -> int:
+    def number(confidence: float, template_path: str) -> int:
         number_coincidence = [(0, 0)]
 
         for number in range(10):
             number_image = Cv2File.load_image(f'Wiki/Number/{number}.png')
 
-            [number_template_path] = glob('Tmp/PlayerStatus/*.png')
+            [number_template_path] = glob(template_path)
 
             number_template = Cv2File.load_image(number_template_path)
 

@@ -3,6 +3,11 @@ from ScreenAnalizerPackage.Stats.Stat import Stat
 
 
 class HitPoint(Stat):
+    TMP_FOLDER = 'hp'
+
+    def tmp_folder(self) -> str:
+        return self.TMP_FOLDER
+
     def find_stat_location(self) -> any:
         region = self.get_stat_roi()
 

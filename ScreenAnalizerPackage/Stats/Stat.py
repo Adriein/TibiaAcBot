@@ -14,8 +14,13 @@ import os
 class Stat(ABC):
     BASE_STAT_DISTANCE = 117
     BASE_STAT_SEPARATION = 9
+
     @abstractmethod
     def find_stat_location(self) -> any:
+        pass
+
+    @abstractmethod
+    def tmp_folder(self) -> str:
         pass
 
     def get_stat_roi(self) -> ScreenRegion:
@@ -48,7 +53,7 @@ class Stat(ABC):
             while True:
                 self.__take_number_screenshot(region)
 
-                result = Scanner.number(confidence=0.6)
+                result = Scanner.number(confidence=0.6, template_path=f'Tmp/PlayerStatus/{self.tmp_folder()}/*.png')
 
                 number_collection.append(result)
 
@@ -67,10 +72,10 @@ class Stat(ABC):
             return int(str.join("", Array.to_string(number_collection)))
 
     def __take_number_screenshot(self, region: ScreenRegion):
-        Screen.roi_screenshot(f'Tmp/PlayerStatus/{region.left}.png', region)
+        Screen.roi_screenshot(f'Tmp/PlayerStatus/{self.tmp_folder()}/{region.left}.png', region)
 
     def __clean_number_image(self):
-        File.delete_png('Tmp/PlayerStatus')
+        File.delete_png(f'Tmp/PlayerStatus/{self.tmp_folder()}')
 
     @staticmethod
     def setup_global_variables() -> None:
