@@ -3,7 +3,8 @@ TibiaBot
 
 Template matching library python: Mahotas and OpenCV
 
-OpenCV seems to have more support and tutorials accepts template matching of multiple objects in the screen.
+OpenCV seems to have more support and tutorials accepts template matching of multiple objects in
+the screen.
 
 
 Github
@@ -32,4 +33,13 @@ CaveBot steps
 
 Issues
 =================================================================================================
+Since we are using multiple threads attacking the same opened window we should use some
+lock system to not walk and heal at the same time
 
+AutoAttack
+=================================================================================================
+Check if in the battle list exist more than N creatures if so stop walking
+Attack the first creature of the battle list because the list is ordered by proximity
+Every fps we check a perimeter of 1sqm in all directions of the player analizing creature outlines that
+differs from sqm outline
+then when the creature is dead we loot it and mark the sqm as looted
