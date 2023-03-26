@@ -46,3 +46,6 @@ then when the creature is dead we loot it and mark the sqm as looted
 
 The Game Window can render a maximum of 15 × 11 square meters (fields) with the size of 32 × 32 pixels each,
 if not enlarged or reduced.
+
+Find the character feet, we assume the feet are in the center of a sqm, so it means we have to sum 16 px + 32 in all
+directions to get the full box
