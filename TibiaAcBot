@@ -43,3 +43,6 @@ Attack the first creature of the battle list because the list is ordered by prox
 Every fps we check a perimeter of 1sqm in all directions of the player analizing creature outlines that
 differs from sqm outline
 then when the creature is dead we loot it and mark the sqm as looted
+
+The Game Window can render a maximum of 15 × 11 square meters (fields) with the size of 32 × 32 pixels each,
+if not enlarged or reduced.
