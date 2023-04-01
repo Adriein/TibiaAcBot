@@ -15,6 +15,10 @@ class Screen:
     TIBIA_PID_BIN_PATH = "gmbh/tibia/packages/tibia/bin"
 
     @staticmethod
+    def screenshot(path: str) -> None:
+        pyautogui.screenshot(path)
+
+    @staticmethod
     def roi_screenshot(path: str, region: ScreenRegion) -> None:
         pyautogui.screenshot(path, region=(
             region.left,

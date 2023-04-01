@@ -16,4 +16,4 @@ class CaveBot:
         while True:
             time.sleep(2)
 
-            player.move_north()
+            player.position()

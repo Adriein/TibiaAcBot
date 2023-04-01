@@ -1,5 +1,6 @@
 from ScreenAnalizerPackage import HitPoint
 from ScreenAnalizerPackage import Mana
+from ScreenAnalizerPackage import Scanner
 from LoggerPackage import Logger
 from .Keyboard import Keyboard
 from .AutoHealer import AutoHealer
@@ -16,6 +17,7 @@ class Player:
         self.mana_bar = mana_bar
         self.auto_healer = auto_healer
 
+    # STATS
     def health(self) -> int:
         player_health = self.hp.get()
         Logger.debug(f'health: {player_health}')
@@ -42,6 +44,11 @@ class Player:
 
             if self.auto_healer.need_mana(current_mana):
                 self.auto_healer.use_mana_potion()
+
+    # MOVEMENT
+
+    def position(self) -> None:
+        Scanner.player()
 
     def move_north(self) -> None:
         Logger.debug('try to move north')

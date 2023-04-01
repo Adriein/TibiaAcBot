@@ -1,10 +1,28 @@
 import cv2
 from glob import glob
 from ScreenAnalizerPackage.Error.ImageIsNotNumber import ImageIsNotNumber
+from Shared.Screen import Screen
 from FilesystemPackage import Cv2File
 
 
 class Scanner:
+    @staticmethod
+    def player():
+        Screen.screenshot('Tmp/PlayerPosition')
+
+        player_positions = glob('Wiki/Player/*.png')
+
+        for position in player_positions:
+            [actual_position_screenshot_path] = glob('Tmp/PlayerPosition/*.png')
+
+            actual_position = Cv2File.load_image(actual_position_screenshot_path)
+
+            position_template = Cv2File.load_image(f'Wiki/Player/{position}')
+
+            match = cv2.matchTemplate(actual_position, position_template, cv2.TM_CCOEFF_NORMED)
+
+            raise Exception
+
     @staticmethod
     def number(confidence: float, template_path: str) -> int:
         number_coincidence = [(0, 0)]
