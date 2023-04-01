@@ -21,7 +21,9 @@ class Scanner:
 
             match = cv2.matchTemplate(actual_position, position_template, cv2.TM_CCOEFF_NORMED)
 
-            raise Exception
+            print(match)
+
+        raise Exception
 
     @staticmethod
     def number(confidence: float, template_path: str) -> int:
