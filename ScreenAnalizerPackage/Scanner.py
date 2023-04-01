@@ -1,7 +1,7 @@
 import cv2
 from glob import glob
 from ScreenAnalizerPackage.Error.ImageIsNotNumber import ImageIsNotNumber
-from Shared.Screen import Screen
+from ScreenAnalizerPackage.Shared.Screen import Screen
 from FilesystemPackage import Cv2File
 
 
