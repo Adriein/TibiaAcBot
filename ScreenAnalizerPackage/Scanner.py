@@ -20,6 +20,9 @@ class Scanner:
         start_x = 0
         start_y = 0
 
+        end_x = 0
+        end_y = 0
+
         for position_path in player_position_templates:
             position_template = Cv2File.load_image(position_path)
 
@@ -32,11 +35,11 @@ class Scanner:
 
             (start_x, start_y) = max_coordinates
 
+            end_x = start_x + position_template.shape[1]
+            end_y = start_y + position_template.shape[0]
+
             print(max_coincidence)
             print(position_path)
-
-        end_x = start_x + actual_position.shape[1]
-        end_y = start_y + actual_position.shape[0]
 
         # draw the bounding box on the image
         cv2.rectangle(actual_position, (start_x, start_y), (end_x, end_y), (255, 0, 0), 3)

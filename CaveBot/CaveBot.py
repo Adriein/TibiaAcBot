@@ -10,8 +10,8 @@ class CaveBot:
 
         player = Player.create()
 
-        Thread(daemon=True, target=player.watch_health).start()
-        Thread(daemon=True, target=player.watch_mana).start()
+        # Thread(daemon=True, target=player.watch_health).start()
+        # Thread(daemon=True, target=player.watch_mana).start()
 
         while True:
             time.sleep(2)
