@@ -1,5 +1,6 @@
 import cv2
 from glob import glob
+from datetime import datetime
 from ScreenAnalizerPackage.Error.ImageIsNotNumber import ImageIsNotNumber
 from ScreenAnalizerPackage.Shared.Screen import Screen
 from FilesystemPackage import Cv2File
@@ -8,7 +9,7 @@ from FilesystemPackage import Cv2File
 class Scanner:
     @staticmethod
     def player():
-        Screen.screenshot('Tmp/PlayerPosition')
+        Screen.screenshot(f'Tmp/PlayerPosition/{datetime.now()}.png')
 
         player_positions = glob('Wiki/Player/*.png')
 
