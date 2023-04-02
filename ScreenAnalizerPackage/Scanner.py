@@ -25,6 +25,7 @@ class Scanner:
             [_, max_coincidence, _, _] = cv2.minMaxLoc(match)
 
             print(max_coincidence)
+            print(position_path)
 
         raise Exception
 
