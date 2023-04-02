@@ -41,6 +41,9 @@ class Scanner:
             print(max_coincidence)
             print(position_path)
 
+        if cv2.waitKey(1):
+            cv2.destroyAllWindows()
+
         # draw the bounding box on the image
         cv2.rectangle(actual_position, (start_x, start_y), (end_x, end_y), (255, 0, 0), 3)
         # show the output image
