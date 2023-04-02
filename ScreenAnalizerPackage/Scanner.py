@@ -4,6 +4,7 @@ from datetime import datetime
 from ScreenAnalizerPackage.Error.ImageIsNotNumber import ImageIsNotNumber
 from ScreenAnalizerPackage.Shared.Screen import Screen
 from FilesystemPackage import Cv2File
+from FilesystemPackage import File
 
 
 class Scanner:
@@ -49,6 +50,7 @@ class Scanner:
         # show the output image
         cv2.imshow("Output", actual_position)
         cv2.waitKey(0)
+        File.delete_png('Tmp/PlayerPosition')
         raise Exception
 
     @staticmethod
