@@ -18,7 +18,9 @@ class Screen:
 
     @staticmethod
     def screenshot() -> np.ndarray:
-        return cv2.cvtColor(np.array(pyautogui.screenshot()), cv2.COLOR_RGB2BGR)
+        img = cv2.cvtColor(np.array(pyautogui.screenshot()), cv2.COLOR_RGB2BGR)
+
+        return img[..., :3]
 
     @staticmethod
     def roi_screenshot(path: str, region: ScreenRegion) -> None:
