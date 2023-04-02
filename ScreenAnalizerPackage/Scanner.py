@@ -11,14 +11,14 @@ class Scanner:
     def player():
         Screen.screenshot(f'Tmp/PlayerPosition/{datetime.now()}.png')
 
-        player_positions = glob('Wiki/Player/*.png')
+        player_position_templates = glob('Wiki/Player/*.png')
 
-        for position in player_positions:
+        for position_path in player_position_templates:
             [actual_position_screenshot_path] = glob('Tmp/PlayerPosition/*.png')
 
             actual_position = Cv2File.load_image(actual_position_screenshot_path)
 
-            position_template = Cv2File.load_image(f'Wiki/Player/{position}')
+            position_template = Cv2File.load_image(position_path)
 
             match = cv2.matchTemplate(actual_position, position_template, cv2.TM_CCOEFF_NORMED)
 
