@@ -37,6 +37,8 @@ class Scanner:
             print(position_direction)
             print(position_path)
 
+            raise Exception
+
             (start_x, start_y) = max_coordinates
 
             end_x = start_x + position_template.shape[1]
