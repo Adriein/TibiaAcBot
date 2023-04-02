@@ -35,6 +35,7 @@ class Scanner:
 
             position_direction = re.search(r'/(?<=\/)\w+(?=\.\w+)/', position_path)
             print(position_direction)
+            print(position_path)
 
             (start_x, start_y) = max_coordinates
 
