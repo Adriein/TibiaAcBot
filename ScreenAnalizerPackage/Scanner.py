@@ -22,7 +22,9 @@ class Scanner:
 
             match = cv2.matchTemplate(actual_position, position_template, cv2.TM_CCOEFF_NORMED)
 
-            print(match)
+            [_, max_coincidence, _, _] = cv2.minMaxLoc(match)
+
+            print(max_coincidence)
 
         raise Exception
 
