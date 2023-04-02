@@ -48,7 +48,7 @@ class Player:
     # MOVEMENT
 
     def position(self) -> None:
-        Scanner.player()
+        Scanner.player(confidence=0.9)
 
     def move_north(self) -> None:
         Logger.debug('try to move north')

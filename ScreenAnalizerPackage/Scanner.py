@@ -8,25 +8,41 @@ from FilesystemPackage import Cv2File
 
 class Scanner:
     @staticmethod
-    def player():
+    def player(confidence: float):
         Screen.screenshot(f'Tmp/PlayerPosition/{datetime.now()}.png')
 
         player_position_templates = glob('Wiki/Player/*.png')
 
+        [actual_position_screenshot_path] = glob('Tmp/PlayerPosition/*.png')
+
+        actual_position = Cv2File.load_image(actual_position_screenshot_path)
+
+        start_x = 0
+        start_y = 0
+
         for position_path in player_position_templates:
-            [actual_position_screenshot_path] = glob('Tmp/PlayerPosition/*.png')
-
-            actual_position = Cv2File.load_image(actual_position_screenshot_path)
-
             position_template = Cv2File.load_image(position_path)
 
             match = cv2.matchTemplate(actual_position, position_template, cv2.TM_CCOEFF_NORMED)
 
-            [_, max_coincidence, _, _] = cv2.minMaxLoc(match)
+            [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
+
+            if Scanner.__ensure_confidence_threshold(confidence, max_coincidence):
+                continue
+
+            (start_x, start_y) = max_coordinates
 
             print(max_coincidence)
             print(position_path)
 
+        end_x = start_x + actual_position.shape[1]
+        end_y = start_y + actual_position.shape[0]
+
+        # draw the bounding box on the image
+        cv2.rectangle(actual_position, (start_x, start_y), (end_x, end_y), (255, 0, 0), 3)
+        # show the output image
+        cv2.imshow("Output", actual_position)
+        cv2.waitKey(0)
         raise Exception
 
     @staticmethod
