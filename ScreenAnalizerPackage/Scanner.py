@@ -36,8 +36,8 @@ class Scanner:
 
             (start_x, start_y) = max_coordinates
 
-            end_x = start_x + position_template.shape[1]
-            end_y = start_y + position_template.shape[0] - 10
+            end_x = start_x + position_template.shape[1] + 30
+            end_y = start_y + position_template.shape[0] + 30
 
             print(max_coincidence)
             print(position_path)
