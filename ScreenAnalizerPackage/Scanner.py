@@ -36,8 +36,8 @@ class Scanner:
 
             (start_x, start_y) = max_coordinates
 
-            end_x = start_x + 40 + position_template.shape[1] + 40
-            end_y = start_y + 40 + position_template.shape[0] + 40
+            end_x = start_x + position_template.shape[1] + 40
+            end_y = start_y + position_template.shape[0] + 40
 
             print(max_coincidence)
             print(position_path)
@@ -46,7 +46,7 @@ class Scanner:
             cv2.destroyAllWindows()
 
         # draw the bounding box on the image
-        cv2.rectangle(actual_position, (start_x, start_y), (end_x, end_y), (255, 0, 0), 1)
+        cv2.rectangle(actual_position, (start_x - 40, start_y - 40), (end_x, end_y), (255, 0, 0), 1)
         # show the output image
         cv2.imshow("Output", actual_position)
         cv2.waitKey(0)
