@@ -1,6 +1,6 @@
 from ScreenAnalizerPackage import HitPoint
 from ScreenAnalizerPackage import Mana
-from ScreenAnalizerPackage import Scanner
+from ScreenAnalizerPackage import Position
 from LoggerPackage import Logger
 from .Keyboard import Keyboard
 from .AutoHealer import AutoHealer
@@ -47,8 +47,8 @@ class Player:
 
     # MOVEMENT
 
-    def position(self) -> None:
-        Scanner.player(confidence=0.9)
+    def position(self) -> Position:
+        return Position.create()
 
     def move_north(self) -> None:
         Logger.debug('try to move north')

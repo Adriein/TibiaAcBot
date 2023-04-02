@@ -49,3 +49,12 @@ if not enlarged or reduced.
 
 Find the character feet, we assume the feet are in the center of a sqm, so it means we have to sum 16 px + 32 in all
 directions to get the full box
+
+        if cv2.waitKey(1):
+            cv2.destroyAllWindows()
+
+        # draw the bounding box on the image
+        cv2.rectangle(actual_position, (start_x - 40, start_y - 40), (end_x, end_y), (255, 0, 0), 1)
+        # show the output image
+        cv2.imshow("Output", actual_position)
+        cv2.waitKey(0)

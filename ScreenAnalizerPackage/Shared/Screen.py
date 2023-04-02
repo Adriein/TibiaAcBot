@@ -1,3 +1,4 @@
+import cv2
 import pyautogui
 from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
 from ScreenAnalizerPackage.Shared.Monitor import Monitor
@@ -6,6 +7,7 @@ from UtilPackage.Array import Array
 from ConsolePackage.Console import Console
 from ConsolePackage.CommandExecutionError import CommandExecutionError
 from LoggerPackage.Logger import Logger
+import numpy as np
 
 
 class Screen:
@@ -15,8 +17,8 @@ class Screen:
     TIBIA_PID_BIN_PATH = "gmbh/tibia/packages/tibia/bin"
 
     @staticmethod
-    def screenshot(path: str) -> None:
-        pyautogui.screenshot(path)
+    def screenshot() -> np.ndarray:
+        return cv2.cvtColor(np.array(pyautogui.screenshot()), cv2.COLOR_RGB2BGR)
 
     @staticmethod
     def roi_screenshot(path: str, region: ScreenRegion) -> None:
