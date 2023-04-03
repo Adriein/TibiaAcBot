@@ -11,10 +11,6 @@ class Scanner:
     def player_position(screenshot: np.ndarray, confidence: float) -> tuple[int, int, int, int, str]:
         player_position_templates = glob('Wiki/Player/*.png')
 
-        # [actual_position_screenshot_path] = glob('Tmp/PlayerPosition/*.png')
-
-        # actual_position = Cv2File.load_image(actual_position_screenshot_path)
-
         start_x = 0
         start_y = 0
 

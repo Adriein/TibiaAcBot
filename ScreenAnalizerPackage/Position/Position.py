@@ -2,7 +2,6 @@ from ScreenAnalizerPackage.Shared.Screen import Screen
 from ScreenAnalizerPackage.Scanner import Scanner
 from ScreenAnalizerPackage import PositionError
 import cv2
-from FilesystemPackage import File
 
 
 class Position:
@@ -15,8 +14,6 @@ class Position:
                 screenshot=actual_position,
                 confidence=0.9
             )
-
-            # Position.__clean_tmp_folder()
 
             if cv2.waitKey(1):
                 cv2.destroyAllWindows()
@@ -31,13 +28,7 @@ class Position:
 
             return Position(start_x, start_y, end_x, end_y, direction)
         except Exception as exception:
-            # Position.__clean_tmp_folder()
-
             raise PositionError(str(exception))
-
-    @staticmethod
-    def __clean_tmp_folder() -> None:
-        File.delete_png('Tmp/PlayerPosition')
 
     def __init__(self, start_x, start_y, end_x, end_y, direction: str):
         self.start_x = start_x
