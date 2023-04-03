@@ -33,11 +33,7 @@ class Scanner:
             if Scanner.__ensure_confidence_threshold(confidence, max_coincidence):
                 continue
 
-            position_direction = re.search(r'(?<=/)\w+(?=\.)', position_path)
-            print(position_direction)
-            print(position_path)
-
-            raise Exception
+            position_direction = re.search(r'(?<=/)\w+(?=\.)', position_path).group(0)
 
             (start_x, start_y) = max_coordinates
 
