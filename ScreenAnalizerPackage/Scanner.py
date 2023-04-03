@@ -1,5 +1,6 @@
 import cv2
 import re
+import pyautogui
 from glob import glob
 from ScreenAnalizerPackage.Error.ImageIsNotNumber import ImageIsNotNumber
 from FilesystemPackage import Cv2File
@@ -7,6 +8,13 @@ import numpy as np
 
 
 class Scanner:
+    @staticmethod
+    def player_battle_list_position() -> tuple[int, int, int, int]:
+        region = pyautogui.locateOnScreen('Wiki/Ui/Battle/battle_list.png', confidence=0.8, grayscale=True)
+
+        return region.left, region.top, region.width, region.height
+
+
     @staticmethod
     def player_position(screenshot: np.ndarray, confidence: float) -> tuple[int, int, int, int, str]:
         player_position_templates = glob('Wiki/Player/*.png')
