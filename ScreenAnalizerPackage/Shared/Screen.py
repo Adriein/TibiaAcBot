@@ -15,7 +15,7 @@ import numpy as np
 class Screen:
     MONITOR = None
     TIBIA_WINDOW_NAME = "Tibia"
-    OBS_TIBIA_PREVIEW_WINDOW_NAME = "Windowed Projector"
+    OBS_TIBIA_PREVIEW_WINDOW_NAME = "Projector"
     TIBIA_WINDOW_ID = None
     OBS_TIBIA_PREVIEW_WINDOW_ID = None
     TIBIA_PID_BIN_PATH = "gmbh/tibia/packages/tibia/bin"
