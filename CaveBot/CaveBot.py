@@ -17,9 +17,13 @@ class CaveBot:
         # Thread(daemon=True, target=player.watch_mana).start()
 
         while True:
-            capture = WindowCapturer.start()
+            frame = WindowCapturer.start()
 
-            cv2.imshow("Computer Vision", capture)
+            AutoAttack.start(frame)
+
+            raise Exception
+
+            cv2.imshow("Computer Vision", frame)
 
             if cv2.waitKey(1) == ord('q'):
                 cv2.destroyAllWindows()
