@@ -22,7 +22,7 @@ class Screen:
     def window_capture() -> np.array:
         stdout = Console.execute(f'import -window {Screen.WINDOW_ID} ppm:-')
         print(stdout)
-        image = Image.open(BytesIO(stdout))
+        image = Image.open(stdout)
 
         return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
 
