@@ -32,6 +32,8 @@ class BattleList:
 
         [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
 
+        print(max_coincidence)
+
         (start_x, start_y) = max_coordinates
 
         end_x = start_x + creature_template.shape[1]
