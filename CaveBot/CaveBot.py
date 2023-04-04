@@ -19,8 +19,6 @@ class CaveBot:
         while True:
             capture = WindowCapturer.start()
 
-            print(capture)
-
             cv2.imshow("Output", capture)
             cv2.waitKey(0)
 
