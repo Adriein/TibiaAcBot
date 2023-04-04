@@ -4,3 +4,4 @@ python-dotenv==1.0.0
 numpy==1.24.2
 Pillow==9.4.0
 python3-xlib==0.15
+python-xlib==0.33
