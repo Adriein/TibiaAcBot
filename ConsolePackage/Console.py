@@ -5,10 +5,10 @@ from ConsolePackage.CommandExecutionError import CommandExecutionError
 
 class Console:
     @staticmethod
-    def execute(command: str, check_return_code=True) -> str | None | bytes:
+    def execute(command: str, text=True, check_return_code=True) -> str | None | bytes:
         args = shlex.split(command)
 
-        process = subprocess.run(args, stdout=subprocess.PIPE, text=True)
+        process = subprocess.run(args, stdout=subprocess.PIPE, text=text)
 
         try:
             if check_return_code:

@@ -20,7 +20,7 @@ class Screen:
 
     @staticmethod
     def window_capture() -> np.array:
-        stdout = Console.execute(f'import -window {Screen.WINDOW_ID} ppm:-')
+        stdout = Console.execute(f'import -window {Screen.WINDOW_ID} ppm:-', text=False)
         print(stdout)
         image = Image.open(stdout)
 
