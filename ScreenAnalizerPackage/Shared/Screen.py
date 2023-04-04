@@ -14,13 +14,15 @@ import numpy as np
 
 class Screen:
     MONITOR = None
-    WINDOW_NAME = "Tibia"
-    WINDOW_ID = None
+    TIBIA_WINDOW_NAME = "Tibia"
+    OBS_TIBIA_PREVIEW_WINDOW_NAME = "Windowed Projector"
+    TIBIA_WINDOW_ID = None
+    OBS_TIBIA_PREVIEW_WINDOW_ID = None
     TIBIA_PID_BIN_PATH = "gmbh/tibia/packages/tibia/bin"
 
     @staticmethod
     def window_capture() -> np.array:
-        stdout = Console.execute(f'import -window {Screen.WINDOW_ID} -silent png:-', text=False)
+        stdout = Console.execute(f'import -window {Screen.TIBIA_WINDOW_ID} -silent png:-', text=False)
 
         image = Image.open(BytesIO(stdout))
 
@@ -64,9 +66,9 @@ class Screen:
         return Monitor(width, height)
 
     @staticmethod
-    def __window_id() -> int:
+    def __tibia_window_id() -> int:
         try:
-            window_ids = Console.execute(fr'xdotool search --name "\b"{Screen.WINDOW_NAME}"\b"')
+            window_ids = Console.execute(fr'xdotool search --name "\b"{Screen.TIBIA_WINDOW_NAME}"\b"')
             window_ids_parsed_result = list(filter(None, window_ids.split('\n')))
 
             if Array.is_array(window_ids_parsed_result):
@@ -84,11 +86,26 @@ class Screen:
 
         except Exception as exception:
             Logger.error(str(exception), exception)
-            raise WindowSearchCommandError(Screen.WINDOW_NAME)
+            raise WindowSearchCommandError(Screen.TIBIA_WINDOW_NAME)
+
+    @staticmethod
+    def __obs_tibia_preview_window_id() -> int:
+        try:
+            window_ids = Console.execute(fr'xdotool search --name "\b"{Screen.OBS_TIBIA_PREVIEW_WINDOW_NAME}"\b"')
+            print(window_ids)
+            window_ids_parsed_result = list(filter(None, window_ids.split('\n')))
+
+            return 1
+
+        except Exception as exception:
+            Logger.error(str(exception), exception)
+            raise WindowSearchCommandError(Screen.TIBIA_WINDOW_NAME)
 
     @staticmethod
     def setup_global_variables() -> None:
 
         Screen.MONITOR = Screen.__size()
 
-        Screen.WINDOW_ID = Screen.__window_id()
+        Screen.TIBIA_WINDOW_ID = Screen.__tibia_window_id()
+
+        Screen.OBS_TIBIA_PREVIEW_WINDOW_ID = Screen.__obs_tibia_preview_window_id()
