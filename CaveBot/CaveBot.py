@@ -1,5 +1,7 @@
 from .Player import Player
 from LoggerPackage import Logger as TibiaAcBotLogger
+from ScreenAnalizerPackage import WindowCapturer
+import cv2
 from .AutoAttack import AutoAttack
 from threading import Thread
 import time
@@ -10,12 +12,17 @@ class CaveBot:
         TibiaAcBotLogger.info('CaveBot starting')
 
         player = Player.create()
-        AutoAttack.start()
-        raise Exception('controlled exception')
+
         # Thread(daemon=True, target=player.watch_health).start()
         # Thread(daemon=True, target=player.watch_mana).start()
 
         while True:
-            time.sleep(2)
+            capture = WindowCapturer.start()
 
-            player.position()
+            if cv2.waitKey(1):
+                cv2.destroyAllWindows()
+                break
+
+            cv2.imshow("Output", capture)
+            cv2.waitKey(0)
+

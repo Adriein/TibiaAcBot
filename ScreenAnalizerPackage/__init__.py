@@ -6,3 +6,4 @@ from .ScreenRegion import ScreenRegion
 from .Error import ImageIsNotNumber
 from .Error.PositionError import PositionError
 from .Position.Position import Position
+from .WindowCapturer import WindowCapturer

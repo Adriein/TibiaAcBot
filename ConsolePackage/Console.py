@@ -5,7 +5,7 @@ from ConsolePackage.CommandExecutionError import CommandExecutionError
 
 class Console:
     @staticmethod
-    def execute(command: str, check_return_code=True) -> str | None:
+    def execute(command: str, check_return_code=True) -> str | None | bytes:
         args = shlex.split(command)
 
         process = subprocess.run(args, stdout=subprocess.PIPE, text=True)

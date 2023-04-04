@@ -1,5 +1,7 @@
+from io import BytesIO
 import cv2
 import pyautogui
+from PIL import Image
 from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
 from ScreenAnalizerPackage.Shared.Monitor import Monitor
 from ScreenAnalizerPackage.Error.WindowSearchCommandError import WindowSearchCommandError
@@ -15,6 +17,13 @@ class Screen:
     WINDOW_NAME = "Tibia"
     WINDOW_ID = None
     TIBIA_PID_BIN_PATH = "gmbh/tibia/packages/tibia/bin"
+
+    @staticmethod
+    def window_capture() -> np.array:
+        stdout = Console.execute(f'scrot -u -e xclip -selection clipboard -t image/png -i $f -o -q 100 -a {Screen.WINDOW_ID} -')
+        image = Image.open(BytesIO(stdout))
+
+        return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
 
     @staticmethod
     def screenshot() -> np.ndarray:
