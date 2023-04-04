@@ -21,7 +21,10 @@ class BattleList:
         y = self.region.top
         x = self.region.left
 
-        battle_list_roi = frame[y:y + self.region.height, x:x + self.region.width]
+        width = x + self.region.width
+        height = y + self.region.height + self.PIXELS_TO_GET_FULL_BATTLE_LIST_WIDGET_FROM_TITLE
+
+        battle_list_roi = frame[y: height, x: width]
         cv2.imshow("Output", battle_list_roi)
         cv2.waitKey(0)
         creature_template = Cv2File.load_image('Wiki/Ui/Battle/Mobs/mountain_troll.png')
