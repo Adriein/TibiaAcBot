@@ -1,5 +1,6 @@
 from io import BytesIO
 
+import Xlib
 import cv2
 import numpy as np
 import pyautogui
@@ -12,7 +13,7 @@ from ScreenAnalizerPackage.Error.WindowSearchCommandError import WindowSearchCom
 from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
 from ScreenAnalizerPackage.Shared.Monitor import Monitor
 from UtilPackage.Array import Array
-from Xlib import display, X
+from Xlib import display
 
 
 class Screen:
@@ -25,39 +26,21 @@ class Screen:
 
     @staticmethod
     def window_capture(window_id: int) -> np.array:
-        # connect to the X11 display
+        # Create a connection to the X server
         disp = display.Display()
 
-        # get the window by ID
+        # Get the specified window
         window = disp.create_resource_object('window', window_id)
 
-        # get the window size and position
-        geometry = window.get_geometry()
+        # Get the dimensions of the window
+        width = window.get_geometry().width
+        height = window.get_geometry().height
 
-        # create a pixmap to hold the window contents
-        pixmap = disp.create_pixmap(
-            window.root_depth,
-            window_id,
-            geometry.width,
-            geometry.height
-        )
+        # Get the raw image data from the window
+        raw = window.get_image(0, 0, width, height, Xlib.X.ZPixmap, 0xffffffff)
 
-        # copy the window contents into the pixmap
-        disp.flush()
-        disp.copy_area(window_id, pixmap, disp.get_default_gc(), 0, 0, geometry.width, geometry.height, 0, 0)
-
-        # get the raw image data from the pixmap
-        raw_image = pixmap.get_image(0, 0, geometry.width, geometry.height, X.ZPixmap, 0xffffffff)
-
-        # convert the raw image data to a numpy array
-        data = np.fromstring(raw_image.data, dtype=np.uint8)
-        img_array = np.reshape(data, (geometry.height, geometry.width, 4))
-
-        # convert the numpy array to a PIL image
-        image = Image.fromarray(img_array, 'RGBA')
-
-        # close the pixmap and X11 display
-        pixmap.free()
+        # Convert the raw image data to a PIL Image object
+        image = Image.frombytes("RGB", (width, height), raw.data, "raw", "BGRX")
         disp.close()
 
         return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
