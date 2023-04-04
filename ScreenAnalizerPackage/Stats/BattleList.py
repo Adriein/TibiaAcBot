@@ -6,7 +6,7 @@ import cv2
 
 
 class BattleList:
-    PIXELS_TO_GET_FULL_BATTLE_LIST_WIDGET_FROM_TITLE = 180
+    BATTLE_LIST_WIDGET_HEIGHT = 180
 
     @staticmethod
     def create(frame: np.array) -> 'BattleList':
@@ -18,13 +18,13 @@ class BattleList:
         self.region = region
 
     def get_coordinates_of_nearest_creature(self, frame: np.array) -> tuple[int, int]:
-        y = self.region.top
-        x = self.region.left
+        battle_list_in_frame_y = self.region.top
+        battle_list_in_frame_x = self.region.left
 
-        width = x + self.region.width
-        height = y + self.region.height + self.PIXELS_TO_GET_FULL_BATTLE_LIST_WIDGET_FROM_TITLE
+        battle_list_in_frame_width = battle_list_in_frame_x + self.region.width
+        battle_list_in_frame_height = battle_list_in_frame_y + self.region.height + self.BATTLE_LIST_WIDGET_HEIGHT
 
-        battle_list_roi = frame[y: height, x: width]
+        battle_list_roi = frame[battle_list_in_frame_y: battle_list_in_frame_height, battle_list_in_frame_x: battle_list_in_frame_width]
 
         creature_template = Cv2File.load_image('Wiki/Ui/Battle/Mobs/mountain_troll.png')
 
@@ -34,17 +34,9 @@ class BattleList:
 
         print(max_coincidence)
 
-        (start_x, start_y) = max_coordinates
+        (creature_battle_list_roi_x, creature_battle_list_roi_y) = max_coordinates
 
-        end_x = x + start_x + creature_template.shape[1]
-        end_y = y + start_y + creature_template.shape[0]
+        end_x = battle_list_in_frame_x + creature_battle_list_roi_x + creature_template.shape[1]
+        end_y = battle_list_in_frame_y + creature_battle_list_roi_y + creature_template.shape[0]
 
-        if cv2.waitKey(1):
-            cv2.destroyAllWindows()
-
-            # draw the bounding box on the image
-        cv2.rectangle(frame, (x + start_x, y + start_y), (end_x, end_y), (255, 0, 0), 1)
-        # show the output image
-        cv2.imshow("Output", frame)
-        cv2.waitKey(0)
         pass
