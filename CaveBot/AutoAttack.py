@@ -1,8 +1,9 @@
-from ScreenAnalizerPackage import Position
 from ScreenAnalizerPackage import BattleList
 
 
 class AutoAttack:
     @staticmethod
-    def start(player_position: Position) -> None:
+    def start() -> None:
         battle_list = BattleList.create()
+
+        battle_list.get_coordinates_of_nearest_creature()
