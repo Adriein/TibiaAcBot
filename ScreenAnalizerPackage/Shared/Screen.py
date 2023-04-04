@@ -20,8 +20,8 @@ class Screen:
 
     @staticmethod
     def window_capture() -> np.array:
-        print(Screen.WINDOW_ID)
         stdout = Console.execute(f'gnome-screenshot -w --window {Screen.WINDOW_ID} -b')
+        print(stdout)
         image = Image.open(BytesIO(stdout))
 
         return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
