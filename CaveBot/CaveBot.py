@@ -21,10 +21,12 @@ class CaveBot:
 
             print(capture)
 
+            cv2.imshow("Output", capture)
+            cv2.waitKey(0)
+
             if cv2.waitKey(1):
                 cv2.destroyAllWindows()
                 break
 
-            cv2.imshow("Output", capture)
-            cv2.waitKey(0)
+
 
