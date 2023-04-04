@@ -12,7 +12,6 @@ from ScreenAnalizerPackage.Error.WindowSearchCommandError import WindowSearchCom
 from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
 from ScreenAnalizerPackage.Shared.Monitor import Monitor
 from UtilPackage.Array import Array
-from Xlib import display, X
 
 
 class Screen:
@@ -22,27 +21,6 @@ class Screen:
     TIBIA_WINDOW_ID = None
     OBS_TIBIA_PREVIEW_WINDOW_ID = None
     TIBIA_PID_BIN_PATH = "gmbh/tibia/packages/tibia/bin"
-
-    @staticmethod
-    def window_capture(window_id: int) -> np.array:
-        # Create a connection to the X server
-        disp = display.Display()
-
-        # Get the specified window
-        window = disp.create_resource_object('window', window_id)
-
-        # Get the dimensions of the window
-        width = window.get_geometry().width
-        height = window.get_geometry().height
-
-        # Get the raw image data from the window
-        raw = window.get_image(0, 0, width, height, X.ZPixmap, 0xffffffff)
-
-        # Convert the raw image data to a PIL Image object
-        image = Image.frombytes("RGB", (width, height), raw.data, "raw", "BGRX")
-        disp.close()
-
-        return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
 
     @staticmethod
     def screenshot() -> np.ndarray:
