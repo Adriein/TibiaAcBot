@@ -20,7 +20,7 @@ class Screen:
 
     @staticmethod
     def window_capture() -> np.array:
-        stdout = Console.execute(f'gnome-screenshot -w --window {Screen.WINDOW_ID} -b')
+        stdout = Console.execute(f'import -window {Screen.WINDOW_ID} ppm:-')
         print(stdout)
         image = Image.open(BytesIO(stdout))
 
