@@ -19,10 +19,9 @@ class CaveBot:
         while True:
             capture = WindowCapturer.start()
 
-            cv2.imshow("Output", capture)
-            cv2.waitKey(0)
+            cv2.imshow("Computer Vision", capture)
 
-            if cv2.waitKey(1):
+            if cv2.waitKey(1) == ord('q'):
                 cv2.destroyAllWindows()
                 break
 
