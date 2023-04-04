@@ -8,8 +8,8 @@ import cv2
 class BattleList:
     PIXELS_TO_GET_FULL_BATTLE_LIST_WIDGET_FROM_TITLE = 180
     @staticmethod
-    def create() -> 'BattleList':
-        (left, top, width, height) = Scanner.player_battle_list_position()
+    def create(frame: np.array) -> 'BattleList':
+        (left, top, width, height) = Scanner.player_battle_list_position(frame)
 
         return BattleList(ScreenRegion(left, top, width, height))
 

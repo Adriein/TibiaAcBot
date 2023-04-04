@@ -5,6 +5,6 @@ import numpy as np
 class AutoAttack:
     @staticmethod
     def start(frame: np.array) -> None:
-        battle_list = BattleList.create()
+        battle_list = BattleList.create(frame)
 
         (x, y) = battle_list.get_coordinates_of_nearest_creature(frame)
