@@ -15,6 +15,7 @@ class BattleList:
 
     def get_coordinates_of_nearest_creature(self) -> tuple[int, int]:
         results = pyautogui.locateAllOnScreen('Wiki/Ui/Battle/Mobs/mountain_troll.png')
+        print(results)
 
         for result in results:
             print(result)
