@@ -129,11 +129,16 @@ class Screen:
     @staticmethod
     def __obs_tibia_preview_window_id() -> int:
         try:
-            return Console.execute(fr'xdotool search --name "\b"{Screen.OBS_TIBIA_PREVIEW_WINDOW_NAME}"\b"')
+            window_id = Console.execute(fr'xdotool search --name "\b"{Screen.OBS_TIBIA_PREVIEW_WINDOW_NAME}"\b"')
+
+            if not window_id:
+                raise Exception
+
+            return int(window_id)
 
         except Exception as exception:
             Logger.error(str(exception), exception)
-            raise WindowSearchCommandError(Screen.TIBIA_WINDOW_NAME)
+            raise WindowSearchCommandError(Screen.OBS_TIBIA_PREVIEW_WINDOW_NAME)
 
     @staticmethod
     def setup_global_variables() -> None:
