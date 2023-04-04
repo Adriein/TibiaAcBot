@@ -20,6 +20,7 @@ class Screen:
 
     @staticmethod
     def window_capture() -> np.array:
+        print(Screen.WINDOW_ID)
         stdout = Console.execute(f'gnome-screenshot -w --window {Screen.WINDOW_ID} -b | xclip -selection clipboard -t image/png')
         image = Image.open(BytesIO(stdout))
 
