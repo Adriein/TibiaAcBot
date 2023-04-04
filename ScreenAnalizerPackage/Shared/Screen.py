@@ -1,6 +1,5 @@
 from io import BytesIO
 
-import Xlib
 import cv2
 import numpy as np
 import pyautogui
@@ -13,7 +12,7 @@ from ScreenAnalizerPackage.Error.WindowSearchCommandError import WindowSearchCom
 from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
 from ScreenAnalizerPackage.Shared.Monitor import Monitor
 from UtilPackage.Array import Array
-from Xlib import display
+from Xlib import display, X
 
 
 class Screen:
@@ -37,7 +36,7 @@ class Screen:
         height = window.get_geometry().height
 
         # Get the raw image data from the window
-        raw = window.get_image(0, 0, width, height, Xlib.X.ZPixmap, 0xffffffff)
+        raw = window.get_image(0, 0, width, height, X.ZPixmap, 0xffffffff)
 
         # Convert the raw image data to a PIL Image object
         image = Image.frombytes("RGB", (width, height), raw.data, "raw", "BGRX")
