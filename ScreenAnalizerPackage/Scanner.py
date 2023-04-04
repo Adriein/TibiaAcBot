@@ -14,7 +14,6 @@ class Scanner:
 
         return region.left, region.top, region.width, region.height
 
-
     @staticmethod
     def player_position(screenshot: np.ndarray, confidence: float) -> tuple[int, int, int, int, str]:
         player_position_templates = glob('Wiki/Player/*.png')
