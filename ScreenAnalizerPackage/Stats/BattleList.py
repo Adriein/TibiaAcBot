@@ -18,7 +18,7 @@ class BattleList:
         self.region = region
 
     def get_coordinates_of_nearest_creature(self, frame: np.array) -> tuple[int, int]:
-        y = self.region.top + self.PIXELS_TO_GET_FULL_BATTLE_LIST_WIDGET_FROM_TITLE
+        y = self.region.top
         x = self.region.left
 
         battle_list_roi = frame[y:y + self.region.height, x:x + self.region.width]
