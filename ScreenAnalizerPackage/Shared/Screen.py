@@ -20,7 +20,7 @@ class Screen:
 
     @staticmethod
     def window_capture() -> np.array:
-        stdout = Console.execute(f'scrot -u -e "xclip -selection clipboard -t image/png -i $f" -o -q 100 -a {Screen.WINDOW_ID} -')
+        stdout = Console.execute(f'gnome-screenshot -w --window {Screen.WINDOW_ID} -b | xclip -selection clipboard -t image/png')
         image = Image.open(BytesIO(stdout))
 
         return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
