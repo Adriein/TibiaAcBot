@@ -36,15 +36,15 @@ class BattleList:
 
         (start_x, start_y) = max_coordinates
 
-        end_x = start_x + creature_template.shape[1]
-        end_y = start_y + creature_template.shape[0]
+        end_x = x + start_x + creature_template.shape[1]
+        end_y = y + start_y + creature_template.shape[0]
 
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
 
             # draw the bounding box on the image
-        cv2.rectangle(battle_list_roi, (start_x, start_y), (end_x, end_y), (255, 0, 0), 1)
+        cv2.rectangle(frame, (x + start_x, y + start_y), (end_x, end_y), (255, 0, 0), 1)
         # show the output image
-        cv2.imshow("Output", battle_list_roi)
+        cv2.imshow("Output", frame)
         cv2.waitKey(0)
         pass
