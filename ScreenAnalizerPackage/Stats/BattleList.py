@@ -22,6 +22,8 @@ class BattleList:
         x = self.region.left
 
         battle_list_roi = frame[y:y + self.region.height, x:x + self.region.width]
+        cv2.imshow("Output", battle_list_roi)
+        cv2.waitKey(0)
         creature_template = Cv2File.load_image('Wiki/Ui/Battle/Mobs/mountain_troll.png')
 
         match = cv2.matchTemplate(battle_list_roi, creature_template, cv2.TM_CCOEFF_NORMED)
