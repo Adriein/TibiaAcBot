@@ -43,8 +43,8 @@ class BattleList:
             cv2.destroyAllWindows()
 
             # draw the bounding box on the image
-        cv2.rectangle(frame, (start_x, start_y), (end_x, end_y), (255, 0, 0), 1)
+        cv2.rectangle(battle_list_roi, (start_x, start_y), (end_x, end_y), (255, 0, 0), 1)
         # show the output image
-        cv2.imshow("Output", frame)
+        cv2.imshow("Output", battle_list_roi)
         cv2.waitKey(0)
         pass
