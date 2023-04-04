@@ -36,6 +36,9 @@ Issues
 Since we are using multiple threads attacking the same opened window we should use some
 lock system to not walk and heal at the same time
 
+Some of the commands using xdotool are shown in console, is there any silent mode to avoid this without losing the
+intented stdout we want to retrieve?
+
 AutoAttack
 =================================================================================================
 Check if in the battle list exist more than N creatures if so stop walking

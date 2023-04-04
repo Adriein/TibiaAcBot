@@ -23,4 +23,8 @@ brew install xdotool
 ```bash
 sudo port install xdotool
 ```
+Linux users must install imagemagick package to be able to make screenshots by window id
+```bash
+sudo apt-get install imagemagick
+```
 ## Overview
