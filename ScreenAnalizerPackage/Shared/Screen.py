@@ -25,6 +25,8 @@ class Screen:
 
     @staticmethod
     def window_capture(window_id: int) -> np.array:
+        '''
+
         # connect to the X11 display
         disp = display.Display()
 
@@ -61,6 +63,13 @@ class Screen:
         disp.close()
 
         return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
+        '''
+        stdout = Console.execute(f'import -window {Screen.OBS_TIBIA_PREVIEW_WINDOW_ID} -silent png:-', text=False)
+
+        image = Image.open(BytesIO(stdout))
+
+        return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
+
 
     @staticmethod
     def screenshot() -> np.ndarray:
