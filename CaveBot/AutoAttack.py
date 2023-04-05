@@ -19,6 +19,8 @@ class AutoAttack:
         try:
             creature_coords_in_battle_list = self.battle_list.find_enemies(frame)
 
+            print(creature_coords_in_battle_list)
+
             actual_creatures_in_range = len(creature_coords_in_battle_list)
 
             nearest_creature, *_ = creature_coords_in_battle_list
