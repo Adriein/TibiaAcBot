@@ -35,4 +35,4 @@ class WindowCapturer:
 
         disp.close()
 
-        return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
+        return cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)

@@ -22,13 +22,13 @@ class CaveBot:
         while True:
             frame = WindowCapturer.start()
 
-            auto_attack.attack(frame, player)
+            # auto_attack.attack(frame, player)
 
-            #cv2.imshow("Computer Vision", frame)
+            cv2.imshow("Computer Vision", frame)
 
-            #if cv2.waitKey(1) == ord('q'):
-             #   cv2.destroyAllWindows()
-              #  break
+            if cv2.waitKey(1) == ord('q'):
+                cv2.destroyAllWindows()
+                break
 
 
 
