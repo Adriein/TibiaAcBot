@@ -24,7 +24,7 @@ class Screen:
 
     @staticmethod
     def screenshot() -> np.ndarray:
-        stdout = Console.execute(f'import -window {Screen.TIBIA_WINDOW_ID} -silent png:-', text=False)
+        stdout = Console.execute(f'import -window {Screen.OBS_TIBIA_PREVIEW_WINDOW_ID} -silent png:-', text=False)
 
         image = Image.open(BytesIO(stdout))
 
@@ -68,7 +68,7 @@ class Screen:
         try:
             window_ids = Console.execute(fr'xdotool search --name "\b"{Screen.TIBIA_WINDOW_NAME}"\b"')
             window_ids_parsed_result = list(filter(None, window_ids.split('\n')))
-
+            print(window_ids_parsed_result)
             if Array.is_array(window_ids_parsed_result):
                 for window_id in window_ids_parsed_result:
                     try:
