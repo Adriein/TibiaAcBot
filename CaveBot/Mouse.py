@@ -6,7 +6,6 @@ class Mouse:
     @staticmethod
     def use_left_button(coordinates: tuple[int, int]) -> None:
         (x, y) = coordinates
-        print(Screen.TIBIA_WINDOW_ID)
-        print(x)
-        print(y)
-        Console.execute(f'xdotool windowmove --sync {Screen.TIBIA_WINDOW_ID} {x} {y} click 1')
+
+        Console.execute(f'xdotool mousemove --window {Screen.TIBIA_WINDOW_ID} --sync {x} {y}')
+        Console.execute(f'xdotool click --window {Screen.TIBIA_WINDOW_ID} 1')
