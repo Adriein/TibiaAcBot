@@ -39,7 +39,8 @@ class AutoAttack:
                 return
 
         except NoCreatureFound:
-            pass
+            BattleList.CREATURES_IN_RANGE = 0
+
 
     def __previous_creature_has_been_killed(self, creature_coords_in_battle_list: list[tuple[int, int]]) -> bool:
         return len(creature_coords_in_battle_list) < BattleList.CREATURES_IN_RANGE
