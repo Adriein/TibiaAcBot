@@ -34,7 +34,8 @@ class AutoAttack:
             if self.__previous_creature_has_been_killed(creature_coords_in_battle_list):
                 print('second if')
                 actual_creatures_in_range = len(creature_coords_in_battle_list)
-
+                print('actual_creatures_in_range')
+                print(actual_creatures_in_range)
                 nearest_creature_coords, *_ = creature_coords_in_battle_list
                 player.attack(nearest_creature_coords)
 
@@ -43,7 +44,7 @@ class AutoAttack:
                 return
 
         except NoCreatureFound:
-            # Logger.debug('No creature found in battle list')
+            Logger.debug('No creature found in battle list')
             self.battle_list.change_creature_in_range_counter(0)
 
 
