@@ -20,7 +20,7 @@ class AutoAttack:
     def attack(self, frame, player: Player) -> None:
         coords = self.battle_list.get_coordinates_of_nearest_creature(frame)
 
-        player.attack(coords)
+        # player.attack(coords)
 
 
 
