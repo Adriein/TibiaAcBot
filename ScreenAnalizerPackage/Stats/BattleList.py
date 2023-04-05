@@ -40,8 +40,6 @@ class BattleList:
 
         ordered_match_locations = sorted(paired_match_locations, key=lambda pair: pair[1], reverse=False)
 
-        print(len(ordered_match_locations))
-
         if ordered_match_locations:
             results = list()
 
