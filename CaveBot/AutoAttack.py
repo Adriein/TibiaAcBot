@@ -18,6 +18,10 @@ class AutoAttack:
     def attack(self, frame, player: Player) -> None:
         try:
             creature_coords_in_battle_list = self.battle_list.inspect(frame)
+            print('creature_coords_in_battle_list')
+            print(len(creature_coords_in_battle_list))
+            print('counter value')
+            print(BattleList.CREATURES_IN_RANGE)
 
             if self.__not_attacking_and_creature_in_range(creature_coords_in_battle_list):
                 print('first if')
@@ -45,7 +49,7 @@ class AutoAttack:
 
         except NoCreatureFound:
             Logger.debug('No creature found in battle list')
-            self.battle_list.change_creature_in_range_counter(0)
+            BattleList.CREATURES_IN_RANGE = 0
 
 
     def __previous_creature_has_been_killed(self, creature_coords_in_battle_list: list[tuple[int, int]]) -> bool:
