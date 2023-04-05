@@ -57,3 +57,6 @@ class BattleList:
             return results
 
         raise NoCreatureFound()
+
+    def change_creature_in_range_counter(self, creatures: int):
+        self.CREATURES_IN_RANGE = creatures
