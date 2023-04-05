@@ -29,6 +29,7 @@ class AutoAttack:
 
                 return
 
+            print(self.__previous_creature_has_been_killed(creature_coords_in_battle_list))
             if self.__previous_creature_has_been_killed(creature_coords_in_battle_list):
                 actual_creatures_in_range = len(creature_coords_in_battle_list)
 
