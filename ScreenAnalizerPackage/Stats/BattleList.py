@@ -82,6 +82,10 @@ class BattleList:
 
         template_width, *_ = battle_list_attack_template.shape
 
+        print(left)
+        print(top)
+        print(height)
+
         battle_list_roi = frame[top: top + height, left: left - template_width]
 
         if cv2.waitKey(1):
