@@ -68,7 +68,7 @@ class Screen:
         try:
             window_ids = Console.execute(fr'xdotool search --name "\b"{Screen.TIBIA_WINDOW_NAME}"\b"')
             window_ids_parsed_result = list(filter(None, window_ids.split('\n')))
-            print(window_ids_parsed_result)
+
             if Array.is_array(window_ids_parsed_result):
                 for window_id in window_ids_parsed_result:
                     try:
