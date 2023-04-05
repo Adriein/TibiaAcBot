@@ -18,6 +18,8 @@ class AutoAttack:
         try:
             creature_coords_in_battle_list = self.battle_list.inspect(frame)
 
+            print('not_attacking_and_creature_in_range')
+            print(self.__not_attacking_and_creature_in_range(creature_coords_in_battle_list))
             if self.__not_attacking_and_creature_in_range(creature_coords_in_battle_list):
                 nearest_creature_coords, *_ = creature_coords_in_battle_list
                 player.attack(nearest_creature_coords)
@@ -26,6 +28,8 @@ class AutoAttack:
 
                 return
 
+            print('previous_creature_has_been_killed')
+            print(self.__previous_creature_has_been_killed(creature_coords_in_battle_list))
             if self.__previous_creature_has_been_killed(creature_coords_in_battle_list):
                 nearest_creature_coords, *_ = creature_coords_in_battle_list
                 player.attack(nearest_creature_coords)
