@@ -71,7 +71,9 @@ class BattleList:
         raise NoCreatureFound()
 
     def is_nearest_creature_attacked(self, frame: np.array, nearest_creature_region: ScreenRegion) -> bool:
-        left, top, width, height = nearest_creature_region
+        left = nearest_creature_region.left
+        top = nearest_creature_region.top
+        height = nearest_creature_region.height
 
         battle_list_attack_template = Cv2File.load_image(
             'Wiki/Ui/Battle/Mobs/MountainTroll/mountain_troll_attacked.png',
