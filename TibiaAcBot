@@ -53,6 +53,8 @@ if not enlarged or reduced.
 Find the character feet, we assume the feet are in the center of a sqm, so it means we have to sum 16 px + 32 in all
 directions to get the full box
 
+We need to capture the window in color because we need to know if we are attacking something from the battle list or not
+
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
 

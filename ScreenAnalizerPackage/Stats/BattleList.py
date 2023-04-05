@@ -8,7 +8,8 @@ import cv2
 
 class BattleList:
     BATTLE_LIST_WIDGET_HEIGHT = 180
-    CREATURES_IN_RANGE = 0
+    ACTUAL_CREATURE_IN_RANGE = 0
+    PREVIOUS_CREATURE_IN_RANGE = 0
 
     @staticmethod
     def create(frame: np.array) -> 'BattleList':
@@ -19,7 +20,7 @@ class BattleList:
     def __init__(self, region: ScreenRegion):
         self.region = region
 
-    def inspect(self, frame: np.array) -> list[tuple[int, int]]:
+    def find_enemies(self, frame: np.array) -> list[tuple[int, int]]:
         battle_list_in_frame_y = self.region.top
         battle_list_in_frame_x = self.region.left
 
@@ -28,7 +29,7 @@ class BattleList:
 
         battle_list_roi = frame[battle_list_in_frame_y: battle_list_in_frame_height, battle_list_in_frame_x: battle_list_in_frame_width]
 
-        creature_template = Cv2File.load_image('Wiki/Ui/Battle/Mobs/mountain_troll.png')
+        creature_template = Cv2File.load_image('Wiki/Ui/Battle/Mobs/mountain_troll_label.png')
 
         match = cv2.matchTemplate(battle_list_roi, creature_template, cv2.TM_CCOEFF_NORMED)
 
@@ -58,5 +59,8 @@ class BattleList:
 
         raise NoCreatureFound()
 
-    def change_creature_in_range_counter(self, creatures: int):
-        self.CREATURES_IN_RANGE = creatures
+    def set_actual_creatures_in_range(self, creatures: int):
+        self.ACTUAL_CREATURE_IN_RANGE = creatures
+
+    def set_previous_creatures_in_range(self, creatures: int):
+        self.PREVIOUS_CREATURE_IN_RANGE = creatures

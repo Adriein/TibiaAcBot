@@ -9,6 +9,7 @@ import time
 
 
 class Player:
+    IS_ATTACKING = False
     @staticmethod
     def create() -> 'Player':
         return Player(HitPoint(), Mana(), AutoHealer())
@@ -48,7 +49,7 @@ class Player:
 
     # ACTIONS
     def attack(self, coordinates: tuple[int, int]) -> None:
-        # Logger.debug('try to attack a creature')
+        self.IS_ATTACKING = True
         Mouse.use_left_button(coordinates)
 
     # MOVEMENT
