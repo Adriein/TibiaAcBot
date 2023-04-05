@@ -39,7 +39,7 @@ class BattleList:
         ordered_match_locations = sorted(paired_match_locations, key=lambda pair: pair[1], reverse=False)
 
         if ordered_match_locations:
-            nearest_creature_coords, = ordered_match_locations
+            nearest_creature_coords, *_= ordered_match_locations
 
             (nearest_creature_battle_list_roi_x, nearest_creature_battle_list_roi_y) = nearest_creature_coords
 
