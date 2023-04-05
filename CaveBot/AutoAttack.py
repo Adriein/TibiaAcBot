@@ -45,4 +45,4 @@ class AutoAttack:
         return len(creature_coords_in_battle_list) < BattleList.CREATURES_IN_RANGE
 
     def __not_attacking_and_creature_in_range(self, creature_coords_in_battle_list: list[tuple[int, int]]) -> bool:
-        return BattleList.CREATURES_IN_RANGE == 0 and len(creature_coords_in_battle_list) > 1
+        return BattleList.CREATURES_IN_RANGE == 0 and len(creature_coords_in_battle_list) > 0
