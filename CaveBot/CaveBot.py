@@ -23,8 +23,6 @@ class CaveBot:
 
             auto_attack.attack(frame, player)
 
-            raise Exception
-
             cv2.imshow("Computer Vision", frame)
 
             if cv2.waitKey(1) == ord('q'):
