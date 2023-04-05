@@ -48,6 +48,7 @@ class Player:
 
     # ACTIONS
     def attack(self, coordinates: tuple[int, int]) -> None:
+        Logger.debug('try to attack a creature')
         Mouse.use_left_button(coordinates)
 
     # MOVEMENT
