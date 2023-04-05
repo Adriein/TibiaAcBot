@@ -20,23 +20,25 @@ class AutoAttack:
             creature_coords_in_battle_list = self.battle_list.inspect(frame)
 
             if self.__not_attacking_and_creature_in_range(creature_coords_in_battle_list):
+                print('first if')
                 actual_creatures_in_range = len(creature_coords_in_battle_list)
-
+                print('actual_creatures_in_range')
+                print(actual_creatures_in_range)
                 nearest_creature_coords, *_ = creature_coords_in_battle_list
                 player.attack(nearest_creature_coords)
 
-                self.battle_list.change_creature_in_range_counter(actual_creatures_in_range)
+                BattleList.CREATURES_IN_RANGE = actual_creatures_in_range
 
                 return
 
-            print(self.__previous_creature_has_been_killed(creature_coords_in_battle_list))
             if self.__previous_creature_has_been_killed(creature_coords_in_battle_list):
+                print('second if')
                 actual_creatures_in_range = len(creature_coords_in_battle_list)
 
                 nearest_creature_coords, *_ = creature_coords_in_battle_list
                 player.attack(nearest_creature_coords)
 
-                self.battle_list.change_creature_in_range_counter(actual_creatures_in_range)
+                BattleList.CREATURES_IN_RANGE = actual_creatures_in_range
 
                 return
 

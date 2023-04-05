@@ -16,10 +16,11 @@ class CaveBot:
         # Thread(daemon=True, target=player.watch_health).start()
         # Thread(daemon=True, target=player.watch_mana).start()
 
+        initial_frame = WindowCapturer.start()
+        auto_attack = AutoAttack.start(initial_frame)
+
         while True:
             frame = WindowCapturer.start()
-
-            auto_attack = AutoAttack.start(frame)
 
             auto_attack.attack(frame, player)
 
