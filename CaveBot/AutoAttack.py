@@ -41,7 +41,7 @@ class AutoAttack:
                 return
 
         except NoCreatureFound:
-            Logger.debug('No creature found in battle list')
+            # Logger.debug('No creature found in battle list')
             self.battle_list.change_creature_in_range_counter(0)
 
 
