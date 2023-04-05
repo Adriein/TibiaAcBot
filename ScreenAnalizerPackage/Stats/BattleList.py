@@ -36,30 +36,31 @@ class BattleList:
         # paired_match_locations = [(x, y), (x, y)]
         paired_match_locations = list(zip(*match_locations[::-1]))
 
-        nearest_creature_coords = sorted(paired_match_locations, key=lambda pair: pair[1], reverse=False)
+        ordered_match_locations = sorted(paired_match_locations, key=lambda pair: pair[1], reverse=False)
 
-        print(nearest_creature_coords)
+        if ordered_match_locations:
+            nearest_creature_coords, = ordered_match_locations
 
-        (nearest_creature_battle_list_roi_x, nearest_creature_battle_list_roi_y) = nearest_creature_coords
+            (nearest_creature_battle_list_roi_x, nearest_creature_battle_list_roi_y) = nearest_creature_coords
 
-        creature_template_height, creature_template_width = creature_template.shape
+            creature_template_height, creature_template_width = creature_template.shape
 
-        end_x = battle_list_in_frame_x + nearest_creature_battle_list_roi_x + creature_template_width
-        end_y = battle_list_in_frame_y + nearest_creature_battle_list_roi_y + creature_template_height
+            end_x = battle_list_in_frame_x + nearest_creature_battle_list_roi_x + creature_template_width
+            end_y = battle_list_in_frame_y + nearest_creature_battle_list_roi_y + creature_template_height
 
-        if cv2.waitKey(1):
-            cv2.destroyAllWindows()
+            if cv2.waitKey(1):
+                cv2.destroyAllWindows()
 
-            # draw the bounding box on the image
-        cv2.rectangle(
-            frame,
-            (battle_list_in_frame_x + nearest_creature_battle_list_roi_x, battle_list_in_frame_y + nearest_creature_battle_list_roi_y),
-            (end_x, end_y),
-            (255, 0, 0),
-            1
-        )
-        # show the output image
-        cv2.imshow("Output", frame)
-        cv2.waitKey(0)
+                # draw the bounding box on the image
+            cv2.rectangle(
+                frame,
+                (battle_list_in_frame_x + nearest_creature_battle_list_roi_x, battle_list_in_frame_y + nearest_creature_battle_list_roi_y),
+                (end_x, end_y),
+                (255, 0, 0),
+                1
+            )
+            # show the output image
+            cv2.imshow("Output", frame)
+            cv2.waitKey(0)
 
         pass
