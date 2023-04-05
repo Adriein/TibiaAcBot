@@ -8,28 +8,30 @@ import cv2
 
 class BattleList:
     BATTLE_LIST_WIDGET_HEIGHT = 180
-    ACTUAL_CREATURE_IN_RANGE = 0
-    PREVIOUS_CREATURE_IN_RANGE = 0
 
     @staticmethod
     def create(frame: np.array) -> 'BattleList':
         (left, top, width, height) = Scanner.player_battle_list_position(frame)
+
+        height = top + height + BattleList.BATTLE_LIST_WIDGET_HEIGHT
 
         return BattleList(ScreenRegion(left, top, width, height))
 
     def __init__(self, region: ScreenRegion):
         self.region = region
 
-    def find_enemies(self, frame: np.array) -> list[tuple[int, int]]:
+    def find_enemies(self, frame: np.array) -> list[ScreenRegion]:
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
         battle_list_in_frame_y = self.region.top
         battle_list_in_frame_x = self.region.left
 
         battle_list_in_frame_width = battle_list_in_frame_x + self.region.width
-        battle_list_in_frame_height = battle_list_in_frame_y + self.region.height + self.BATTLE_LIST_WIDGET_HEIGHT
+        battle_list_in_frame_height = battle_list_in_frame_y + self.region.height
 
         battle_list_roi = frame[battle_list_in_frame_y: battle_list_in_frame_height, battle_list_in_frame_x: battle_list_in_frame_width]
 
-        creature_template = Cv2File.load_image('Wiki/Ui/Battle/Mobs/mountain_troll_label.png')
+        creature_template = Cv2File.load_image('Wiki/Ui/Battle/Mobs/MountainTroll/mountain_troll_label.png')
 
         match = cv2.matchTemplate(battle_list_roi, creature_template, cv2.TM_CCOEFF_NORMED)
 
@@ -49,18 +51,56 @@ class BattleList:
 
                 frame_creature_position_x = battle_list_in_frame_x + nearest_creature_battle_list_roi_x
                 frame_creature_position_y = battle_list_in_frame_y + nearest_creature_battle_list_roi_y
+                frame_creature_width = frame_creature_position_x + creature_template_width
+                frame_creature_height = frame_creature_position_y + creature_template_height
 
-                click_point_x = frame_creature_position_x + int(creature_template_width/2)
-                click_point_y = frame_creature_position_y + int(creature_template_height/2)
+                # click_point_x = frame_creature_position_x + int(creature_template_width/2)
+                # click_point_y = frame_creature_position_y + int(creature_template_height/2)
 
-                results.append((click_point_x, click_point_y))
+                results.append(
+                    ScreenRegion(
+                        frame_creature_position_x,
+                        frame_creature_position_y,
+                        frame_creature_width,
+                        frame_creature_height
+                    )
+                )
 
             return results
 
         raise NoCreatureFound()
 
-    def set_actual_creatures_in_range(self, creatures: int):
-        self.ACTUAL_CREATURE_IN_RANGE = creatures
+    def is_nearest_creature_attacked(self, frame: np.array, nearest_creature_region: ScreenRegion) -> bool:
+        left, top, width, height = nearest_creature_region
 
-    def set_previous_creatures_in_range(self, creatures: int):
-        self.PREVIOUS_CREATURE_IN_RANGE = creatures
+        battle_list_attack_template = Cv2File.load_image(
+            'Wiki/Ui/Battle/Mobs/MountainTroll/mountain_troll_attacked.png',
+            grey_scale=False
+        )
+
+        template_width, *_ = battle_list_attack_template.shape
+
+        battle_list_roi = frame[top: top + height, left: left - template_width]
+
+        battle_list_roi_hsv = cv2.cvtColor(battle_list_roi, cv2.COLOR_BGR2HSV)
+
+        lower_red = np.array([0, 50, 50])
+        upper_red = np.array([10, 255, 255])
+
+        mask = cv2.inRange(battle_list_roi_hsv, lower_red, upper_red)
+
+        if np.any(mask == 255):
+            print('Red color is present in the image.')
+        else:
+            print('Red color is not present in the image.')
+
+        if cv2.waitKey(1):
+            cv2.destroyAllWindows()
+
+        # show the output image
+        cv2.imshow("Output", battle_list_roi)
+        cv2.waitKey(0)
+
+
+
+

@@ -10,7 +10,8 @@ import numpy as np
 class Scanner:
     @staticmethod
     def player_battle_list_position(frame: np.array) -> tuple[int, int, int, int]:
-        region = pyautogui.locate('Wiki/Ui/Battle/battle_list.png', frame, confidence=0.8, grayscale=True)
+        grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        region = pyautogui.locate('Wiki/Ui/Battle/battle_list.png', grey_scale_frame, confidence=0.8, grayscale=True)
 
         return region.left, region.top, region.width, region.height
 
