@@ -19,7 +19,9 @@ class CaveBot:
         while True:
             frame = WindowCapturer.start()
 
-            AutoAttack.start(frame)
+            auto_attack = AutoAttack.start(frame)
+
+            auto_attack.attack(frame, player)
 
             raise Exception
 

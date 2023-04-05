@@ -1,5 +1,6 @@
 from ScreenAnalizerPackage.Scanner import Scanner
 from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
+from ScreenAnalizerPackage.Error.NoCreatureFound import NoCreatureFound
 from FilesystemPackage import Cv2File
 import numpy as np
 import cv2
@@ -51,4 +52,4 @@ class BattleList:
 
             return click_point_x, click_point_y
 
-        pass
+        raise NoCreatureFound()

@@ -1,5 +1,5 @@
 from ConsolePackage.Console import Console
-from ScreenAnalizerPackage.Shared.Screen import Screen
+from ScreenAnalizerPackage import Screen
 
 
 class Keyboard:

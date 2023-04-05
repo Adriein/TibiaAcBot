@@ -3,6 +3,7 @@ from ScreenAnalizerPackage import Mana
 from ScreenAnalizerPackage import Position
 from LoggerPackage import Logger
 from .Keyboard import Keyboard
+from .Mouse import Mouse
 from .AutoHealer import AutoHealer
 import time
 
@@ -44,6 +45,10 @@ class Player:
 
             if self.auto_healer.need_mana(current_mana):
                 self.auto_healer.use_mana_potion()
+
+    # ACTIONS
+    def attack(self, coordinates: tuple[int, int]) -> None:
+        Mouse.use_left_button(coordinates)
 
     # MOVEMENT
 
