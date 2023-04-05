@@ -82,18 +82,15 @@ class BattleList:
 
         template_width, *_ = battle_list_attack_template.shape
 
-        print(left)
-        print(top)
-        print(height)
-
-        battle_list_roi = frame[top: top + height, left: left - template_width]
-
+        cv2.rectangle(frame, (left, top), (left + nearest_creature_region.width, top + height), (255, 0, 0), 1)
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
 
         # show the output image
-        cv2.imshow("Output", battle_list_roi)
+        cv2.imshow("Output", frame)
         cv2.waitKey(0)
+
+        battle_list_roi = frame[top: top + height, left: left - template_width]
 
         battle_list_roi_hsv = cv2.cvtColor(battle_list_roi, cv2.COLOR_BGR2HSV)
 
