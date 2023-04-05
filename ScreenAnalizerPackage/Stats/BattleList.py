@@ -39,26 +39,23 @@ class BattleList:
         ordered_match_locations = sorted(paired_match_locations, key=lambda pair: pair[1], reverse=False)
 
         if ordered_match_locations:
-            nearest_creature_coords, *_= ordered_match_locations
+            nearest_creature_coords, *_ = ordered_match_locations
 
             (nearest_creature_battle_list_roi_x, nearest_creature_battle_list_roi_y) = nearest_creature_coords
 
             creature_template_height, creature_template_width = creature_template.shape
 
-            end_x = battle_list_in_frame_x + nearest_creature_battle_list_roi_x + creature_template_width
-            end_y = battle_list_in_frame_y + nearest_creature_battle_list_roi_y + creature_template_height
+            click_point_x = battle_list_in_frame_x + nearest_creature_battle_list_roi_x + int(creature_template_width/2)
+            click_point_y = battle_list_in_frame_y + nearest_creature_battle_list_roi_y + int(creature_template_height/2)
 
             if cv2.waitKey(1):
                 cv2.destroyAllWindows()
 
-                # draw the bounding box on the image
-            cv2.rectangle(
-                frame,
-                (battle_list_in_frame_x + nearest_creature_battle_list_roi_x, battle_list_in_frame_y + nearest_creature_battle_list_roi_y),
-                (end_x, end_y),
-                (255, 0, 0),
-                1
-            )
+            cv2.drawMarker(frame, (click_point_x, click_point_y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
+
+            if cv2.waitKey(1):
+                cv2.destroyAllWindows()
+
             # show the output image
             cv2.imshow("Output", frame)
             cv2.waitKey(0)
