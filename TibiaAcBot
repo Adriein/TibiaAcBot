@@ -61,3 +61,4 @@ directions to get the full box
         # show the output image
         cv2.imshow("Output", actual_position)
         cv2.waitKey(0)
+        cv2.drawMarker(frame, (click_point_x, click_point_y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
