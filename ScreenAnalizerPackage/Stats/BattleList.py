@@ -36,7 +36,7 @@ class BattleList:
         # paired_match_locations = [(x, y), (x, y)]
         paired_match_locations = list(zip(*match_locations[::-1]))
 
-        [nearest_creature_coords] = sorted(paired_match_locations, key=lambda pair: pair[1], reverse=False)
+        nearest_creature_coords, = sorted(paired_match_locations, key=lambda pair: pair[1], reverse=False)
 
         (nearest_creature_battle_list_roi_x, nearest_creature_battle_list_roi_y) = nearest_creature_coords
 
