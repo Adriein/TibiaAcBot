@@ -7,20 +7,38 @@ import numpy as np
 class AutoAttack:
     @staticmethod
     def start(frame: np.array) -> 'AutoAttack':
-        try:
-            battle_list = BattleList.create(frame)
+        battle_list = BattleList.create(frame)
 
-            return AutoAttack(battle_list)
-        except NoCreatureFound:
-            pass
+        return AutoAttack(battle_list)
 
     def __init__(self, battle_list: BattleList):
         self.battle_list = battle_list
 
     def attack(self, frame, player: Player) -> None:
-        coords = self.battle_list.get_coordinates_of_nearest_creature(frame)
+        try:
+            creature_coords_in_battle_list = self.battle_list.inspect(frame)
 
-        # player.attack(coords)
+            if self.__not_attacking_and_creature_in_range(creature_coords_in_battle_list):
+                nearest_creature_coords, *_ = creature_coords_in_battle_list
+                player.attack(nearest_creature_coords)
 
+                BattleList.CREATURES_IN_RANGE = len(creature_coords_in_battle_list)
 
+                return
 
+            if self.__previous_creature_has_been_killed(creature_coords_in_battle_list):
+                nearest_creature_coords, *_ = creature_coords_in_battle_list
+                player.attack(nearest_creature_coords)
+
+                BattleList.CREATURES_IN_RANGE = len(creature_coords_in_battle_list)
+
+                return
+
+        except NoCreatureFound:
+            pass
+
+    def __previous_creature_has_been_killed(self, creature_coords_in_battle_list: list[tuple[int, int]]) -> bool:
+        return len(creature_coords_in_battle_list) < BattleList.CREATURES_IN_RANGE
+
+    def __not_attacking_and_creature_in_range(self, creature_coords_in_battle_list: list[tuple[int, int]]) -> bool:
+        return BattleList.CREATURES_IN_RANGE == 0 and len(creature_coords_in_battle_list) > 1
