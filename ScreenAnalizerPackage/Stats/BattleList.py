@@ -54,6 +54,14 @@ class BattleList:
                 frame_creature_width = frame_creature_position_x + creature_template_width
                 frame_creature_height = frame_creature_position_y + creature_template_height
 
+                cv2.rectangle(frame, (frame_creature_position_x, frame_creature_position_y), (frame_creature_width, frame_creature_height), (255, 0, 0), 1)
+                if cv2.waitKey(1):
+                    cv2.destroyAllWindows()
+
+                # show the output image
+                cv2.imshow("Output", frame)
+                cv2.waitKey(0)
+
                 # click_point_x = frame_creature_position_x + int(creature_template_width/2)
                 # click_point_y = frame_creature_position_y + int(creature_template_height/2)
 
