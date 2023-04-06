@@ -86,7 +86,7 @@ class BattleList:
 
         print(template_width)
 
-        cv2.rectangle(frame, (start_x - template_width, start_y), (end_x, end_y), (255, 0, 0), 1)
+        cv2.rectangle(frame, (start_x - template_width, start_y), (end_x - template_width, end_y), (255, 0, 0), 1)
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
 
