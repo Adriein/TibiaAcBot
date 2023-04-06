@@ -84,7 +84,7 @@ class BattleList:
 
         template_width, *_ = battle_list_attack_template.shape
 
-        battle_list_roi = frame[start_y: end_y, start_x - 10: start_x]
+        battle_list_roi = frame[start_y: end_y, start_x - 2: start_x]
 
         # show the output image
         cv2.imshow("Output", battle_list_roi)
