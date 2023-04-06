@@ -82,7 +82,9 @@ class BattleList:
 
         template_width, *_ = battle_list_attack_template.shape
 
-        cv2.rectangle(frame, (left, top), (nearest_creature_region.width - template_width, height), (255, 0, 0), 1)
+        print(template_width)
+
+        cv2.rectangle(frame, (left - template_width, top), (template_width - template_width, height), (255, 0, 0), 1)
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
 
