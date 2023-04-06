@@ -71,9 +71,11 @@ class BattleList:
         raise NoCreatureFound()
 
     def is_nearest_creature_attacked(self, frame: np.array, nearest_creature_region: ScreenRegion) -> bool:
-        left = nearest_creature_region.left
-        top = nearest_creature_region.top
-        height = nearest_creature_region.height
+        start_x = nearest_creature_region.left
+        start_y = nearest_creature_region.top
+        end_x = nearest_creature_region.width
+        end_y = nearest_creature_region.height
+
 
         battle_list_attack_template = Cv2File.load_image(
             'Wiki/Ui/Battle/Mobs/MountainTroll/mountain_troll_attacked.png',
@@ -84,7 +86,7 @@ class BattleList:
 
         print(template_width)
 
-        cv2.rectangle(frame, (left, top), (template_width, height), (255, 0, 0), 1)
+        cv2.rectangle(frame, (start_x - template_width, start_y - template_width), (end_x, end_y), (255, 0, 0), 1)
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
 
