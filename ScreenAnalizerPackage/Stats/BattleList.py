@@ -73,7 +73,6 @@ class BattleList:
     def is_nearest_creature_attacked(self, frame: np.array, nearest_creature_region: ScreenRegion) -> bool:
         start_x = nearest_creature_region.left
         start_y = nearest_creature_region.top
-        end_x = nearest_creature_region.width
         end_y = nearest_creature_region.height
 
 
@@ -94,11 +93,9 @@ class BattleList:
         mask = cv2.inRange(battle_list_roi_hsv, lower_red, upper_red)
 
         if np.any(mask == 255):
-            print('Red color is present in the image.')
-        else:
-            print('Red color is not present in the image.')
+            return True
 
-        raise Exception
+        return False
 
 
 
