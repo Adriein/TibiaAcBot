@@ -13,9 +13,12 @@ class BattleList:
     def create(frame: np.array) -> 'BattleList':
         (left, top, width, height) = Scanner.player_battle_list_position(frame)
 
-        height = top + height + BattleList.BATTLE_LIST_WIDGET_HEIGHT
+        start_x = left
+        end_x = left + width
+        start_y = top
+        end_y = top + height + BattleList.BATTLE_LIST_WIDGET_HEIGHT
 
-        return BattleList(ScreenRegion(left, top, width, height))
+        return BattleList(ScreenRegion(start_x, end_x, start_y, end_y))
 
     def __init__(self, region: ScreenRegion):
         self.region = region
@@ -23,13 +26,7 @@ class BattleList:
     def find_enemies(self, frame: np.array) -> list[ScreenRegion]:
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-        battle_list_in_frame_y = self.region.top
-        battle_list_in_frame_x = self.region.left
-
-        battle_list_in_frame_width = battle_list_in_frame_x + self.region.width
-        battle_list_in_frame_height = battle_list_in_frame_y + self.region.height
-
-        battle_list_roi = frame[battle_list_in_frame_y: battle_list_in_frame_height, battle_list_in_frame_x: battle_list_in_frame_width]
+        battle_list_roi = frame[self.region.start_y: self.region.end_y, self.region.start_x: self.region.end_x]
 
         creature_template = Cv2File.load_image('Wiki/Ui/Battle/Mobs/MountainTroll/mountain_troll_label.png')
 
@@ -49,8 +46,8 @@ class BattleList:
             for (nearest_creature_battle_list_roi_x, nearest_creature_battle_list_roi_y) in ordered_match_locations:
                 creature_template_height, creature_template_width = creature_template.shape
 
-                frame_creature_position_start_x = battle_list_in_frame_x + nearest_creature_battle_list_roi_x
-                frame_creature_position_start_y = battle_list_in_frame_y + nearest_creature_battle_list_roi_y
+                frame_creature_position_start_x = self.region.start_x + nearest_creature_battle_list_roi_x
+                frame_creature_position_start_y = self.region.start_y + nearest_creature_battle_list_roi_y
                 frame_creature_end_x = frame_creature_position_start_x + creature_template_width
                 frame_creature_end_y = frame_creature_position_start_y + creature_template_height
 
