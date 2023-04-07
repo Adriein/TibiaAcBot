@@ -75,7 +75,6 @@ class BattleList:
         start_y = nearest_creature_region.top
         end_y = nearest_creature_region.height
 
-
         battle_list_attack_template = Cv2File.load_image(
             'Wiki/Ui/Battle/Mobs/MountainTroll/mountain_troll_attacked.png',
             grey_scale=False
@@ -87,16 +86,11 @@ class BattleList:
 
         battle_list_roi_hsv = cv2.cvtColor(battle_list_roi, cv2.COLOR_BGR2HSV)
 
+        # create a red color range
         lower_red = np.array([0, 50, 50])
         upper_red = np.array([10, 255, 255])
 
+        # check if red color is present in the roi image
         mask = cv2.inRange(battle_list_roi_hsv, lower_red, upper_red)
 
-        if np.any(mask == 255):
-            return True
-
-        return False
-
-
-
-
+        return np.any(mask == 255)
