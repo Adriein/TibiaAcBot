@@ -49,20 +49,20 @@ class BattleList:
             for (nearest_creature_battle_list_roi_x, nearest_creature_battle_list_roi_y) in ordered_match_locations:
                 creature_template_height, creature_template_width = creature_template.shape
 
-                frame_creature_position_x = battle_list_in_frame_x + nearest_creature_battle_list_roi_x
-                frame_creature_position_y = battle_list_in_frame_y + nearest_creature_battle_list_roi_y
-                frame_creature_width = frame_creature_position_x + creature_template_width
-                frame_creature_height = frame_creature_position_y + creature_template_height
+                frame_creature_position_start_x = battle_list_in_frame_x + nearest_creature_battle_list_roi_x
+                frame_creature_position_start_y = battle_list_in_frame_y + nearest_creature_battle_list_roi_y
+                frame_creature_end_x = frame_creature_position_start_x + creature_template_width
+                frame_creature_end_y = frame_creature_position_start_y + creature_template_height
 
                 # click_point_x = frame_creature_position_x + int(creature_template_width/2)
                 # click_point_y = frame_creature_position_y + int(creature_template_height/2)
 
                 results.append(
                     ScreenRegion(
-                        frame_creature_position_x,
-                        frame_creature_position_y,
-                        frame_creature_width,
-                        frame_creature_height
+                        frame_creature_position_start_x,
+                        frame_creature_end_x,
+                        frame_creature_position_start_y,
+                        frame_creature_end_y
                     )
                 )
 
@@ -71,9 +71,9 @@ class BattleList:
         raise NoCreatureFound()
 
     def is_nearest_creature_attacked(self, frame: np.array, nearest_creature_region: ScreenRegion) -> bool:
-        start_x = nearest_creature_region.left
-        start_y = nearest_creature_region.top
-        end_y = nearest_creature_region.height
+        start_x = nearest_creature_region.start_x
+        start_y = nearest_creature_region.start_y
+        end_y = nearest_creature_region.end_y
 
         battle_list_attack_template = Cv2File.load_image(
             'Wiki/Ui/Battle/Mobs/MountainTroll/mountain_troll_attacked.png',
