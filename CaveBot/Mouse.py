@@ -20,13 +20,13 @@ class Mouse:
         geometry = tibia_window.get_geometry()
 
         # Translate the coordinates of the target window to coordinates relative to the root window
-        x, y = root.translate_coords(tibia_window, geometry.x, geometry.y)
+        tibia_window_coords = root.translate_coords(tibia_window, geometry.x, geometry.y)
 
         # Get the current pointer position
         original_pointer = root.query_pointer()
 
         # Move the pointer to a new location
-        root.warp_pointer(coordinate.x + x, coordinate.y + y)
+        root.warp_pointer(coordinate.x + tibia_window_coords.x, coordinate.y + tibia_window_coords.y)
 
         # Send a left-click event
         xtest.fake_input(disp, X.ButtonPress, 1)
