@@ -4,8 +4,8 @@ from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
 class Coordinate:
     @staticmethod
     def from_screen_region(region: ScreenRegion):
-        x = int((region.start_x - region.end_x) / 2)
-        y = int((region.start_y - region.end_y) / 2)
+        x = region.start_x + int((region.end_x - region.start_x) / 2)
+        y = region.start_y + int((region.end_y - region.start_y) / 2)
 
         return Coordinate(x, y)
 
