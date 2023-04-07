@@ -26,7 +26,7 @@ class AutoAttack:
                 cv2.destroyAllWindows()
 
                 # draw the bounding box on the image
-            cv2.rectangle(frame, (nearest_creature.left, nearest_creature.top), (nearest_creature.left + nearest_creature.width, nearest_creature.top + nearest_creature.height), (255, 0, 0), 1)
+            cv2.rectangle(frame, (nearest_creature.left, nearest_creature.top), (nearest_creature.width, nearest_creature.height), (255, 0, 0), 1)
             # show the output image
             cv2.imshow("Output", frame)
             cv2.waitKey(0)
