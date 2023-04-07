@@ -1,6 +1,7 @@
 from ScreenAnalizerPackage import HitPoint
 from ScreenAnalizerPackage import Mana
 from ScreenAnalizerPackage import Position
+from ScreenAnalizerPackage import Coordinate
 from LoggerPackage import Logger
 from .Keyboard import Keyboard
 from .Mouse import Mouse
@@ -9,7 +10,6 @@ import time
 
 
 class Player:
-    IS_ATTACKING = False
     @staticmethod
     def create() -> 'Player':
         return Player(HitPoint(), Mana(), AutoHealer())
@@ -48,8 +48,7 @@ class Player:
                 self.auto_healer.use_mana_potion()
 
     # ACTIONS
-    def attack(self, coordinates: tuple[int, int]) -> None:
-        self.IS_ATTACKING = True
+    def attack(self, coordinates: Coordinate) -> None:
         Mouse.use_left_button(coordinates)
 
     # MOVEMENT

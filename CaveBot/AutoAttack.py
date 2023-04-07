@@ -1,5 +1,6 @@
 from ScreenAnalizerPackage import BattleList
 from ScreenAnalizerPackage import NoCreatureFound
+from ScreenAnalizerPackage import Coordinate
 from LoggerPackage import Logger
 from .Player import Player
 import numpy as np
@@ -19,12 +20,12 @@ class AutoAttack:
         try:
             creature_coords_in_battle_list = self.battle_list.find_enemies(frame)
 
-            actual_creatures_in_range = len(creature_coords_in_battle_list)
-
             nearest_creature, *_ = creature_coords_in_battle_list
 
-            self.battle_list.is_nearest_creature_attacked(frame, nearest_creature)
+            if not self.battle_list.is_nearest_creature_attacked(frame, nearest_creature):
+                creature_click_coordinate = Coordinate.from_screen_region(nearest_creature)
+
+                player.attack(creature_click_coordinate)
 
         except NoCreatureFound:
             pass
-

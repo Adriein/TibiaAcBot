@@ -9,3 +9,4 @@ from .Error.NoCreatureFound import NoCreatureFound
 from .Position.Position import Position
 from .WindowCapturer import WindowCapturer
 from .Shared.Screen import Screen
+from .Coordinate import Coordinate
