@@ -1,7 +1,8 @@
 from ScreenAnalizerPackage.Scanner import Scanner
 from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
-from ScreenAnalizerPackage.Error.NoCreatureFound import NoCreatureFound
+from ScreenAnalizerPackage.Error.NoEnemyFound import NoEnemyFound
 from FilesystemPackage import Cv2File
+from CaveBot.Enemy import Enemy
 import numpy as np
 import cv2
 
@@ -23,7 +24,7 @@ class BattleList:
     def __init__(self, region: ScreenRegion):
         self.region = region
 
-    def find_enemies(self, frame: np.array) -> list[ScreenRegion]:
+    def find_enemies(self, frame: np.array) -> list[Enemy]:
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         battle_list_roi = frame[self.region.start_y: self.region.end_y, self.region.start_x: self.region.end_x]
@@ -54,20 +55,20 @@ class BattleList:
                 # click_point_x = frame_creature_position_x + int(creature_template_width/2)
                 # click_point_y = frame_creature_position_y + int(creature_template_height/2)
 
-                results.append(
-                    ScreenRegion(
-                        frame_creature_position_start_x,
-                        frame_creature_end_x,
-                        frame_creature_position_start_y,
-                        frame_creature_end_y
-                    )
+                battle_list_position = ScreenRegion(
+                    frame_creature_position_start_x,
+                    frame_creature_end_x,
+                    frame_creature_position_start_y,
+                    frame_creature_end_y
                 )
+
+                results.append(Enemy('mountain_troll', battle_list_position))
 
             return results
 
-        raise NoCreatureFound()
+        raise NoEnemyFound()
 
-    def is_nearest_creature_attacked(self, frame: np.array, nearest_creature_region: ScreenRegion) -> bool:
+    def is_nearest_enemy_attacked(self, frame: np.array, nearest_creature_region: ScreenRegion) -> bool:
         start_x = nearest_creature_region.start_x
         start_y = nearest_creature_region.start_y
         end_y = nearest_creature_region.end_y

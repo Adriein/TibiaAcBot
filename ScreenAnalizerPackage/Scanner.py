@@ -16,7 +16,8 @@ class Scanner:
         return region.left, region.top, region.width, region.height
 
     @staticmethod
-    def player_position(screenshot: np.ndarray, confidence: float) -> tuple[int, int, int, int, str]:
+    def player_position(frame: np.ndarray, confidence: float) -> tuple[int, int, int, int, str]:
+        grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         player_position_templates = glob('Wiki/Player/*.png')
 
         start_x = 0
@@ -30,7 +31,7 @@ class Scanner:
         for position_path in player_position_templates:
             position_template = Cv2File.load_image(position_path)
 
-            match = cv2.matchTemplate(screenshot, position_template, cv2.TM_CCOEFF_NORMED)
+            match = cv2.matchTemplate(grey_scale_frame, position_template, cv2.TM_CCOEFF_NORMED)
 
             [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
 

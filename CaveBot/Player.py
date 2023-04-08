@@ -7,6 +7,7 @@ from .Keyboard import Keyboard
 from .Mouse import Mouse
 from .AutoHealer import AutoHealer
 import time
+import numpy as np
 
 
 class Player:
@@ -53,8 +54,8 @@ class Player:
 
     # MOVEMENT
 
-    def position(self) -> Position:
-        return Position.create()
+    def position(self, frame: np.array) -> Position:
+        return Position.check(frame)
 
     def move_north(self) -> None:
         Logger.debug('try to move north')

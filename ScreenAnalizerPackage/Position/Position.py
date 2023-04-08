@@ -1,19 +1,13 @@
-from ScreenAnalizerPackage.Shared.Screen import Screen
 from ScreenAnalizerPackage.Scanner import Scanner
 from ScreenAnalizerPackage import PositionError
-import cv2
+import numpy as np
 
 
 class Position:
     @staticmethod
-    def create() -> 'Position':
+    def check(frame: np.array) -> 'Position':
         try:
-            actual_position = Screen.screenshot()
-
-            (start_x, start_y, end_x, end_y, direction) = Scanner.player_position(
-                screenshot=actual_position,
-                confidence=0.9
-            )
+            (start_x, start_y, end_x, end_y, direction) = Scanner.player_position(frame, confidence=0.9)
 
             return Position(start_x, start_y, end_x, end_y, direction)
         except Exception as exception:

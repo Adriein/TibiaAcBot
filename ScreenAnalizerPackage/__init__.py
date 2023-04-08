@@ -5,7 +5,7 @@ from .Scanner import Scanner
 from .ScreenRegion import ScreenRegion
 from .Error import ImageIsNotNumber
 from .Error.PositionError import PositionError
-from .Error.NoCreatureFound import NoCreatureFound
+from .Error.NoEnemyFound import NoEnemyFound
 from .Position.Position import Position
 from .WindowCapturer import WindowCapturer
 from .Shared.Screen import Screen
