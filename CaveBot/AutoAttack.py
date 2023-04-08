@@ -22,9 +22,6 @@ class AutoAttack:
 
             nearest_creature, *_ = creature_coords_in_battle_list
 
-            if cv2.waitKey(1):
-                cv2.destroyAllWindows()
-
             if not self.battle_list.is_nearest_creature_attacked(frame, nearest_creature):
                 creature_click_coordinate = Coordinate.from_screen_region(nearest_creature)
 
