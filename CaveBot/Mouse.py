@@ -26,8 +26,7 @@ class Mouse:
         original_pointer = root.query_pointer()
 
         # Move the pointer to the target position
-        # root.warp_pointer(original_pointer.root_x + coordinate.x - tibia_window_coords.x, original_pointer.root_y + coordinate.y - tibia_window_coords.y)
-        root.warp_pointer(tibia_window_coords.x + geometry.width // 2, tibia_window_coords.y + geometry.height // 2)
+        root.warp_pointer(coordinate.x, coordinate.y)
         disp.sync()
         # Send a left-click event
         #xtest.fake_input(disp, X.ButtonPress, 1, X.NONE, 0, 0, 0)
