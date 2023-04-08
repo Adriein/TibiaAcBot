@@ -1,10 +1,10 @@
 from ScreenAnalizerPackage import BattleList
 from ScreenAnalizerPackage import NoCreatureFound
 from ScreenAnalizerPackage import Coordinate
-from LoggerPackage import Logger
 from .Player import Player
 import numpy as np
 import time
+
 
 class AutoAttack:
     @staticmethod
