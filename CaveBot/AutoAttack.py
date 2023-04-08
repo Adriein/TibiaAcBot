@@ -4,7 +4,7 @@ from ScreenAnalizerPackage import Coordinate
 from LoggerPackage import Logger
 from .Player import Player
 import numpy as np
-import cv2
+import time
 
 class AutoAttack:
     @staticmethod
@@ -18,6 +18,8 @@ class AutoAttack:
 
     def attack(self, frame, player: Player) -> None:
         try:
+            time.sleep(1)
+
             creature_coords_in_battle_list = self.battle_list.find_enemies(frame)
 
             nearest_creature, *_ = creature_coords_in_battle_list
