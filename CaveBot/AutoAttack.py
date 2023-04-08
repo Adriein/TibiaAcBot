@@ -23,10 +23,11 @@ class AutoAttack:
             nearest_creature, *_ = creature_coords_in_battle_list
 
             if not self.battle_list.is_nearest_creature_attacked(frame, nearest_creature):
-                print('atacar')
                 creature_click_coordinate = Coordinate.from_screen_region(nearest_creature)
 
                 player.attack(creature_click_coordinate)
+
+                time.sleep(2)
 
         except NoCreatureFound:
             pass
