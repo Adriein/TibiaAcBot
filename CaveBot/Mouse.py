@@ -34,10 +34,10 @@ class Mouse:
         root.warp_pointer(tibia_window_coords.x + coordinate.x - x_offset, tibia_window_coords.y + coordinate.y - y_offset)
 
         # Send a left-click event
-        xtest.fake_input(disp, X.ButtonPress, 1, X.NONE, 0, 0, 0)
+        xtest.fake_input(disp, X.ButtonPress, 1, X.NONE)
         disp.sync()
 
-        xtest.fake_input(disp, X.ButtonRelease, 1, X.NONE, 0, 0, 0)
+        xtest.fake_input(disp, X.ButtonRelease, 1, X.NONE)
         disp.sync()
 
         # Console.execute(f'xdotool mousemove --window {Screen.TIBIA_WINDOW_ID} --sync {coordinate.x} {coordinate.y}')
