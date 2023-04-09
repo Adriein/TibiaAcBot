@@ -35,6 +35,9 @@ class Scanner:
 
             [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
 
+            print(max_coincidence)
+            print(position_path)
+
             if Scanner.__ensure_confidence_threshold(confidence, max_coincidence):
                 continue
 
