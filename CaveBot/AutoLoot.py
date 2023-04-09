@@ -13,7 +13,13 @@ class AutoLoot:
     def loot(self, frame: np.array) -> None:
         position = self.player.position(frame)
 
-        print(str(position))
+        cv2.rectangle(frame, (position.start_x, position.start_y), (position.end_x, position.end_y), (255, 0, 0), 1)
+
+        if cv2.waitKey(1):
+            cv2.destroyAllWindows()
+
+        cv2.imshow("Output", frame)
+        cv2.waitKey(0)
 
         grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
