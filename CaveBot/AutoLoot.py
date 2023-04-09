@@ -13,7 +13,7 @@ class AutoLoot:
     def loot(self, frame: np.array) -> None:
         position = self.player.position(frame)
 
-        roi_looting_area = self.__create_looting_area(position)
+        roi_looting_area = self.__create_looting_area(position, frame)
 
         cv2.rectangle(frame, (roi_looting_area.start_x, roi_looting_area.start_y), (roi_looting_area.end_x, roi_looting_area.end_y), (255, 0, 0), 1)
 
