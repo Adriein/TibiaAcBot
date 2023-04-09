@@ -49,6 +49,8 @@ class Scanner:
             end_x = start_x + position_template.shape[1]
             end_y = start_y + position_template.shape[0]
 
+        print('END OF LOOP')
+
         return start_x, start_y, end_x, end_y, position_direction
 
     @staticmethod
