@@ -21,6 +21,12 @@ class AutoLoot:
 
         roi_looting_area = grey_scale_frame[looting_area.start_y: looting_area.end_y, looting_area.start_x: looting_area.end_x]
 
+        if cv2.waitKey(1):
+            cv2.destroyAllWindows()
+
+        cv2.imshow("Output", roi_looting_area)
+        cv2.waitKey(0)
+
         corpse_template = Cv2File.load_image('Wiki/Ui/Battle/Mobs/MountainTroll/mountain_troll_corpse.png')
 
         match = cv2.matchTemplate(roi_looting_area, corpse_template, cv2.TM_CCOEFF_NORMED)
