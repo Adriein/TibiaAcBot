@@ -11,15 +11,15 @@ class AutoLoot:
         self.player = player
 
     def loot(self, frame: np.array) -> None:
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
         position = self.player.position(frame)
+
+        grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         looting_area = self.__create_looting_area(position)
 
         cv2.rectangle(frame, (looting_area.start_x, looting_area.start_y), (looting_area.end_x, looting_area.end_y), (255, 0, 0), 1)
 
-        roi_looting_area = frame[looting_area.start_y: looting_area.end_y, looting_area.start_x: looting_area.end_x]
+        roi_looting_area = grey_scale_frame[looting_area.start_y: looting_area.end_y, looting_area.start_x: looting_area.end_x]
 
         corpse_template = Cv2File.load_image('Wiki/Ui/Battle/Mobs/MountainTroll/mountain_troll_corpse.png')
 
