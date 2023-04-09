@@ -34,10 +34,10 @@ class AutoLoot:
         end_x = start_x + corpse_template.shape[1]
         end_y = start_y + corpse_template.shape[0]
 
-    def __create_looting_area(self, player_position: Position) -> ScreenRegion:
+    def __create_looting_area(self, player_position: Position, frame: np.array) -> np.array:
         start_x = player_position.start_x - 40
         end_x = player_position.end_x + 40
         start_y = player_position.start_y - 40
         end_y = player_position.end_y + 40
 
-        return ScreenRegion(start_x, end_x, start_y, end_y)
+        return frame[start_y: end_y, start_x: end_x]
