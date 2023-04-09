@@ -9,7 +9,11 @@ class Position:
         try:
             (start_x, start_y, end_x, end_y, direction) = Scanner.player_position(frame, confidence=0.8)
 
-            return Position(start_x, start_y, end_x, end_y, direction)
+            position = Position(start_x, start_y, end_x, end_y, direction)
+
+            position.ensure_is_valid_position()
+
+            return position
         except Exception as exception:
             raise PositionError(str(exception))
 
@@ -19,3 +23,8 @@ class Position:
         self.end_x = end_x
         self.end_y = end_y
         self.direction = direction
+
+    def ensure_is_valid_position(self) -> None:
+        if self.start_x == 0 and self.end_x == 0 and self.start_y == 0 and self.end_y == 0:
+            raise PositionError('No valid position was found')
+
