@@ -11,6 +11,8 @@ class AutoLoot:
         self.player = player
 
     def loot(self, frame: np.array) -> None:
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
         position = self.player.position(frame)
 
         looting_area = self.__create_looting_area(position)
