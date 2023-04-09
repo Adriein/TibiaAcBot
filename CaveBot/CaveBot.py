@@ -3,6 +3,7 @@ from LoggerPackage import Logger as TibiaAcBotLogger
 from ScreenAnalizerPackage import WindowCapturer
 import cv2
 from .AutoAttack import AutoAttack
+from .AutoLoot import AutoLoot
 from threading import Thread
 import time
 
@@ -17,18 +18,23 @@ class CaveBot:
         # Thread(daemon=True, target=player.watch_mana).start()
 
         initial_frame = WindowCapturer.start()
-        auto_attack = AutoAttack.start(initial_frame)
+
+        auto_attack = AutoAttack.start(initial_frame, player)
+
+        auto_loot = AutoLoot(player)
 
         while True:
             frame = WindowCapturer.start()
 
-            auto_attack.attack(frame, player)
+            auto_attack.attack(frame)
 
-            #cv2.imshow("Computer Vision", frame)
+            auto_loot.loot(frame)
 
-            #if cv2.waitKey(1) == ord('q'):
-             #   cv2.destroyAllWindows()
-              #  break
+            cv2.imshow("Computer Vision", frame)
+
+            if cv2.waitKey(1) == ord('q'):
+                cv2.destroyAllWindows()
+                break
 
 
 

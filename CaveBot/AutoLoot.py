@@ -7,7 +7,7 @@ import cv2
 
 
 class AutoLoot:
-    def __int__(self, player: Player):
+    def __init__(self, player: Player):
         self.player = player
 
     def loot(self, frame: np.array) -> None:
@@ -15,11 +15,24 @@ class AutoLoot:
 
         roi_looting_area = self.__create_looting_area(position)
 
-        corpse_template = Cv2File.load_image('Wiki/')
+        cv2.rectangle(frame, (roi_looting_area.start_x, roi_looting_area.start_y), (roi_looting_area.end_x, roi_looting_area.end_y), (255, 0, 0), 1)
 
-        cv2.matchTemplate(roi_looting_area, corpse_template, cv2.TM_CCOEFF_NORMED)
+        corpse_template = Cv2File.load_image('Wiki/Ui/Battle/Mobs/MountainTroll/mountain_troll_corpse.png')
 
+        match = cv2.matchTemplate(roi_looting_area, corpse_template, cv2.TM_CCOEFF_NORMED)
 
+        [_, _, _, max_coordinates] = cv2.minMaxLoc(match)
+
+        # match_locations = (y_match_coords, x_match_coords) >= similarity more than threshold
+        match_locations = np.where(match >= 0.9)
+
+        # paired_match_locations = [(x, y), (x, y)]
+        paired_match_locations = list(zip(*match_locations[::-1]))
+
+        (start_x, start_y) = max_coordinates
+
+        end_x = start_x + corpse_template.shape[1]
+        end_y = start_y + corpse_template.shape[0]
 
     def __create_looting_area(self, player_position: Position) -> ScreenRegion:
         start_x = player_position.start_x - 40
