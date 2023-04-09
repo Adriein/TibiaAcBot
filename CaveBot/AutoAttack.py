@@ -1,6 +1,7 @@
 from ScreenAnalizerPackage import BattleList
 from ScreenAnalizerPackage import NoEnemyFound
 from .Player import Player
+from .Enemy import Enemy
 import numpy as np
 import time
 import cv2
@@ -21,7 +22,7 @@ class AutoAttack:
         try:
             creature_coords_in_battle_list = self.battle_list.find_enemies(frame)
 
-            nearest_creature = creature_coords_in_battle_list[0]
+            nearest_creature = Enemy('mountain_troll', creature_coords_in_battle_list[0])
 
             if not self.battle_list.is_nearest_enemy_attacked(frame, nearest_creature.position):
                 creature_click_coordinate = nearest_creature.click_coords()

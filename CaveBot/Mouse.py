@@ -1,4 +1,3 @@
-from ConsolePackage import Console
 from ScreenAnalizerPackage import Screen
 from ScreenAnalizerPackage import Coordinate
 from Xlib import X, display
@@ -29,7 +28,6 @@ class Mouse:
         x_offset = geometry.x - root_geometry.x
         y_offset = geometry.y - root_geometry.y
 
-
         # Move the pointer to the target position
         root.warp_pointer(tibia_window_coords.x + coordinate.x - x_offset, tibia_window_coords.y + coordinate.y - y_offset)
 
@@ -39,6 +37,3 @@ class Mouse:
 
         xtest.fake_input(disp, X.ButtonRelease, 1, X.NONE)
         disp.sync()
-
-        # Console.execute(f'xdotool mousemove --window {Screen.TIBIA_WINDOW_ID} --sync {coordinate.x} {coordinate.y}')
-        # Console.execute(f'xdotool click --window {Screen.TIBIA_WINDOW_ID} 1')
