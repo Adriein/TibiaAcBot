@@ -15,6 +15,8 @@ class AutoLoot:
 
         cv2.rectangle(frame, (position.start_x, position.start_y), (position.end_x, position.end_y), (255, 0, 0), 1)
 
+        print(position.start_x)
+
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
 
