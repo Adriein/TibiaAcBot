@@ -17,7 +17,7 @@ class AutoAttack:
         self.battle_list = battle_list
         self.player = player
 
-    def attack(self, frame) -> None:
+    def attack(self, frame: np.array) -> None:
         try:
             creature_coords_in_battle_list = self.battle_list.find_enemies(frame)
 
