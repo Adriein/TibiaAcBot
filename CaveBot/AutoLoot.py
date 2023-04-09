@@ -13,9 +13,11 @@ class AutoLoot:
     def loot(self, frame: np.array) -> None:
         position = self.player.position(frame)
 
-        roi_looting_area = self.__create_looting_area(position, frame)
+        looting_area = self.__create_looting_area(position)
 
-        cv2.rectangle(frame, (roi_looting_area.start_x, roi_looting_area.start_y), (roi_looting_area.end_x, roi_looting_area.end_y), (255, 0, 0), 1)
+        cv2.rectangle(frame, (looting_area.start_x, looting_area.start_y), (looting_area.end_x, looting_area.end_y), (255, 0, 0), 1)
+
+        roi_looting_area = frame[looting_area.start_y: looting_area.end_y, looting_area.start_x: looting_area.end_x]
 
         corpse_template = Cv2File.load_image('Wiki/Ui/Battle/Mobs/MountainTroll/mountain_troll_corpse.png')
 
@@ -34,10 +36,10 @@ class AutoLoot:
         end_x = start_x + corpse_template.shape[1]
         end_y = start_y + corpse_template.shape[0]
 
-    def __create_looting_area(self, player_position: Position, frame: np.array) -> np.array:
+    def __create_looting_area(self, player_position: Position) -> ScreenRegion:
         start_x = player_position.start_x - 40
         end_x = player_position.end_x + 40
         start_y = player_position.start_y - 40
         end_y = player_position.end_y + 40
 
-        return frame[start_y: end_y, start_x: end_x]
+        return ScreenRegion(start_x, end_x, start_y, end_y)
