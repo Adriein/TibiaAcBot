@@ -7,7 +7,7 @@ class Position:
     @staticmethod
     def check(frame: np.array) -> 'Position':
         try:
-            (start_x, start_y, end_x, end_y, direction) = Scanner.player_position(frame, confidence=0.9)
+            (start_x, start_y, end_x, end_y, direction) = Scanner.player_position(frame, confidence=0.8)
 
             return Position(start_x, start_y, end_x, end_y, direction)
         except Exception as exception:
