@@ -15,14 +15,6 @@ class AutoLoot:
 
         cv2.rectangle(frame, (position.start_x, position.start_y), (position.end_x, position.end_y), (255, 0, 0), 1)
 
-        print(position.start_x)
-
-        if cv2.waitKey(1):
-            cv2.destroyAllWindows()
-
-        cv2.imshow("Output", frame)
-        cv2.waitKey(0)
-
         grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         looting_area = self.__create_looting_area(position)
@@ -30,12 +22,6 @@ class AutoLoot:
         cv2.rectangle(frame, (looting_area.start_x, looting_area.start_y), (looting_area.end_x, looting_area.end_y), (255, 0, 0), 1)
 
         roi_looting_area = grey_scale_frame[looting_area.start_y: looting_area.end_y, looting_area.start_x: looting_area.end_x]
-
-        if cv2.waitKey(1):
-            cv2.destroyAllWindows()
-
-        cv2.imshow("Output", roi_looting_area)
-        cv2.waitKey(0)
 
         corpse_template = Cv2File.load_image('Wiki/Ui/Battle/Mobs/MountainTroll/mountain_troll_corpse.png')
 
