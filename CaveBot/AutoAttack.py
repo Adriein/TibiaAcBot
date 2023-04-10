@@ -26,8 +26,9 @@ class AutoAttack:
 
     def attack(self, frame_queue: Queue, stop_walk_event: Event, processed_frame_queue: Queue) -> None:
         while True:
+            frame = frame_queue.get()
+
             try:
-                frame = frame_queue.get()
                 print('received a frame')
 
                 creature_coords_in_battle_list = self.battle_list.find_enemies(frame)
@@ -46,9 +47,11 @@ class AutoAttack:
 
                     time.sleep(1)
 
+                print('ending')
                 processed_frame_queue.put(frame)
 
             except NoEnemyFound:
+                processed_frame_queue.put(frame)
                 pass
             except Exception as exception:
                 print(exception)
