@@ -50,6 +50,8 @@ class AutoAttack:
 
             except NoEnemyFound:
                 pass
+            except Exception as exception:
+                print(exception)
 
     def __are_enemies_in_range(self, creatures: list[ScreenRegion]) -> bool:
         return len(creatures) > 0
