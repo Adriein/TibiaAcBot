@@ -28,6 +28,7 @@ class AutoAttack:
         while True:
             try:
                 frame = frame_queue.get()
+                print('received a frame')
 
                 creature_coords_in_battle_list = self.battle_list.find_enemies(frame)
 
