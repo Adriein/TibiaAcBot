@@ -26,5 +26,5 @@ class Position:
 
     def ensure_is_valid_position(self) -> None:
         if self.start_x == 0 and self.end_x == 0:
-            raise PositionError()
+            raise PositionError('position error')
 
