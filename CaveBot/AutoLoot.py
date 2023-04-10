@@ -56,6 +56,9 @@ class AutoLoot:
             except PositionError:
                 processed_frame_queue.put(frame)
 
+            except Exception as exception:
+                print(exception)
+
     def __create_looting_area(self, player_position: Position) -> ScreenRegion:
         start_x = player_position.start_x - 40
         end_x = player_position.end_x + 40
