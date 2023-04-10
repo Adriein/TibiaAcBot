@@ -35,10 +35,6 @@ class Scanner:
 
             [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
 
-            print(position_path)
-            print(max_coincidence)
-            print('---------------------------------------------------')
-
             if Scanner.__ensure_confidence_threshold(confidence, max_coincidence):
                 continue
 
@@ -49,9 +45,11 @@ class Scanner:
             end_x = start_x + position_template.shape[1]
             end_y = start_y + position_template.shape[0]
 
-        print('END OF LOOP')
+        whole_player_img = Cv2File.load_image(f'Wiki/Player/player_{position_direction}.png')
 
-        return start_x, start_y, end_x, end_y, position_direction
+        x, y = whole_player_img.shape
+
+        return start_x, start_y, end_x + x, end_y + y, position_direction
 
     @staticmethod
     def number(confidence: float, template_path: str) -> int:
