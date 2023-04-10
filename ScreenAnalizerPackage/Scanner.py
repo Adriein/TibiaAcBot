@@ -18,7 +18,7 @@ class Scanner:
     @staticmethod
     def player_position(frame: np.ndarray, confidence: float) -> tuple[int, int, int, int, str]:
         grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        player_position_templates = glob('Wiki/Player/*.png')
+        player_position_templates = glob('Wiki/Player/Direction/*.png')
 
         start_x = 0
         start_y = 0
