@@ -23,9 +23,6 @@ class Scanner:
         start_x = 0
         start_y = 0
 
-        end_x = 0
-        end_y = 0
-
         position_direction = None
 
         for position_path in player_position_templates:
@@ -42,15 +39,12 @@ class Scanner:
 
             (start_x, start_y) = max_coordinates
 
-            end_x = start_x + position_template.shape[1]
-            end_y = start_y + position_template.shape[0]
-
         whole_player_img = Cv2File.load_image(f'Wiki/Player/player_{position_direction}.png')
 
-        y, x = whole_player_img.shape
+        height, width = whole_player_img.shape
 
-        end_x = start_x + x
-        end_y = start_y + y
+        end_x = start_x + width
+        end_y = start_y + height
 
         return start_x, start_y, end_x, end_y, position_direction
 

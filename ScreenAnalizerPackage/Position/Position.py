@@ -25,6 +25,6 @@ class Position:
         self.direction = direction
 
     def ensure_is_valid_position(self) -> None:
-        if self.start_x == 0 and self.end_x == 0 and self.start_y == 0 and self.end_y == 0:
+        if self.start_x == 0 and self.end_x == 0:
             raise PositionError('No valid position was found')
 
