@@ -20,6 +20,7 @@ class AutoLoot:
 
             try:
                 if not stop_walk_event.is_set():
+                    processed_frame_queue.put(frame)
                     return
 
                 position = self.player.position(frame)

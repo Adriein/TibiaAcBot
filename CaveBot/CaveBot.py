@@ -27,9 +27,9 @@ class CaveBot:
 
         event = Event()
 
-        # attack_thread = Thread(daemon=True, target=auto_attack.attack, args=(frame_queue, event, processed_frame_queue,))
+        attack_thread = Thread(daemon=True, target=auto_attack.attack, args=(frame_queue, event, processed_frame_queue,))
 
-        # attack_thread.start()
+        attack_thread.start()
 
         loot_thread = Thread(daemon=True, target=auto_loot.loot, args=(frame_queue, event, processed_frame_queue,))
 
