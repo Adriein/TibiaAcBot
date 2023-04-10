@@ -30,14 +30,15 @@ class CaveBot:
         attack_thread = Thread(daemon=True, target=auto_attack.attack, args=(frame_queue, event, processed_frame_queue,))
 
         attack_thread.start()
-        # Thread(daemon=True, target=auto_loot.loot, args=(frame_queue, event, processed_frame_queue,)).start()
+
+        loot_thread = Thread(daemon=True, target=auto_loot.loot, args=(frame_queue, event, processed_frame_queue,))
+
+        loot_thread.start()
 
         while True:
             frame = WindowCapturer.start()
 
             frame_queue.put(frame)
-
-            print(attack_thread.is_alive())
 
             processed_frame = processed_frame_queue.get()
 

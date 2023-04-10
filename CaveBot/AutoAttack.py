@@ -29,8 +29,6 @@ class AutoAttack:
             frame = frame_queue.get()
 
             try:
-                print('received a frame')
-
                 creature_coords_in_battle_list = self.battle_list.find_enemies(frame)
 
                 if self.__are_enemies_in_range(creature_coords_in_battle_list):
@@ -47,12 +45,11 @@ class AutoAttack:
 
                     time.sleep(1)
 
-                print('ending')
                 processed_frame_queue.put(frame)
 
             except NoEnemyFound:
                 processed_frame_queue.put(frame)
-                pass
+
             except Exception as exception:
                 print(exception)
 

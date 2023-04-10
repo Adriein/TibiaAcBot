@@ -16,9 +16,9 @@ class AutoLoot:
 
     def loot(self, frame_queue: Queue, stop_walk_event: Event, processed_frame_queue: Queue) -> None:
         while True:
-            try:
-                frame = frame_queue.get()
+            frame = frame_queue.get()
 
+            try:
                 if not stop_walk_event.is_set():
                     return
 
@@ -53,7 +53,7 @@ class AutoLoot:
 
                 processed_frame_queue.put(frame)
             except PositionError:
-                pass
+                processed_frame_queue.put(frame)
 
     def __create_looting_area(self, player_position: Position) -> ScreenRegion:
         start_x = player_position.start_x - 40
