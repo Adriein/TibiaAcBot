@@ -9,6 +9,7 @@ class WindowCapturer:
     IMAGE_MODE = 'RGB'
     DECODER = 'raw'
     ORDER = 'BGRX'
+
     @staticmethod
     def start() -> np.array:
         # Create a connection to the X server

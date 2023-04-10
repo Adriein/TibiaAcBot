@@ -5,7 +5,8 @@ import cv2
 from .AutoAttack import AutoAttack
 from .AutoLoot import AutoLoot
 from threading import Thread
-import time
+from queue import Queue
+from threading import Event
 
 
 class CaveBot:
@@ -17,20 +18,26 @@ class CaveBot:
         # Thread(daemon=True, target=player.watch_health).start()
         # Thread(daemon=True, target=player.watch_mana).start()
 
-        initial_frame = WindowCapturer.start()
-
-        auto_attack = AutoAttack.start(initial_frame, player)
+        auto_attack = AutoAttack.start(player)
 
         auto_loot = AutoLoot(player)
+
+        frame_queue = Queue()
+        processed_frame_queue = Queue()
+
+        event = Event()
+
+        Thread(daemon=True, target=auto_attack.attack, args=(frame_queue, event, processed_frame_queue,)).start()
+        Thread(daemon=True, target=auto_loot.loot, args=(frame_queue, event, processed_frame_queue,)).start()
 
         while True:
             frame = WindowCapturer.start()
 
-            auto_attack.attack(frame)
+            frame_queue.put(frame)
 
-            auto_loot.loot(frame)
+            processed_frame = processed_frame_queue.get()
 
-            cv2.imshow("Computer Vision", frame)
+            cv2.imshow("Computer Vision", processed_frame)
 
             if cv2.waitKey(1) == ord('q'):
                 cv2.destroyAllWindows()
