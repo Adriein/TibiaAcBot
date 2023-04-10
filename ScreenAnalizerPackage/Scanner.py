@@ -47,7 +47,7 @@ class Scanner:
 
         whole_player_img = Cv2File.load_image(f'Wiki/Player/player_{position_direction}.png')
 
-        x, y = whole_player_img.shape
+        y, x = whole_player_img.shape
 
         return start_x, start_y, end_x + x, end_y + y, position_direction
 
