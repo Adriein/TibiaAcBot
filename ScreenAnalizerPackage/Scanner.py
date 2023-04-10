@@ -49,7 +49,10 @@ class Scanner:
 
         y, x = whole_player_img.shape
 
-        return start_x, start_y, end_x + x, end_y + y, position_direction
+        end_x = start_x + x
+        end_y = start_y + y
+
+        return start_x, start_y, end_x, end_y, position_direction
 
     @staticmethod
     def number(confidence: float, template_path: str) -> int:
