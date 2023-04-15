@@ -23,12 +23,13 @@ class CaveBot:
         auto_loot = AutoLoot(player)
 
         frame_queue = Queue()
+        frame_queue1 = Queue()
 
         event = Event()
 
         attack_thread = Thread(daemon=True, target=auto_attack.attack, args=(frame_queue, event,))
 
-        loot_thread = Thread(daemon=True, target=auto_loot.loot, args=(frame_queue, event,))
+        loot_thread = Thread(daemon=True, target=auto_loot.loot, args=(frame_queue1, event,))
 
         while True:
             attack_thread.start()
@@ -38,8 +39,10 @@ class CaveBot:
             frame = WindowCapturer.start()
 
             frame_queue.put(frame)
+            frame_queue1.put(frame)
 
             attack_thread.join()
+            print('auto attack finished')
             loot_thread.join()
 
             cv2.imshow("Computer Vision", frame)
