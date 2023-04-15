@@ -23,30 +23,27 @@ class CaveBot:
         auto_loot = AutoLoot(player)
 
         frame_queue = Queue()
-        processed_frame_queue = Queue()
 
         event = Event()
 
-        attack_thread = Thread(daemon=True, target=auto_attack.attack, args=(frame_queue, event, processed_frame_queue,))
+        attack_thread = Thread(daemon=True, target=auto_attack.attack, args=(frame_queue, event))
 
-        attack_thread.start()
-
-        loot_thread = Thread(daemon=True, target=auto_loot.loot, args=(frame_queue, event, processed_frame_queue,))
-
-        loot_thread.start()
+        loot_thread = Thread(daemon=True, target=auto_loot.loot, args=(frame_queue, event))
 
         while True:
             frame = WindowCapturer.start()
 
             frame_queue.put(frame)
 
-            processed_frame = processed_frame_queue.get()
+            attack_thread.start()
 
-            cv2.imshow("Computer Vision", processed_frame)
+            loot_thread.start()
+
+            attack_thread.join()
+            loot_thread.join()
+
+            cv2.imshow("Computer Vision", frame)
 
             if cv2.waitKey(1) == ord('q'):
                 cv2.destroyAllWindows()
                 break
-
-
-

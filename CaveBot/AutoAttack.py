@@ -24,34 +24,31 @@ class AutoAttack:
         self.battle_list = battle_list
         self.player = player
 
-    def attack(self, frame_queue: Queue, stop_walk_event: Event, processed_frame_queue: Queue) -> None:
-        while True:
-            frame = frame_queue.get()
+    def attack(self, frame_queue: Queue, stop_walk_event: Event) -> None:
+        frame = frame_queue.get()
 
-            try:
-                creature_coords_in_battle_list = self.battle_list.find_enemies(frame)
+        try:
+            creature_coords_in_battle_list = self.battle_list.find_enemies(frame)
 
-                if self.__are_enemies_in_range(creature_coords_in_battle_list):
-                    stop_walk_event.set()
+            if self.__are_enemies_in_range(creature_coords_in_battle_list):
+                stop_walk_event.set()
 
-                nearest_creature = Enemy('mountain_troll', creature_coords_in_battle_list[0])
+            nearest_creature = Enemy('mountain_troll', creature_coords_in_battle_list[0])
 
-                creature_click_coordinate = nearest_creature.click_coords()
+            creature_click_coordinate = nearest_creature.click_coords()
 
-                cv2.drawMarker(frame, (creature_click_coordinate.x, creature_click_coordinate.y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
+            cv2.drawMarker(frame, (creature_click_coordinate.x, creature_click_coordinate.y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
 
-                if not self.battle_list.is_nearest_enemy_attacked(frame, nearest_creature.position):
-                    self.player.attack(creature_click_coordinate)
+            if not self.battle_list.is_nearest_enemy_attacked(frame, nearest_creature.position):
+                self.player.attack(creature_click_coordinate)
 
-                    time.sleep(1)
+                time.sleep(1)
 
-                processed_frame_queue.put(frame)
+        except NoEnemyFound:
+            pass
 
-            except NoEnemyFound:
-                processed_frame_queue.put(frame)
-
-            except Exception as exception:
-                print(exception)
+        except Exception as exception:
+            print(exception)
 
     def __are_enemies_in_range(self, creatures: list[ScreenRegion]) -> bool:
         return len(creatures) > 0
