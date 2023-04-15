@@ -44,14 +44,15 @@ class AutoLoot:
             match_locations = np.where(match >= 0.9)
 
             # paired_match_locations = [(x, y), (x, y)]
-            paired_match_locations = list(zip(*match_locations[::-1]))
+            paired_match_locations: list[tuple[int, int]] = list(zip(*match_locations[::-1]))
 
-            (start_x, start_y) = max_coordinates
+            for match_location in paired_match_locations:
+                (start_x, start_y) = match_location
 
-            end_x = start_x + corpse_template.shape[1]
-            end_y = start_y + corpse_template.shape[0]
+                end_x = start_x + corpse_template.shape[1]
+                end_y = start_y + corpse_template.shape[0]
 
-            cv2.rectangle(frame, (start_x, start_y), (end_x, end_y), (255, 0, 255), 1)
+                cv2.rectangle(frame, (start_x, start_y), (end_x, end_y), (255, 0, 255), 1)
 
         except PositionError:
             return
