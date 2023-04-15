@@ -31,11 +31,11 @@ class CaveBot:
 
         loot_thread = Thread(daemon=True, target=auto_loot.loot, args=(frame_queue1, event,))
 
+        attack_thread.start()
+
+        loot_thread.start()
+
         while True:
-            attack_thread.start()
-
-            loot_thread.start()
-
             frame = WindowCapturer.start()
 
             frame_queue.put(frame)
