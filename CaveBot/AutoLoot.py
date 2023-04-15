@@ -51,18 +51,17 @@ class AutoLoot:
             print(paired_match_locations)
 
             for match_location in paired_match_locations:
-                (start_x, start_y) = match_location
+                (roi_relative_start_x, roi_relative_start_y) = match_location
 
-                end_x = start_x + corpse_template.shape[1]
-                end_y = start_y + corpse_template.shape[0]
+                roi_relative_end_y, roi_relative_end_x = corpse_template.shape
 
-                cv2.rectangle(
-                    frame,
-                    (looting_area.start_x + start_x, looting_area.start_y + start_y),
-                    (looting_area.end_x - end_x, looting_area.end_y - end_y),
-                    (255, 0, 255),
-                    1
-                )
+                start_x = roi_relative_start_x + looting_area.start_x
+                start_y = roi_relative_start_y + looting_area.start_y
+
+                end_x = looting_area.start_x + roi_relative_end_x
+                end_y = looting_area.start_y + roi_relative_end_y
+
+                cv2.rectangle(frame, (start_x, start_y), (end_x, end_y), (255, 0, 255), 1)
 
         except PositionError:
             return
