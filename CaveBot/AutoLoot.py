@@ -31,6 +31,8 @@ class AutoLoot:
 
                 looting_area = self.__create_looting_area(position)
 
+                print('looting area')
+
                 cv2.rectangle(frame, (looting_area.start_x, looting_area.start_y), (looting_area.end_x, looting_area.end_y), (255, 0, 0), 1)
 
                 roi_looting_area = grey_scale_frame[looting_area.start_y: looting_area.end_y, looting_area.start_x: looting_area.end_x]
