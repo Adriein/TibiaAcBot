@@ -38,6 +38,10 @@ class AutoLoot:
 
             match = cv2.matchTemplate(roi_looting_area, corpse_template, cv2.TM_CCOEFF_NORMED)
 
+            [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
+
+            print(max_coincidence)
+
             # match_locations = (y_match_coords, x_match_coords) >= similarity more than threshold
             match_locations = np.where(match >= 0.8)
 
