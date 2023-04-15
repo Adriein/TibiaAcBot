@@ -64,9 +64,9 @@ class AutoLoot:
             return
 
     def __create_looting_area(self, player_position: Position) -> ScreenRegion:
-        start_x = player_position.start_x - 40
-        end_x = player_position.end_x + 40
-        start_y = player_position.start_y - 40
-        end_y = player_position.end_y + 40
+        start_x = player_position.start_x - 50
+        end_x = player_position.end_x + 50
+        start_y = player_position.start_y - 50
+        end_y = player_position.end_y + 50
 
         return ScreenRegion(start_x, end_x, start_y, end_y)
