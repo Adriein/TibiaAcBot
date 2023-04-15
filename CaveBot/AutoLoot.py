@@ -19,7 +19,8 @@ class AutoLoot:
 
         try:
             if not stop_walk_event.is_set():
-                return
+                pass
+                # return
 
             position = self.player.position(frame)
 
@@ -40,7 +41,7 @@ class AutoLoot:
             [_, _, _, max_coordinates] = cv2.minMaxLoc(match)
 
             # match_locations = (y_match_coords, x_match_coords) >= similarity more than threshold
-            match_locations = np.where(match >= 0.9)
+            match_locations = np.where(match >= 0.7)
 
             # paired_match_locations = [(x, y), (x, y)]
             paired_match_locations: list[tuple[int, int]] = list(zip(*match_locations[::-1]))
