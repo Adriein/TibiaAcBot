@@ -51,9 +51,9 @@ class AutoLoot:
             end_y = start_y + corpse_template.shape[0]
 
         except PositionError:
-            pass
+            return
         except Exception as exception:
-            print(exception)
+            return
 
     def __create_looting_area(self, player_position: Position) -> ScreenRegion:
         start_x = player_position.start_x - 40

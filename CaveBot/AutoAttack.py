@@ -45,9 +45,10 @@ class AutoAttack:
                 time.sleep(1)
 
         except NoEnemyFound:
-            pass
+            return
 
         except Exception as exception:
+            return
             print(exception)
 
     def __are_enemies_in_range(self, creatures: list[ScreenRegion]) -> bool:
