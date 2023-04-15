@@ -49,8 +49,8 @@ class AutoAttack:
             return
 
         except Exception as exception:
-            return
             print(exception)
+            return
 
     def __are_enemies_in_range(self, creatures: list[ScreenRegion]) -> bool:
         return len(creatures) > 0

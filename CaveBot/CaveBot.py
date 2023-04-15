@@ -31,7 +31,6 @@ class CaveBot:
         loot_thread = Thread(daemon=True, target=auto_loot.loot, args=(frame_queue, event,))
 
         while True:
-
             attack_thread.start()
 
             loot_thread.start()
