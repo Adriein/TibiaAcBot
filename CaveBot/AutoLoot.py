@@ -45,6 +45,8 @@ class AutoLoot:
             # paired_match_locations = [(x, y), (x, y)]
             paired_match_locations: list[tuple[int, int]] = list(zip(*match_locations[::-1]))
 
+            print(paired_match_locations)
+
             for match_location in paired_match_locations:
                 (start_x, start_y) = match_location
 
