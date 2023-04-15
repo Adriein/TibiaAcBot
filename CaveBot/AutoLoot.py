@@ -38,12 +38,8 @@ class AutoLoot:
 
             match = cv2.matchTemplate(roi_looting_area, corpse_template, cv2.TM_CCOEFF_NORMED)
 
-            [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
-
-            print(max_coincidence)
-
             # match_locations = (y_match_coords, x_match_coords) >= similarity more than threshold
-            match_locations = np.where(match >= 0.7)
+            match_locations = np.where(match >= 0.8)
 
             # paired_match_locations = [(x, y), (x, y)]
             paired_match_locations: list[tuple[int, int]] = list(zip(*match_locations[::-1]))
@@ -56,7 +52,13 @@ class AutoLoot:
                 end_x = start_x + corpse_template.shape[1]
                 end_y = start_y + corpse_template.shape[0]
 
-                cv2.rectangle(frame, (start_x, start_y), (end_x, end_y), (255, 0, 255), 1)
+                cv2.rectangle(
+                    frame,
+                    (looting_area.start_x + start_x, looting_area.start_y + start_y),
+                    (looting_area.end_x + end_x, looting_area.end_y + end_y),
+                    (255, 0, 255),
+                    1
+                )
 
         except PositionError:
             return
