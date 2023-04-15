@@ -19,6 +19,7 @@ class AutoLoot:
             frame = frame_queue.get()
 
             try:
+                print(stop_walk_event.is_set())
                 if not stop_walk_event.is_set():
                     processed_frame_queue.put(frame)
                     return
