@@ -58,8 +58,8 @@ class AutoLoot:
 
                 cv2.rectangle(
                     frame,
-                    (looting_area.start_x + start_x, looting_area.start_y + start_y),
-                    (looting_area.end_x + end_x, looting_area.end_y + end_y),
+                    (looting_area.start_x + start_x + 60, looting_area.start_y + start_y + 60),
+                    (looting_area.end_x + end_x - 60, looting_area.end_y + end_y - 60),
                     (255, 0, 255),
                     1
                 )
