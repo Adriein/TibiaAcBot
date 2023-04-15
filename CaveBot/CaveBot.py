@@ -42,7 +42,6 @@ class CaveBot:
             frame_queue1.put(frame)
 
             attack_thread.join()
-            print('auto attack finished')
             loot_thread.join()
 
             cv2.imshow("Computer Vision", frame)
