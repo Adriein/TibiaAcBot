@@ -30,8 +30,10 @@ class AutoAttack:
         try:
             creature_coords_in_battle_list = self.battle_list.find_enemies(frame)
 
-            if self.__are_enemies_in_range(creature_coords_in_battle_list):
-                stop_walk_event.set()
+            if not self.__are_enemies_in_range(creature_coords_in_battle_list):
+                stop_walk_event.clear()
+
+            stop_walk_event.set()
 
             nearest_creature = Enemy('mountain_troll', creature_coords_in_battle_list[0])
 
