@@ -50,6 +50,8 @@ class AutoLoot:
             end_x = start_x + corpse_template.shape[1]
             end_y = start_y + corpse_template.shape[0]
 
+            cv2.rectangle(frame, (start_x, start_y), (end_x, end_y), (255, 0, 255), 1)
+
         except PositionError:
             return
         except Exception as exception:
