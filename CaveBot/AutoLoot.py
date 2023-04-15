@@ -18,6 +18,7 @@ class AutoLoot:
         frame = frame_queue.get()
 
         try:
+            print('auto looting')
             if not stop_walk_event.is_set():
                 return
 
