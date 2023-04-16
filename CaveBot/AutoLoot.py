@@ -12,9 +12,8 @@ import cv2
 
 
 class AutoLoot:
-    def __init__(self, player: Player, mouse: Mouse):
+    def __init__(self, player: Player):
         self.player = player
-        self.mouse = mouse
 
     def loot(self, frame_queue: Queue, walk_event: Event, combat_event: Event) -> None:
         frame = frame_queue.get()
@@ -62,7 +61,7 @@ class AutoLoot:
 
                 click_point = Coordinate.from_screen_region(screen_region)
 
-                self.mouse.use_right_button(click_point)
+                self.player.loot(click_point)
 
                 corpses_to_loot.append((start_x, start_y, end_x, end_y))
 

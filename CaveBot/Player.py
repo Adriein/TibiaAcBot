@@ -13,12 +13,13 @@ import numpy as np
 class Player:
     @staticmethod
     def create() -> 'Player':
-        return Player(HitPoint(), Mana(), AutoHealer())
+        return Player(HitPoint(), Mana(), AutoHealer(), Mouse())
 
-    def __init__(self, hp: HitPoint, mana_bar: Mana, auto_healer: AutoHealer):
+    def __init__(self, hp: HitPoint, mana_bar: Mana, auto_healer: AutoHealer, mouse: Mouse):
         self.hp = hp
         self.mana_bar = mana_bar
         self.auto_healer = auto_healer
+        self.mouse = mouse
 
     # STATS
     def health(self) -> int:
@@ -50,8 +51,10 @@ class Player:
 
     # ACTIONS
     def attack(self, coordinates: Coordinate) -> None:
-        mouse = Mouse()
-        mouse.use_left_button(coordinates)
+        self.mouse.use_left_button(coordinates)
+
+    def loot(self, coordinates: Coordinate) -> None:
+        self.mouse.use_right_button(coordinates)
 
     # MOVEMENT
 

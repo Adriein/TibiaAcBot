@@ -1,10 +1,8 @@
 from ScreenAnalizerPackage import BattleList
 from ScreenAnalizerPackage import NoEnemyFound
 from ScreenAnalizerPackage import WindowCapturer
-from ScreenAnalizerPackage import ScreenRegion
 from .Player import Player
 from .Enemy import Enemy
-import queue
 from queue import Queue
 from threading import Event
 import time
