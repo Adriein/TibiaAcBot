@@ -19,6 +19,7 @@ class AutoLoot:
 
         try:
             if walk_event.is_set() or combat_event.is_set():
+                print('entro')
                 return
 
             position = self.player.position(frame)
