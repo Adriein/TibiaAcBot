@@ -38,7 +38,7 @@ class AutoLoot:
             match = cv2.matchTemplate(roi_looting_area, corpse_template, cv2.TM_CCOEFF_NORMED)
 
             # match_locations = (y_match_coords, x_match_coords) >= similarity more than threshold
-            match_locations = np.where(match >= 0.2)
+            match_locations = np.where(match >= 0.1)
 
             # paired_match_locations = [(x, y), (x, y)]
             paired_match_locations: list[tuple[int, int]] = list(zip(*match_locations[::-1]))
