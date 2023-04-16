@@ -49,7 +49,7 @@ class AutoLoot:
             # paired_match_locations = [(x, y), (x, y)]
             paired_match_locations: list[tuple[int, int]] = list(zip(*match_locations[::-1]))
 
-            corpses_to_loot: list[ScreenRegion] = []
+            corpses_to_loot = []
 
             for match_location in paired_match_locations:
                 (roi_relative_start_x, roi_relative_start_y) = match_location
@@ -66,7 +66,7 @@ class AutoLoot:
 
                 click_point = Coordinate.from_screen_region(screen_region)
 
-                corpses_to_loot.append(screen_region)
+                corpses_to_loot.append((start_x, start_y, end_x, end_y))
 
             grouped_boxes, _ = cv2.groupRectangles(corpses_to_loot, groupThreshold=1, eps=0.1)
 
