@@ -8,14 +8,6 @@ class Mouse:
     LEFT_MOUSE_BUTTON = 1
     RIGHT_MOUSE_BUTTON = 2
 
-    __INSTANCE = None
-
-    def __new__(cls):
-        if Mouse.__INSTANCE:
-            return Mouse.__INSTANCE
-
-        Mouse.__INSTANCE = object.__new__(cls)
-
     def __init__(self):
         # Create a connection to the X server
         self.disp = display.Display()
