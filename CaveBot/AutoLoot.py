@@ -18,8 +18,6 @@ class AutoLoot:
         frame = frame_queue.get()
 
         try:
-            print(walk_event.is_set())
-            print(combat_event.is_set())
             if walk_event.is_set() or combat_event.is_set():
                 return
 
