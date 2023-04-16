@@ -6,7 +6,6 @@ from ScreenAnalizerPackage import Coordinate
 from threading import Event
 from FilesystemPackage import Cv2File
 from queue import Queue
-import queue
 import numpy as np
 import cv2
 
@@ -15,13 +14,12 @@ class AutoLoot:
     def __init__(self, player: Player):
         self.player = player
 
-    def loot(self, frame_queue: Queue, stop_walk_event: Event) -> None:
+    def loot(self, frame_queue: Queue, walk_event: Event, combat_event: Event) -> None:
         frame = frame_queue.get()
 
         try:
-            if not stop_walk_event.is_set():
-                pass
-                # return
+            if walk_event.is_set() or combat_event.is_set():
+                return
 
             position = self.player.position(frame)
 
@@ -34,14 +32,11 @@ class AutoLoot:
             cv2.rectangle(frame, (looting_area.start_x, looting_area.start_y), (looting_area.end_x, looting_area.end_y),
                           (255, 0, 0), 1)
 
-            roi_looting_area = grey_scale_frame[looting_area.start_y: looting_area.end_y,
-                               looting_area.start_x: looting_area.end_x]
+            roi_looting_area = grey_scale_frame[looting_area.start_y: looting_area.end_y, looting_area.start_x: looting_area.end_x]
 
             corpse_template = Cv2File.load_image('Wiki/Ui/Battle/Mobs/MountainTroll/mountain_troll_corpse.png')
 
             match = cv2.matchTemplate(roi_looting_area, corpse_template, cv2.TM_CCOEFF_NORMED)
-
-            [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
 
             # match_locations = (y_match_coords, x_match_coords) >= similarity more than threshold
             match_locations = np.where(match >= 0.2)
@@ -70,17 +65,15 @@ class AutoLoot:
 
             grouped_boxes, _ = cv2.groupRectangles(corpses_to_loot, groupThreshold=1, eps=0.1)
 
-            print(grouped_boxes)
-
             for grouped_box in grouped_boxes:
                 start_x, start_y, end_x, end_y = grouped_box
                 print(start_x)
                 cv2.rectangle(frame, (start_x, start_y), (end_x, end_y), (255, 0, 255), 1)
 
         except PositionError:
-            return
-        except Exception as exception:
-            return
+            pass
+        except Exception:
+            pass
 
     def __create_looting_area(self, player_position: Position) -> ScreenRegion:
         start_x = player_position.start_x - 60

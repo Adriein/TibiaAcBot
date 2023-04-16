@@ -24,16 +24,17 @@ class AutoAttack:
         self.battle_list = battle_list
         self.player = player
 
-    def attack(self, frame_queue: Queue, stop_walk_event: Event) -> None:
+    def attack(self, frame_queue: Queue, walk_event: Event, combat_event: Event) -> None:
         frame = frame_queue.get()
 
         try:
             creature_coords_in_battle_list = self.battle_list.find_enemies(frame)
 
             if not self.__are_enemies_in_range(creature_coords_in_battle_list):
-                stop_walk_event.clear()
+                combat_event.clear()
+                return
 
-            stop_walk_event.set()
+            combat_event.set()
 
             nearest_creature = Enemy('mountain_troll', creature_coords_in_battle_list[0])
 
