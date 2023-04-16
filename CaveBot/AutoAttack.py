@@ -30,12 +30,6 @@ class AutoAttack:
         try:
             creature_coords_in_battle_list = self.battle_list.find_enemies(frame)
 
-            print(self.__are_enemies_in_range(creature_coords_in_battle_list))
-            if not self.__are_enemies_in_range(creature_coords_in_battle_list):
-                print('set a false the event')
-                combat_event.clear()
-                return
-
             combat_event.set()
 
             nearest_creature = Enemy('mountain_troll', creature_coords_in_battle_list[0])
@@ -50,12 +44,10 @@ class AutoAttack:
                 time.sleep(1)
 
         except NoEnemyFound:
+            combat_event.clear()
             return
 
         except Exception as exception:
             print(exception)
             return
-
-    def __are_enemies_in_range(self, creatures: list[ScreenRegion]) -> bool:
-        return len(creatures) > 0
 
