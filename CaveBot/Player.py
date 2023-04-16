@@ -50,7 +50,8 @@ class Player:
 
     # ACTIONS
     def attack(self, coordinates: Coordinate) -> None:
-        Mouse.use_left_button(coordinates)
+        mouse = Mouse()
+        mouse.use_left_button(coordinates)
 
     # MOVEMENT
 

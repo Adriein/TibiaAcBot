@@ -1,4 +1,5 @@
 from CaveBot.Player import Player
+from CaveBot.Mouse import Mouse
 from ScreenAnalizerPackage import ScreenRegion
 from ScreenAnalizerPackage import Position
 from ScreenAnalizerPackage import PositionError
@@ -11,8 +12,9 @@ import cv2
 
 
 class AutoLoot:
-    def __init__(self, player: Player):
+    def __init__(self, player: Player, mouse: Mouse):
         self.player = player
+        self.mouse = mouse
 
     def loot(self, frame_queue: Queue, walk_event: Event, combat_event: Event) -> None:
         frame = frame_queue.get()
@@ -59,6 +61,8 @@ class AutoLoot:
                 screen_region = ScreenRegion(start_x, end_x, start_y, end_y)
 
                 click_point = Coordinate.from_screen_region(screen_region)
+
+                self.mouse.use_right_button(click_point)
 
                 corpses_to_loot.append((start_x, start_y, end_x, end_y))
 
