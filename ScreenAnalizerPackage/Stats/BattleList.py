@@ -51,9 +51,6 @@ class BattleList:
                 frame_creature_end_x = frame_creature_position_start_x + creature_template_width
                 frame_creature_end_y = frame_creature_position_start_y + creature_template_height
 
-                # click_point_x = frame_creature_position_x + int(creature_template_width/2)
-                # click_point_y = frame_creature_position_y + int(creature_template_height/2)
-
                 battle_list_position = ScreenRegion(
                     frame_creature_position_start_x,
                     frame_creature_end_x,

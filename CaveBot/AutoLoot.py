@@ -2,6 +2,7 @@ from CaveBot.Player import Player
 from ScreenAnalizerPackage import ScreenRegion
 from ScreenAnalizerPackage import Position
 from ScreenAnalizerPackage import PositionError
+from ScreenAnalizerPackage import Coordinate
 from threading import Event
 from FilesystemPackage import Cv2File
 from queue import Queue
@@ -30,9 +31,11 @@ class AutoLoot:
 
             looting_area = self.__create_looting_area(position)
 
-            cv2.rectangle(frame, (looting_area.start_x, looting_area.start_y), (looting_area.end_x, looting_area.end_y), (255, 0, 0), 1)
+            cv2.rectangle(frame, (looting_area.start_x, looting_area.start_y), (looting_area.end_x, looting_area.end_y),
+                          (255, 0, 0), 1)
 
-            roi_looting_area = grey_scale_frame[looting_area.start_y: looting_area.end_y, looting_area.start_x: looting_area.end_x]
+            roi_looting_area = grey_scale_frame[looting_area.start_y: looting_area.end_y,
+                               looting_area.start_x: looting_area.end_x]
 
             corpse_template = Cv2File.load_image('Wiki/Ui/Battle/Mobs/MountainTroll/mountain_troll_corpse.png')
 
@@ -40,15 +43,13 @@ class AutoLoot:
 
             [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
 
-            print(max_coincidence)
-
             # match_locations = (y_match_coords, x_match_coords) >= similarity more than threshold
             match_locations = np.where(match >= 0.2)
 
             # paired_match_locations = [(x, y), (x, y)]
             paired_match_locations: list[tuple[int, int]] = list(zip(*match_locations[::-1]))
 
-            print(paired_match_locations)
+            corpses_to_loot: list[ScreenRegion] = []
 
             for match_location in paired_match_locations:
                 (roi_relative_start_x, roi_relative_start_y) = match_location
@@ -61,6 +62,18 @@ class AutoLoot:
                 end_x = start_x + roi_relative_end_x
                 end_y = start_y + roi_relative_end_y
 
+                screen_region = ScreenRegion(start_x, end_x, start_y, end_y)
+
+                click_point = Coordinate.from_screen_region(screen_region)
+
+                cv2.drawMarker(frame, (click_point.x, click_point.y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
+
+                corpses_to_loot.append(screen_region)
+
+            grouped_boxes, _ = cv2.groupRectangles(corpses_to_loot, groupThreshold=1, eps=0.1)
+
+            for grouped_box in grouped_boxes:
+                start_x, start_y, end_x, end_y = grouped_box
                 cv2.rectangle(frame, (start_x, start_y), (end_x, end_y), (255, 0, 255), 1)
 
         except PositionError:
