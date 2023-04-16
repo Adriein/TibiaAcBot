@@ -66,8 +66,6 @@ class AutoLoot:
 
                 click_point = Coordinate.from_screen_region(screen_region)
 
-                cv2.drawMarker(frame, (click_point.x, click_point.y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
-
                 corpses_to_loot.append(screen_region)
 
             grouped_boxes, _ = cv2.groupRectangles(corpses_to_loot, groupThreshold=1, eps=0.1)
