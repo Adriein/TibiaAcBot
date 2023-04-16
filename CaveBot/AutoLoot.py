@@ -43,7 +43,7 @@ class AutoLoot:
             print(max_coincidence)
 
             # match_locations = (y_match_coords, x_match_coords) >= similarity more than threshold
-            match_locations = np.where(match >= 0.8)
+            match_locations = np.where(match >= 0.5)
 
             # paired_match_locations = [(x, y), (x, y)]
             paired_match_locations: list[tuple[int, int]] = list(zip(*match_locations[::-1]))
