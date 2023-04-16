@@ -55,8 +55,8 @@ class AutoLoot:
 
                 roi_relative_end_y, roi_relative_end_x = corpse_template.shape
 
-                start_x = roi_relative_start_x + looting_area.start_x
-                start_y = roi_relative_start_y + looting_area.start_y
+                start_x = looting_area.start_x + roi_relative_start_x
+                start_y = looting_area.start_y + roi_relative_start_y
 
                 end_x = looting_area.start_x + roi_relative_end_x
                 end_y = looting_area.start_y + roi_relative_end_y
