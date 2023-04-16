@@ -72,8 +72,11 @@ class AutoLoot:
 
             grouped_boxes, _ = cv2.groupRectangles(corpses_to_loot, groupThreshold=1, eps=0.1)
 
+            print(grouped_boxes)
+
             for grouped_box in grouped_boxes:
                 start_x, start_y, end_x, end_y = grouped_box
+                print(start_x)
                 cv2.rectangle(frame, (start_x, start_y), (end_x, end_y), (255, 0, 255), 1)
 
         except PositionError:
