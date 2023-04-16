@@ -12,3 +12,13 @@ class Coordinate:
     def __init__(self, x: int, y: int):
         self.x = x
         self.y = y
+
+    def equals(self, coordinate: 'Coordinate') -> bool:
+        if not isinstance(coordinate, Coordinate):
+            return False
+
+        if not coordinate.x == self.x or not coordinate.y == self.y:
+            return False
+
+        return True
+
