@@ -21,7 +21,7 @@ class AutoLoot:
 
         try:
             if walk_event.is_set() or combat_event.is_set():
-              return
+                return
 
             position = self.player.position(frame)
 
@@ -84,6 +84,8 @@ class AutoLoot:
                 time.sleep(2)
 
             walk_event.set()
+
+            print(f'finish execution')
 
         except PositionError:
             pass
