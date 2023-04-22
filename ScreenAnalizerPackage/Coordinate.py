@@ -22,6 +22,7 @@ class Coordinate:
             print(coordinate.x)
             print('actual coordinate')
             print(self.x)
+            print('----------------------------------------------------------------------')
             return False
 
         return True
