@@ -61,6 +61,8 @@ class AutoLoot:
 
             grouped_boxes, _ = cv2.groupRectangles(box_to_draw, groupThreshold=1, eps=0.1)
 
+            print(f'total corpses to loot: {len(grouped_boxes)}')
+
             for grouped_box in grouped_boxes:
                 start_x, start_y, end_x, end_y = grouped_box
 
@@ -70,11 +72,10 @@ class AutoLoot:
 
                 click_point = Coordinate.from_screen_region(screen_region)
 
-                print(self.__is_corpse_already_looted(click_point, looted_corpses_coords))
+                # if self.__is_corpse_already_looted(click_point, looted_corpses_coords):
+                   # continue
 
-                if self.__is_corpse_already_looted(click_point, looted_corpses_coords):
-                    continue
-
+                print(f'loot corpse in: ({click_point.x}, {click_point.y})')
                 # self.player.loot(click_point)
 
                 looted_corpses_coords.append(click_point)
