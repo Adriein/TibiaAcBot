@@ -22,8 +22,8 @@ class CaveBot:
 
         auto_loot = AutoLoot(player)
 
-        frame_queue = Queue()
-        frame_queue1 = Queue()
+        attack_frame_queue = Queue()
+        loot_frame_queue = Queue()
 
         walking_event = Event()
         combat_event = Event()
@@ -31,12 +31,12 @@ class CaveBot:
         while True:
             frame = WindowCapturer.start()
 
-            frame_queue.put(frame)
-            frame_queue1.put(frame)
+            attack_frame_queue.put(frame)
+            loot_frame_queue.put(frame)
 
-            attack_thread = Thread(daemon=True, target=auto_attack.attack, args=(frame_queue, walking_event, combat_event))
+            attack_thread = Thread(daemon=True, target=auto_attack.attack, args=(attack_frame_queue, walking_event, combat_event))
 
-            loot_thread = Thread(daemon=True, target=auto_loot.loot, args=(frame_queue1, walking_event, combat_event))
+            loot_thread = Thread(daemon=True, target=auto_loot.loot, args=(loot_frame_queue, walking_event, combat_event))
 
             attack_thread.start()
 
