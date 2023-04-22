@@ -73,7 +73,7 @@ class AutoLoot:
 
                 looted_corpses_coords.append(click_point)
 
-            grouped_boxes, _ = cv2.groupRectangles(looted_corpses_coords, groupThreshold=1, eps=0.1)
+            grouped_boxes, _ = cv2.groupRectangles(box_to_draw, groupThreshold=1, eps=0.1)
 
             for grouped_box in grouped_boxes:
                 start_x, start_y, end_x, end_y = grouped_box
