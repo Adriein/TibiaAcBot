@@ -20,8 +20,8 @@ class AutoLoot:
         frame = frame_queue.get()
 
         try:
-            #if walk_event.is_set() or combat_event.is_set():
-              #  return
+            if walk_event.is_set() or combat_event.is_set():
+              return
 
             position = self.player.position(frame)
 
