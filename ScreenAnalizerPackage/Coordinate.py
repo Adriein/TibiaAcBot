@@ -15,11 +15,13 @@ class Coordinate:
 
     def equals(self, coordinate: 'Coordinate') -> bool:
         if not isinstance(coordinate, Coordinate):
-            print('not instance')
             return False
 
         if not coordinate.x == self.x or not coordinate.y == self.y:
-            print('coordinates are different')
+            print('incoming coordinate')
+            print(coordinate.x)
+            print('actual coordinate')
+            print(self.x)
             return False
 
         return True
