@@ -45,7 +45,6 @@ class AutoLoot:
             # paired_match_locations = [(x, y), (x, y)]
             paired_match_locations: list[tuple[int, int]] = list(zip(*match_locations[::-1]))
 
-            looted_corpses_coords = []
             box_to_draw = []
 
             for match_location in paired_match_locations:
@@ -63,8 +62,6 @@ class AutoLoot:
 
             grouped_boxes, _ = cv2.groupRectangles(box_to_draw, groupThreshold=1, eps=0.1)
 
-            print(f'total corpses to loot: {len(grouped_boxes)}')
-
             for grouped_box in grouped_boxes:
                 start_x, start_y, end_x, end_y = grouped_box
 
@@ -74,18 +71,11 @@ class AutoLoot:
 
                 click_point = Coordinate.from_screen_region(screen_region)
 
-                # if self.__is_corpse_already_looted(click_point, looted_corpses_coords):
-                   # continue
-
-                print(f'loot corpse in: ({click_point.x}, {click_point.y})')
-
                 self.player.loot(click_point)
 
                 time.sleep(2)
 
             walk_event.set()
-
-            print(f'finish execution')
 
         except PositionError:
             pass
@@ -99,6 +89,3 @@ class AutoLoot:
         end_y = player_position.end_y + 60
 
         return ScreenRegion(start_x, end_x, start_y, end_y)
-
-    def __is_corpse_already_looted(self, click_point: Coordinate, corpses_to_loot: list[Coordinate]) -> bool:
-        return any(click_point.equals(element) for element in corpses_to_loot)
