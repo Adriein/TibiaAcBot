@@ -63,6 +63,8 @@ class AutoLoot:
 
                 box_to_draw.append((start_x, start_y, end_x, end_y))
 
+                print(self.__is_corpse_already_looted(click_point, looted_corpses_coords))
+
                 if self.__is_corpse_already_looted(click_point, looted_corpses_coords):
                     print('corpse is looted')
                     continue
