@@ -60,11 +60,18 @@ class AutoLoot:
                 end_x = start_x + roi_relative_end_x
                 end_y = start_y + roi_relative_end_y
 
+                box_to_draw.append((start_x, start_y, end_x, end_y))
+
+            grouped_boxes, _ = cv2.groupRectangles(box_to_draw, groupThreshold=1, eps=0.1)
+
+            for grouped_box in grouped_boxes:
+                start_x, start_y, end_x, end_y = grouped_box
+
+                cv2.rectangle(frame, (start_x, start_y), (end_x, end_y), (255, 0, 255), 1)
+
                 screen_region = ScreenRegion(start_x, end_x, start_y, end_y)
 
                 click_point = Coordinate.from_screen_region(screen_region)
-
-                box_to_draw.append((start_x, start_y, end_x, end_y))
 
                 print(self.__is_corpse_already_looted(click_point, looted_corpses_coords))
 
@@ -75,13 +82,6 @@ class AutoLoot:
                 # self.player.loot(click_point)
 
                 looted_corpses_coords.append(click_point)
-
-            grouped_boxes, _ = cv2.groupRectangles(box_to_draw, groupThreshold=1, eps=0.1)
-
-            for grouped_box in grouped_boxes:
-                start_x, start_y, end_x, end_y = grouped_box
-
-                cv2.rectangle(frame, (start_x, start_y), (end_x, end_y), (255, 0, 255), 1)
 
         except PositionError:
             pass
