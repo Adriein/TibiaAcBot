@@ -69,7 +69,7 @@ class AutoLoot:
                     print('corpse is looted')
                     continue
 
-                self.player.loot(click_point)
+                # self.player.loot(click_point)
 
                 looted_corpses_coords.append(click_point)
 
