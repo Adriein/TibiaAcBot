@@ -6,7 +6,7 @@ from Xlib.ext import xtest
 
 class Mouse:
     LEFT_MOUSE_BUTTON = 1
-    RIGHT_MOUSE_BUTTON = 2
+    RIGHT_MOUSE_BUTTON = 3
 
     def __init__(self):
         # Create a connection to the X server
