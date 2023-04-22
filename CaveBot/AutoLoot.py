@@ -46,9 +46,6 @@ class AutoLoot:
             looted_corpses_coords = []
             box_to_draw = []
 
-            print('found bodyes')
-            print(len(paired_match_locations))
-
             for match_location in paired_match_locations:
                 (roi_relative_start_x, roi_relative_start_y) = match_location
 
@@ -63,6 +60,9 @@ class AutoLoot:
                 box_to_draw.append((start_x, start_y, end_x, end_y))
 
             grouped_boxes, _ = cv2.groupRectangles(box_to_draw, groupThreshold=1, eps=0.1)
+
+            print('found bodyes')
+            print(len(grouped_boxes))
 
             for grouped_box in grouped_boxes:
                 start_x, start_y, end_x, end_y = grouped_box
