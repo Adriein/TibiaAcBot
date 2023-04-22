@@ -1,3 +1,5 @@
+import time
+
 from CaveBot.Player import Player
 from ScreenAnalizerPackage import ScreenRegion
 from ScreenAnalizerPackage import Position
@@ -76,7 +78,10 @@ class AutoLoot:
                    # continue
 
                 print(f'loot corpse in: ({click_point.x}, {click_point.y})')
-                # self.player.loot(click_point)
+
+                self.player.loot(click_point)
+
+                time.sleep(2)
 
                 looted_corpses_coords.append(click_point)
 
