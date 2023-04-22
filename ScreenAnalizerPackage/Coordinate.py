@@ -18,11 +18,6 @@ class Coordinate:
             return False
 
         if not coordinate.x == self.x or not coordinate.y == self.y:
-            print('incoming coordinate')
-            print(coordinate.x)
-            print('actual coordinate')
-            print(self.x)
-            print('----------------------------------------------------------------------')
             return False
 
         return True
