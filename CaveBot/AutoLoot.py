@@ -94,4 +94,5 @@ class AutoLoot:
         return ScreenRegion(start_x, end_x, start_y, end_y)
 
     def __is_corpse_already_looted(self, click_point: Coordinate, corpses_to_loot: list[Coordinate]) -> bool:
+        print(corpses_to_loot)
         return any(click_point.equals(element) for element in corpses_to_loot)
