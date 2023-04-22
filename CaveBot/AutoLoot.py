@@ -83,8 +83,6 @@ class AutoLoot:
 
                 time.sleep(2)
 
-                looted_corpses_coords.append(click_point)
-
             walk_event.set()
 
         except PositionError:
