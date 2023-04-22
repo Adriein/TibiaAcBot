@@ -75,7 +75,7 @@ class AutoLoot:
                 if self.__is_corpse_already_looted(click_point, looted_corpses_coords):
                     continue
 
-                self.player.loot(click_point)
+                # self.player.loot(click_point)
 
                 looted_corpses_coords.append(click_point)
 
