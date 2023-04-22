@@ -46,6 +46,9 @@ class AutoLoot:
             looted_corpses_coords = []
             box_to_draw = []
 
+            print('found bodyes')
+            print(len(paired_match_locations))
+
             for match_location in paired_match_locations:
                 (roi_relative_start_x, roi_relative_start_y) = match_location
 
@@ -94,4 +97,6 @@ class AutoLoot:
         return ScreenRegion(start_x, end_x, start_y, end_y)
 
     def __is_corpse_already_looted(self, click_point: Coordinate, corpses_to_loot: list[Coordinate]) -> bool:
+        print('looted corpses')
+        print(len(corpses_to_loot))
         return any(click_point.equals(element) for element in corpses_to_loot)
