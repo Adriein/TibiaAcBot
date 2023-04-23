@@ -13,7 +13,7 @@ class Keyboard:
         # Get the target window using its ID
         window = d.create_resource_object('window', Screen.TIBIA_WINDOW_ID)
 
-        keycode = 97 # XK.string_to_keysym(key)# d.keysym_to_keycode(XK.string_to_keysym(key))
+        keycode = d.keysym_to_keycode(XK.string_to_keysym(key))
         time = X.CurrentTime
         key_press_event = event.KeyPress(
             time=time,
@@ -23,7 +23,7 @@ class Keyboard:
             child=X.PointerRoot,
             root_x=0, root_y=0, event_x=0, event_y=0,
             state=X.Mod1Mask,
-            detail=keycode
+            detail=XK.XK_a
         )
         window.send_event(key_press_event, propagate=True)
 
@@ -35,7 +35,7 @@ class Keyboard:
             child=X.PointerRoot,
             root_x=0, root_y=0, event_x=0, event_y=0,
             state=X.Mod1Mask,
-            detail=keycode
+            detail=XK.XK_a
         )
         window.send_event(key_release_event, propagate=True)
 
