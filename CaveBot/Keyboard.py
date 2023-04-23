@@ -13,12 +13,15 @@ class Keyboard:
         # Get the target window using its ID
         window = d.create_resource_object('window', Screen.TIBIA_WINDOW_ID)
 
-        keycode = Xutil.lookup_keysym(key)
-        keypress_event = event.KeyPress(
+        # Get the keycode for the letter 'a'
+        keycode = d.keysym_to_keycode(Xutil.lookup_keysym(key))
+
+        # Send a KeyPress event to the target window without focusing it
+        key_press_event = event.KeyPress(
             time=X.CurrentTime,
-            root=window.get_root_window(),
+            root=window.get_geometry().root,
             window=window,
-            same_screen=X.SameScreen,
+            same_screen=1,
             child=X.NONE,
             root_x=0,
             root_y=0,
@@ -28,8 +31,23 @@ class Keyboard:
             detail=keycode
         )
 
-        # Send the key event to the target window without focusing it
-        window.send_event(keypress_event, X.SubstructureRedirectMask | X.SubstructureNotifyMask)
+        key_press_event.send_event(window, event.ProperterMask.NoPropagate)
+
+        # Send a KeyRelease event to the target window without focusing it
+        key_release_event = event.KeyRelease(
+            time=X.CurrentTime,
+            root=window.get_geometry().root,
+            window=window,
+            same_screen=1,
+            child=X.NONE,
+            root_x=0,
+            root_y=0,
+            event_x=0,
+            event_y=0,
+            state=0,
+            detail=keycode
+        )
+        key_release_event.send_event(window, event.ProperterMask.NoPropagate)
 
         # Sync to make sure the event is processed
         d.sync()
