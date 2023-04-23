@@ -38,7 +38,7 @@ class Keyboard:
             state=0,
             detail=keycode
         )
-        d.send_event(Screen.TIBIA_WINDOW_ID, key_release_event, propagate=True)
+        d.send_event(Screen.TIBIA_WINDOW_ID, key_release_event, propagate=False, event_mask=X.KeyPressMask)
 
         # Sync to make sure the event is processed
         d.flush()
