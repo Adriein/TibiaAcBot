@@ -3,6 +3,7 @@ from Xlib import X, display, Xutil
 from Xlib.protocol import event
 from ScreenAnalizerPackage import Screen
 
+
 class Keyboard:
     @staticmethod
     def press(key: str):
@@ -32,4 +33,4 @@ class Keyboard:
 
         # Sync to make sure the event is processed
         d.sync()
-        #Console.execute(f'xdotool windowfocus --sync {Screen.TIBIA_WINDOW_ID} key {key}')
+        # Console.execute(f'xdotool windowfocus --sync {Screen.TIBIA_WINDOW_ID} key {key}')
