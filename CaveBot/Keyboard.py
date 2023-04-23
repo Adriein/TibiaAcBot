@@ -23,7 +23,7 @@ class Keyboard:
             same_screen=0,
             child=X.PointerRoot,
             root_x=0, root_y=0, event_x=0, event_y=0,
-            state=X.Mod1Mask,
+            state=0,
             detail=keycode
         )
         window.send_event(key_press_event, propagate=True)
@@ -35,7 +35,7 @@ class Keyboard:
             same_screen=0,
             child=X.PointerRoot,
             root_x=0, root_y=0, event_x=0, event_y=0,
-            state=X.Mod1Mask,
+            state=0,
             detail=keycode
         )
         window.send_event(key_release_event, propagate=True)
