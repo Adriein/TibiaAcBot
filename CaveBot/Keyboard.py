@@ -17,7 +17,7 @@ class Keyboard:
         time = X.CurrentTime
         key_press_event = event.KeyPress(
             time=time,
-            root=window.get_root().id,
+            root=d.screen().root.id,
             window=Screen.TIBIA_WINDOW_ID,
             same_screen=X.SameScreen,
             child=X.PointerRoot,
@@ -29,7 +29,7 @@ class Keyboard:
 
         key_release_event = event.KeyRelease(
             time=time,
-            root=window.get_root().id,
+            root=d.screen().root.id,
             window=Screen.TIBIA_WINDOW_ID,
             same_screen=X.SameScreen,
             child=X.PointerRoot,
