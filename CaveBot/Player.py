@@ -64,4 +64,5 @@ class Player:
 
     def move(self, command: MoveCommand) -> None:
         for step in range(command.steps):
+            time.sleep(2)
             Keyboard.press(command.key)
