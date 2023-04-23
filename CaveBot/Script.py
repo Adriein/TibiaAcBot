@@ -28,9 +28,7 @@ class Script:
         return Script(data, player)
 
     def start(self, walk_event: Event) -> None:
-        [commands] = self.__data['walk']
-
-        for command in commands:
+        for command in self.__data['walk']:
             [steps, direction] = command
 
             move_command = MoveCommand(steps, direction)
