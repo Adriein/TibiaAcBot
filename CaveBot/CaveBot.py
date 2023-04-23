@@ -4,9 +4,9 @@ from ScreenAnalizerPackage import WindowCapturer
 import cv2
 from .AutoAttack import AutoAttack
 from .AutoLoot import AutoLoot
-from threading import Thread
+from .Script import Script
+from threading import Thread, Event
 from queue import Queue
-from threading import Event
 
 
 class CaveBot:
@@ -22,6 +22,8 @@ class CaveBot:
 
         auto_loot = AutoLoot(player)
 
+        cave_bot_script = Script.load('Wiki/Script/Rookgard/mountain_troll_salamander_script.json', player)
+
         attack_frame_queue = Queue()
         loot_frame_queue = Queue()
 
@@ -34,9 +36,13 @@ class CaveBot:
             attack_frame_queue.put(frame)
             loot_frame_queue.put(frame)
 
+            walk_thread = Thread(daemon=True, target=cave_bot_script.start, args=(walking_event, player))
+
             attack_thread = Thread(daemon=True, target=auto_attack.attack, args=(attack_frame_queue, walking_event, combat_event))
 
             loot_thread = Thread(daemon=True, target=auto_loot.loot, args=(loot_frame_queue, walking_event, combat_event))
+
+            walk_thread.start()
 
             attack_thread.start()
 
@@ -44,6 +50,7 @@ class CaveBot:
 
             attack_thread.join()
             loot_thread.join()
+            walk_thread.join()
 
             cv2.imshow("Computer Vision", frame)
 

@@ -6,6 +6,7 @@ from LoggerPackage import Logger
 from .Keyboard import Keyboard
 from .Mouse import Mouse
 from .AutoHealer import AutoHealer
+from .MoveCommand import MoveCommand
 import time
 import numpy as np
 
@@ -61,6 +62,6 @@ class Player:
     def position(self, frame: np.array) -> Position:
         return Position.check(frame)
 
-    def move_north(self) -> None:
-        Logger.debug('try to move north')
-        Keyboard.press('w')
+    def move(self, command: MoveCommand) -> None:
+        for step in range(command.steps):
+            Keyboard.press(command.key)
