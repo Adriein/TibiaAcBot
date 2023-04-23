@@ -1,6 +1,7 @@
 from ConsolePackage.Console import Console
 from Xlib import X, display
 from Xlib.ext import xtest
+from ScreenAnalizerPackage import Screen
 
 
 class Keyboard:
@@ -9,11 +10,8 @@ class Keyboard:
         # Create a connection to the X server
         d = display.Display()
 
-        # Get the window ID of the target window
-        window_id = 0x12345678
-
         # Get the target window using its ID
-        window = d.create_resource_object('window', window_id)
+        window = d.create_resource_object('window', Screen.TIBIA_WINDOW_ID)
 
         # Create a fake key event
         key_event = xtest.fake_input(d, X.KeyPress, ord(key))
