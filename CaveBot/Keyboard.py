@@ -13,7 +13,7 @@ class Keyboard:
         # Get the target window using its ID
         window = d.create_resource_object('window', Screen.TIBIA_WINDOW_ID)
 
-        keycode = d.keysym_to_keycode(XK.string_to_keysym(key))
+        keycode = 38# d.keysym_to_keycode(XK.string_to_keysym(key))
         time = X.CurrentTime
         key_press_event = event.KeyPress(
             time=time,
