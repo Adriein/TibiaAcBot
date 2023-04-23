@@ -36,7 +36,7 @@ class CaveBot:
             attack_frame_queue.put(frame)
             loot_frame_queue.put(frame)
 
-            walk_thread = Thread(daemon=True, target=cave_bot_script.start, args=(walking_event, player))
+            walk_thread = Thread(daemon=True, target=cave_bot_script.start, args=(walking_event,))
 
             attack_thread = Thread(daemon=True, target=auto_attack.attack, args=(attack_frame_queue, walking_event, combat_event))
 
