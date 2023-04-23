@@ -38,7 +38,5 @@ class Script:
 
             self.player.move(move_command)
 
-            raise Exception
-
 
 
