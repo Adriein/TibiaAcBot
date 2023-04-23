@@ -14,30 +14,24 @@ class Keyboard:
         window = d.create_resource_object('window', Screen.TIBIA_WINDOW_ID)
 
         keycode = d.keysym_to_keycode(XK.string_to_keysym(key))
-        time = X.CurrentTime
-        key_press_event = event.KeyPress(
-            time=time,
-            root=d.screen().root.id,
+        key_event = X.KeyEvent(
+            time=X.CurrentTime,
+            root=d.screen().root,
             window=Screen.TIBIA_WINDOW_ID,
             same_screen=0,
-            child=X.PointerRoot,
-            root_x=0, root_y=0, event_x=0, event_y=0,
-            state=X.Mod1Mask,
-            detail=XK.XK_a
+            child=X.NONE,
+            root_x=0,
+            root_y=0,
+            event_x=0,
+            event_y=0,
+            state=0,
+            detail=keycode
         )
-        window.send_event(key_press_event, propagate=True)
 
-        key_release_event = event.KeyRelease(
-            time=time,
-            root=d.screen().root.id,
-            window=Screen.TIBIA_WINDOW_ID,
-            same_screen=0,
-            child=X.PointerRoot,
-            root_x=0, root_y=0, event_x=0, event_y=0,
-            state=X.Mod1Mask,
-            detail=XK.XK_a
-        )
-        window.send_event(key_release_event, propagate=True)
+        d.screen().root.send_event(key_event, propagate=True)
+
+        # flush the display to make sure the event is sent immediately
+        display.flush()
 
         # Sync to make sure the event is processed
         d.sync()
