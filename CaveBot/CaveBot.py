@@ -30,6 +30,8 @@ class CaveBot:
         walking_event = Event()
         combat_event = Event()
 
+        walking_event.set()
+
         while True:
             frame = WindowCapturer.start()
 
