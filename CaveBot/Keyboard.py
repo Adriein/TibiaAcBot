@@ -38,8 +38,8 @@ class Keyboard:
             state=0,
             detail=keycode
         )
-        window.send_event(key_release_event, propagate=True)
+        d.send_event(Screen.TIBIA_WINDOW_ID, key_release_event, propagate=True)
 
         # Sync to make sure the event is processed
-        d.sync()
+        d.flush()
         # Console.execute(f'xdotool windowfocus --sync {Screen.TIBIA_WINDOW_ID} key {key}')
