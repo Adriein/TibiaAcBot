@@ -1,6 +1,6 @@
 from ConsolePackage.Console import Console
-from Xlib import X, display
-from Xlib.ext import xtest
+from Xlib import X, display, XK
+from Xlib.protocol import event
 from ScreenAnalizerPackage import Screen
 
 
@@ -13,11 +13,31 @@ class Keyboard:
         # Get the target window using its ID
         window = d.create_resource_object('window', Screen.TIBIA_WINDOW_ID)
 
-        # Create a fake key event
-        key_event = xtest.fake_input(d, X.KeyPress, ord(key))
+        keycode = d.keysym_to_keycode(XK.string_to_keysym(key))
+        time = X.CurrentTime
+        key_press_event = event.KeyPress(
+            time=time,
+            root=window.get_root().id,
+            window=Screen.TIBIA_WINDOW_ID,
+            same_screen=X.SameScreen,
+            child=X.PointerRoot,
+            root_x=0, root_y=0, event_x=0, event_y=0,
+            state=X.Mod1Mask,
+            detail=keycode
+        )
+        window.send_event(key_press_event, propagate=True)
 
-        # Send the key event to the target window without focusing it
-        window.send_event(key_event, X.SubstructureRedirectMask | X.SubstructureNotifyMask)
+        key_release_event = event.KeyRelease(
+            time=time,
+            root=window.get_root().id,
+            window=Screen.TIBIA_WINDOW_ID,
+            same_screen=X.SameScreen,
+            child=X.PointerRoot,
+            root_x=0, root_y=0, event_x=0, event_y=0,
+            state=X.Mod1Mask,
+            detail=keycode
+        )
+        window.send_event(key_release_event, propagate=True)
 
         # Sync to make sure the event is processed
         d.sync()
