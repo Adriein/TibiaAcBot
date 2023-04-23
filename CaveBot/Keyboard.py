@@ -7,7 +7,6 @@ from ScreenAnalizerPackage import Screen
 class Keyboard:
     @staticmethod
     def press(key: str):
-        print(f'key to press: {key}')
         # Create a connection to the X server
         d = display.Display()
 
