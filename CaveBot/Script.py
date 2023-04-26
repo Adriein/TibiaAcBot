@@ -3,20 +3,27 @@ from typing import Dict, Any
 from threading import Event
 from .Player import Player
 from .MoveCommand import MoveCommand
+from UtilPackage import LinkedList
 
 
 class Script:
     __INSTANCE = None
     __READ_MODE = 'r'
 
-    __data = None
+    __data: LinkedList = LinkedList()
 
     def __new__(cls, script_json_data: Dict[str, Any], player: Player):
-        cls.__data = script_json_data
-        cls.player = player
+        if cls.__INSTANCE:
+            return cls.__INSTANCE
 
-        if cls.__INSTANCE is None:
-            cls.__INSTANCE = super().__new__(cls)
+        cls.__INSTANCE = super().__new__(cls)
+
+        for command in script_json_data['walk']:
+            [steps, direction] = command
+
+            cls.__data.append(MoveCommand(steps, direction))
+
+        cls.player = player
 
         return cls.__INSTANCE
 
@@ -28,15 +35,15 @@ class Script:
         return Script(data, player)
 
     def start(self, walk_event: Event) -> None:
-        for command in self.__data['walk']:
-            [steps, direction] = command
+        if not walk_event.is_set():
+            return
 
-            move_command = MoveCommand(steps, direction)
+        while self.__data.current is not None:
+            command: MoveCommand = self.__data.current.data
 
-            if not walk_event.is_set():
-                walk_event.wait()
+            self.player.move(command)
 
-            self.player.move(move_command)
+            self.__data.next()
 
 
 
