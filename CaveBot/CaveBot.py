@@ -53,8 +53,8 @@ class CaveBot:
             attack_thread.join()
             loot_thread.join()
 
-            cv2.imshow("Computer Vision", frame)
+            # cv2.imshow("Computer Vision", frame)
 
-            if cv2.waitKey(1) == ord('q'):
-                cv2.destroyAllWindows()
-                break
+            # if cv2.waitKey(1) == ord('q'):
+              #  cv2.destroyAllWindows()
+               # break
