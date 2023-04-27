@@ -16,6 +16,6 @@
     [4, "west"],
     [9, "north"],
     [4, "east"],
-    [4, "north"]
+    [3, "north"]
   ]
 }
