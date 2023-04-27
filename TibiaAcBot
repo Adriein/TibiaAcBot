@@ -21,8 +21,8 @@ Tasks
 4. Be able to read your health bar and mana -> done
 5. Be able to move -> done
 6. Be able to explore
-7. Be able to identify battle list and attack
-8. Be able to loot dead corpses
+7. Be able to identify battle list and attack -> done
+8. Be able to loot dead corpses -> done
 
 CaveBot steps
 =================================================================================================
@@ -33,20 +33,10 @@ CaveBot steps
 
 Issues
 =================================================================================================
-Since we are using multiple threads attacking the same opened window we should use some
-lock system to not walk and heal at the same time
 
-Some of the commands using xdotool are shown in console, is there any silent mode to avoid this without losing the
-intented stdout we want to retrieve?
 
-AutoAttack
+Miscelania
 =================================================================================================
-Check if in the battle list exist more than N creatures if so stop walking
-Attack the first creature of the battle list because the list is ordered by proximity
-Every fps we check a perimeter of 1sqm in all directions of the player analizing creature outlines that
-differs from sqm outline
-then when the creature is dead we loot it and mark the sqm as looted
-
 The Game Window can render a maximum of 15 × 11 square meters (fields) with the size of 32 × 32 pixels each,
 if not enlarged or reduced.
 

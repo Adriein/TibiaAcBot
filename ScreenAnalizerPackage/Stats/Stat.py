@@ -28,10 +28,10 @@ class Stat(ABC):
         stats_pixel_height = math.ceil(Screen.MONITOR.height / 2)
 
         return ScreenRegion(
-            left=Screen.MONITOR.width - stats_pixel_width,
-            top=0,
-            width=stats_pixel_width,
-            height=stats_pixel_height
+            start_x=Screen.MONITOR.width - stats_pixel_width,
+            end_x=stats_pixel_width,
+            start_y=0,
+            end_y=stats_pixel_height
         )
 
     def get(self) -> int:
