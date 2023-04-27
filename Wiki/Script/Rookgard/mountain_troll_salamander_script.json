@@ -1,14 +1,5 @@
 {
   "walk": [
-    [14, "north"],
-    [8, "east"],
-    [5, "south"],
-    [3, "east"],
-    [5, "south"],
-    [7, "east"],
-    [9, "south"],
-    [2, "east"],
-    [22, "south"],
-    [43, "west"]
+    [14, "north"]
   ]
 }
