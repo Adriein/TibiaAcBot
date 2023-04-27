@@ -21,7 +21,10 @@ class Script:
         for command in script_json_data['walk']:
             [steps, direction] = command
 
-            cls.__data.append(MoveCommand(steps, direction))
+            move_command = MoveCommand(steps, direction)
+
+            for step in range(move_command.steps):
+                cls.__data.append(MoveCommand(steps, direction))
 
         cls.player = player
 
@@ -44,6 +47,3 @@ class Script:
             self.player.move(command)
 
             self.__data.next()
-
-
-

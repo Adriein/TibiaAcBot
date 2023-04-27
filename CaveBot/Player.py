@@ -63,6 +63,4 @@ class Player:
         return Position.check(frame)
 
     def move(self, command: MoveCommand) -> None:
-        for step in range(command.steps):
-            time.sleep(1)
-            Keyboard.press(command.key)
+        Keyboard.press(command.key)
