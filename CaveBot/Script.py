@@ -1,4 +1,5 @@
 import json
+import time
 from typing import Dict, Any
 from threading import Event
 from .Player import Player
@@ -43,6 +44,8 @@ class Script:
                 continue
 
             command: MoveCommand = self.__data.current.data
+
+            time.sleep(0.5)
 
             self.player.move(command)
 
