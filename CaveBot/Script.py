@@ -35,10 +35,10 @@ class Script:
         return Script(data, player)
 
     def start(self, walk_event: Event) -> None:
-        if not walk_event.is_set():
-            return
-
         while self.__data.current is not None:
+            if not walk_event.is_set():
+                continue
+
             command: MoveCommand = self.__data.current.data
 
             self.player.move(command)
