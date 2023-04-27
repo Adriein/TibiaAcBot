@@ -8,5 +8,5 @@ class MoveCommand:
     __BASE_0_RANGE_FIX = 1
 
     def __init__(self, steps: int, direction: str):
-        self.steps = steps - self.__BASE_0_RANGE_FIX
+        self.steps = steps
         self.key = self.__DIRECTION_KEYBOARD_MAP.get(direction)
