@@ -45,7 +45,7 @@ class Script:
 
             command: MoveCommand = self.__data.current.data
 
-            time.sleep(1)
+            time.sleep(0.6)
 
             self.player.move(command)
 
