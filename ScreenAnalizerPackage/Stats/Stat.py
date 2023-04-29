@@ -30,7 +30,7 @@ class Stat(ABC):
 
         return ScreenRegion(
             start_x=Screen.MONITOR.width - stats_pixel_width,
-            end_x=Screen.MONITOR.width - stats_pixel_width + stats_pixel_width,
+            end_x=Screen.MONITOR.width,
             start_y=0,
             end_y=stats_pixel_height
         )
