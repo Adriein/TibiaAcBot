@@ -44,8 +44,8 @@ class Stat(ABC):
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         region = ScreenRegion(
-            start_x=stat_location.start_y + Stat.BASE_STAT_DISTANCE,
-            end_x=stat_location.start_y + Stat.BASE_STAT_DISTANCE + 8,
+            start_x=stat_location.start_x + Stat.BASE_STAT_DISTANCE,
+            end_x=stat_location.start_x + Stat.BASE_STAT_DISTANCE + 8,
             start_y=stat_location.start_y,
             end_y=stat_location.start_y + 12,
         )
@@ -55,12 +55,6 @@ class Stat(ABC):
         try:
             while True:
                 number_roi = frame[region.start_y: region.end_y, region.start_x: region.end_x]
-
-                cv2.imshow("Computer Vision", number_roi)
-
-                if cv2.waitKey(1) == ord('q'):
-                    cv2.destroyAllWindows()
-                    break
 
                 result = Scanner.number(confidence=0.6, number_roi=number_roi)
 
