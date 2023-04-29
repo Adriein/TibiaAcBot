@@ -28,7 +28,18 @@ class HitPoint(Stat):
 
         height, width = hp_stat_template.shape
 
-        end_x = start_x + width
-        end_y = start_y + height
+        frame_start_x = region.start_x + start_x
+        frame_start_y = region.start_y + start_y
+        frame_end_x = frame_start_x + width
+        frame_end_y = frame_start_y + height
 
-        return ScreenRegion(start_x=start_x, end_x=end_x, start_y=start_y, end_y=end_y)
+        roi = frame[frame_start_y: frame_end_y, frame_start_x: frame_end_x]
+
+        if cv2.waitKey(1):
+            cv2.destroyAllWindows()
+
+        # show the output image
+        cv2.imshow("Output", roi)
+        cv2.waitKey(0)
+
+        return ScreenRegion(start_x=frame_start_x, end_x=frame_end_x, start_y=frame_start_y, end_y=frame_end_y)
