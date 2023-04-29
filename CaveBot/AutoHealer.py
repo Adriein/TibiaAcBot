@@ -1,5 +1,5 @@
 from LoggerPackage import Logger as TibiaAcBotLogger
-from Keyboard import Keyboard
+from .Keyboard import Keyboard
 
 
 class AutoHealer:
