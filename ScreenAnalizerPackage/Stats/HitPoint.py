@@ -16,11 +16,6 @@ class HitPoint(Stat):
 
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-        print(region.start_y)
-        print(region.end_y)
-        print(region.start_x)
-        print(region.end_x)
-
         hp_roi = frame[region.start_y: region.end_y, region.start_x: region.end_x]
 
         hp_stat_template = Cv2File.load_image('Wiki/Stat/hp.png')
@@ -36,19 +31,4 @@ class HitPoint(Stat):
         end_x = start_x + width
         end_y = start_y + height
 
-        roi = frame[start_y: end_y + 100, start_x: end_x + 100]
-
-        print(region.start_y)
-        print(region.end_y)
-        print(region.start_x)
-        print(region.end_x)
-
-        if cv2.waitKey(1):
-            cv2.destroyAllWindows()
-        # show the output image
-        cv2.imshow("Output", roi)
-        cv2.waitKey(0)
-
-
-
-        return ScreenRegion(start_x, end_x, start_y, end_y)
+        return ScreenRegion(start_x=start_x, end_x=end_x, start_y=start_y, end_y=end_y)
