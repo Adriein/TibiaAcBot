@@ -36,4 +36,12 @@ class HitPoint(Stat):
         end_x = start_x + width
         end_y = start_y + height
 
+        roi = frame[start_y: end_y, start_x: end_x]
+
+        if cv2.waitKey(1):
+            cv2.destroyAllWindows()
+        # show the output image
+        cv2.imshow("Output", roi)
+        cv2.waitKey(0)
+
         return ScreenRegion(start_x, end_x, start_y, end_y)
