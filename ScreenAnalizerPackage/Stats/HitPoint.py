@@ -16,6 +16,11 @@ class HitPoint(Stat):
 
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
+        print(region.start_y)
+        print(region.end_y)
+        print(region.start_x)
+        print(region.end_x)
+
         hp_roi = frame[region.start_y: region.end_y, region.start_x: region.end_x]
 
         if cv2.waitKey(1):
