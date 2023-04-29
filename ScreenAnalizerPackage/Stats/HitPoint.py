@@ -23,13 +23,6 @@ class HitPoint(Stat):
 
         hp_roi = frame[region.start_y: region.end_y, region.start_x: region.end_x]
 
-        if cv2.waitKey(1):
-            cv2.destroyAllWindows()
-
-        # show the output image
-        cv2.imshow("Output", hp_roi)
-        cv2.waitKey(0)
-
         hp_stat_template = Cv2File.load_image('Wiki/Stat/hp.png')
 
         match = cv2.matchTemplate(hp_roi, hp_stat_template, cv2.TM_CCOEFF_NORMED)
