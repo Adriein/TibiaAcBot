@@ -31,30 +31,12 @@ class Screen:
         return cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
 
     @staticmethod
-    def roi_screenshot(path: str, region: ScreenRegion) -> None:
-        pyautogui.screenshot(path, region=(
-            region.left,
-            region.top,
-            region.width,
-            region.height
-        ))
-
-    @staticmethod
-    def move_roi_pointer_left(pixels: int | float, region: ScreenRegion) -> ScreenRegion:
-        return ScreenRegion(
-            region.left - pixels,
-            region.top,
-            region.width,
-            region.height
-        )
-
-    @staticmethod
     def move_roi_pointer_right(pixels: int | float, region: ScreenRegion) -> ScreenRegion:
         return ScreenRegion(
-            region.left + pixels,
-            region.top,
-            region.width,
-            region.height
+            start_x=region.start_x + pixels,
+            end_x=region.start_x + pixels + 8,
+            start_y=region.start_y,
+            end_y=region.end_y
         )
 
     @staticmethod

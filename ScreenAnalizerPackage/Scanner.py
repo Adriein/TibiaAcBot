@@ -49,17 +49,13 @@ class Scanner:
         return start_x, start_y, end_x, end_y, position_direction
 
     @staticmethod
-    def number(confidence: float, template_path: str) -> int:
+    def number(confidence: float, number_roi: np.array) -> int:
         number_coincidence = [(0, 0)]
 
         for number in range(10):
             number_image = Cv2File.load_image(f'Wiki/Number/{number}.png')
 
-            [number_template_path] = glob(template_path)
-
-            number_template = Cv2File.load_image(number_template_path)
-
-            match = cv2.matchTemplate(number_image, number_template, cv2.TM_CCOEFF_NORMED)
+            match = cv2.matchTemplate(number_image, number_roi, cv2.TM_CCOEFF_NORMED)
 
             [_, max_coincidence, _, _] = cv2.minMaxLoc(match)
 
