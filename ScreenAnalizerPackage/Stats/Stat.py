@@ -54,12 +54,13 @@ class Stat(ABC):
 
         try:
             while True:
-                print(region.start_y)
-                print(region.end_y)
-                print(region.start_x)
-                print(region.end_x)
-                print('_________________________________________________')
                 number_roi = frame[region.start_y: region.end_y, region.start_x: region.end_x]
+
+                cv2.imshow("Computer Vision", number_roi)
+
+                if cv2.waitKey(1) == ord('q'):
+                    cv2.destroyAllWindows()
+                    break
 
                 result = Scanner.number(confidence=0.6, number_roi=number_roi)
 
