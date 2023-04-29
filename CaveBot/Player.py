@@ -23,19 +23,18 @@ class Player:
         self.mouse = mouse
 
     # STATS
-    def health(self) -> int:
-        player_health = self.hp.get()
+    def health(self, frame: np.array) -> int:
+        player_health = self.hp.get(frame)
         Logger.debug(f'health: {player_health}')
 
         return player_health
 
-    def watch_health(self) -> None:
-        while True:
-            time.sleep(3)
-            current_hp = self.health()
+    def watch_health(self, frame: np.array) -> None:
+        time.sleep(1)
+        current_hp = self.health(frame)
 
-            if self.auto_healer.have_to_be_healed(current_hp):
-                self.auto_healer.heal()
+        if self.auto_healer.have_to_be_healed(current_hp):
+            self.auto_healer.heal()
 
     def mana(self) -> int:
         player_mana = self.mana_bar.get()

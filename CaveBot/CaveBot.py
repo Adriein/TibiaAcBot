@@ -15,7 +15,6 @@ class CaveBot:
 
         player = Player.create()
 
-        # Thread(daemon=True, target=player.watch_health).start()
         # Thread(daemon=True, target=player.watch_mana).start()
 
         auto_attack = AutoAttack.start(player)
@@ -42,16 +41,21 @@ class CaveBot:
             attack_frame_queue.put(frame)
             loot_frame_queue.put(frame)
 
+            health_thread = Thread(daemon=True, target=player.watch_health, args=(frame,))
+
             attack_thread = Thread(daemon=True, target=auto_attack.attack, args=(attack_frame_queue, walking_event, combat_event))
 
             loot_thread = Thread(daemon=True, target=auto_loot.loot, args=(loot_frame_queue, walking_event, combat_event))
 
-            attack_thread.start()
+            health_thread.start()
 
-            loot_thread.start()
+            # attack_thread.start()
 
-            attack_thread.join()
-            loot_thread.join()
+            # loot_thread.start()
+
+            health_thread.join()
+            # attack_thread.join()
+            # loot_thread.join()
 
             # cv2.imshow("Computer Vision", frame)
 
