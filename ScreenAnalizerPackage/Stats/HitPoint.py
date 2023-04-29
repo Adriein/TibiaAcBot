@@ -22,7 +22,7 @@ class HitPoint(Stat):
             cv2.destroyAllWindows()
 
         # show the output image
-        cv2.imshow("Output", hp_roi)
+        cv2.imshow("Output", frame)
         cv2.waitKey(0)
 
         hp_stat_template = Cv2File.load_image('Wiki/Stat/hp.png')
