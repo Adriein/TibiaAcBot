@@ -1,5 +1,5 @@
-from ScreenAnalizerPackage import Stat
-from ScreenAnalizerPackage import ScreenRegion
+from ScreenAnalizerPackage.Stats.Stat import Stat
+from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
 from FilesystemPackage import Cv2File
 import numpy as np
 import cv2
