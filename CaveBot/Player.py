@@ -25,7 +25,6 @@ class Player:
     # STATS
     def health(self, frame: np.array) -> int:
         player_health = self.hp.get(frame)
-        Logger.debug(f'health: {player_health}')
 
         return player_health
 

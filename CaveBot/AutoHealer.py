@@ -1,4 +1,5 @@
 from LoggerPackage import Logger as TibiaAcBotLogger
+from Keyboard import Keyboard
 
 
 class AutoHealer:
@@ -7,6 +8,7 @@ class AutoHealer:
 
     def heal(self) -> None:
         TibiaAcBotLogger.debug(f'player healed')
+        Keyboard.press('r')
 
     def have_to_be_healed(self, hp: int) -> bool:
         return hp <= self.HIT_POINT_THRESHOLD
