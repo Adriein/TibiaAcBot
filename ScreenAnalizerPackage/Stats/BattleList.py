@@ -32,15 +32,14 @@ class BattleList:
         results = list()
 
         for enemy in enemies:
-            print(f'Wiki/Ui/Battle/Mobs/{String.snake_to_camel_case(enemy)}/{enemy}_label.png')
             enemy_path = f'Wiki/Ui/Battle/Mobs/{String.snake_to_camel_case(enemy)}/{enemy}_label.png'
             creature_template = Cv2File.load_image(enemy_path)
 
             match = cv2.matchTemplate(battle_list_roi, creature_template, cv2.TM_CCOEFF_NORMED)
-
+            print(match)
             # match_locations = (y_match_coords, x_match_coords) >= similarity more than threshold
             match_locations = np.where(match >= 0.9)
-            print(match_locations)
+
             # paired_match_locations = [(x, y), (x, y)]
             paired_match_locations = list(zip(*match_locations[::-1]))
 
