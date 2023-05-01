@@ -64,9 +64,10 @@ class BattleList:
 
                     results.append(battle_list_position)
 
-                return results
-
+        if not results:
             raise NoEnemyFound()
+
+        return results
 
     def is_nearest_enemy_attacked(self, frame: np.array, nearest_creature_region: ScreenRegion) -> bool:
         start_x = nearest_creature_region.start_x

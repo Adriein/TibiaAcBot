@@ -21,23 +21,23 @@ class AutoAttack:
 
     def attack(self, frame: np.array) -> None:
         try:
-            while True:
-                creature_coords_in_battle_list = self.battle_list.find_enemies(frame, self.creatures)
+            creature_coords_in_battle_list = self.battle_list.find_enemies(frame, self.creatures)
 
-                self.walk_event.clear()
+            self.walk_event.clear()
 
-                self.combat_event.set()
+            self.combat_event.set()
 
-                nearest_creature = Enemy('mountain_troll', creature_coords_in_battle_list[0])
+            nearest_creature = Enemy('mountain_troll', creature_coords_in_battle_list[0])
 
-                creature_click_coordinate = nearest_creature.click_coords()
+            creature_click_coordinate = nearest_creature.click_coords()
 
-                cv2.drawMarker(frame, (creature_click_coordinate.x, creature_click_coordinate.y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
+            cv2.drawMarker(frame, (creature_click_coordinate.x, creature_click_coordinate.y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
 
-                if not self.battle_list.is_nearest_enemy_attacked(frame, nearest_creature.position):
-                    self.player.attack(creature_click_coordinate)
+            if not self.battle_list.is_nearest_enemy_attacked(frame, nearest_creature.position):
+                self.player.attack(creature_click_coordinate)
 
-                    time.sleep(1)
+                time.sleep(1)
+
         except NoEnemyFound:
             self.combat_event.clear()
             return
