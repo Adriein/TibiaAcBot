@@ -34,7 +34,7 @@ class CaveBot:
 
         auto_loot = AutoLoot(player, walking_event, combat_event)
 
-        # self.__start_walking(cave_bot_script, walking_event)
+        self.__start_walking(cave_bot_script, walking_event)
 
         while True:
             frame = WindowCapturer.start()
