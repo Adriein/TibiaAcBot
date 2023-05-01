@@ -62,9 +62,7 @@ class Stat(ABC):
 
                 region = Screen.move_roi_pointer_right(7, region)
 
-        except ImageIsNotNumber as error:
-            Logger.debug(str(error))
-
+        except ImageIsNotNumber:
             if not number_collection:
                 raise StatNotFound
 

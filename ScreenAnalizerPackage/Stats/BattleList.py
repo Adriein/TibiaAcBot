@@ -32,6 +32,7 @@ class BattleList:
         results = list()
 
         for enemy in enemies:
+            print(f'Wiki/Ui/Battle/Mobs/{String.snake_to_camel_case(enemy)}/{enemy}_label.png')
             enemy_path = f'Wiki/Ui/Battle/Mobs/{String.snake_to_camel_case(enemy)}/{enemy}_label.png'
             creature_template = Cv2File.load_image(enemy_path)
 
@@ -47,6 +48,7 @@ class BattleList:
 
             if ordered_match_locations:
                 for (nearest_creature_battle_list_roi_x, nearest_creature_battle_list_roi_y) in ordered_match_locations:
+                    print(nearest_creature_battle_list_roi_x)
                     creature_template_height, creature_template_width = creature_template.shape
 
                     frame_creature_position_start_x = self.region.start_x + nearest_creature_battle_list_roi_x
