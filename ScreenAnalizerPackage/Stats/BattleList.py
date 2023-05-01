@@ -36,7 +36,8 @@ class BattleList:
             creature_template = Cv2File.load_image(enemy_path)
 
             match = cv2.matchTemplate(battle_list_roi, creature_template, cv2.TM_CCOEFF_NORMED)
-
+            [_, max_coincidence, _, _] = cv2.minMaxLoc(match)
+            print(max_coincidence)
             # match_locations = (y_match_coords, x_match_coords) >= similarity more than threshold
             match_locations = np.where(match >= 0.9)
 
@@ -47,6 +48,7 @@ class BattleList:
 
             if ordered_match_locations:
                 for (nearest_creature_battle_list_roi_x, nearest_creature_battle_list_roi_y) in ordered_match_locations:
+                    print(nearest_creature_battle_list_roi_x)
                     creature_template_height, creature_template_width = creature_template.shape
 
                     frame_creature_position_start_x = self.region.start_x + nearest_creature_battle_list_roi_x
