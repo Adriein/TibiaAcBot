@@ -2,6 +2,7 @@ from ScreenAnalizerPackage.Scanner import Scanner
 from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
 from ScreenAnalizerPackage.Error.NoEnemyFound import NoEnemyFound
 from FilesystemPackage import Cv2File
+from UtilPackage import String
 import numpy as np
 import cv2
 
@@ -23,46 +24,48 @@ class BattleList:
     def __init__(self, region: ScreenRegion):
         self.region = region
 
-    def find_enemies(self, frame: np.array) -> list[ScreenRegion]:
+    def find_enemies(self, frame: np.array, enemies: list[str]) -> list[ScreenRegion]:
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         battle_list_roi = frame[self.region.start_y: self.region.end_y, self.region.start_x: self.region.end_x]
 
-        creature_template = Cv2File.load_image('Wiki/Ui/Battle/Mobs/MountainTroll/mountain_troll_label.png')
+        results = list()
 
-        match = cv2.matchTemplate(battle_list_roi, creature_template, cv2.TM_CCOEFF_NORMED)
+        for enemy in enemies:
+            enemy_path = f'Wiki/Ui/Battle/Mobs/{String.snake_to_camel_case(enemy)}/{enemy}_label.png'
+            creature_template = Cv2File.load_image(enemy_path)
 
-        # match_locations = (y_match_coords, x_match_coords) >= similarity more than threshold
-        match_locations = np.where(match >= 0.9)
+            match = cv2.matchTemplate(battle_list_roi, creature_template, cv2.TM_CCOEFF_NORMED)
 
-        # paired_match_locations = [(x, y), (x, y)]
-        paired_match_locations = list(zip(*match_locations[::-1]))
+            # match_locations = (y_match_coords, x_match_coords) >= similarity more than threshold
+            match_locations = np.where(match >= 0.9)
 
-        ordered_match_locations = sorted(paired_match_locations, key=lambda pair: pair[1], reverse=False)
+            # paired_match_locations = [(x, y), (x, y)]
+            paired_match_locations = list(zip(*match_locations[::-1]))
 
-        if ordered_match_locations:
-            results = list()
+            ordered_match_locations = sorted(paired_match_locations, key=lambda pair: pair[1], reverse=False)
 
-            for (nearest_creature_battle_list_roi_x, nearest_creature_battle_list_roi_y) in ordered_match_locations:
-                creature_template_height, creature_template_width = creature_template.shape
+            if ordered_match_locations:
+                for (nearest_creature_battle_list_roi_x, nearest_creature_battle_list_roi_y) in ordered_match_locations:
+                    creature_template_height, creature_template_width = creature_template.shape
 
-                frame_creature_position_start_x = self.region.start_x + nearest_creature_battle_list_roi_x
-                frame_creature_position_start_y = self.region.start_y + nearest_creature_battle_list_roi_y
-                frame_creature_end_x = frame_creature_position_start_x + creature_template_width
-                frame_creature_end_y = frame_creature_position_start_y + creature_template_height
+                    frame_creature_position_start_x = self.region.start_x + nearest_creature_battle_list_roi_x
+                    frame_creature_position_start_y = self.region.start_y + nearest_creature_battle_list_roi_y
+                    frame_creature_end_x = frame_creature_position_start_x + creature_template_width
+                    frame_creature_end_y = frame_creature_position_start_y + creature_template_height
 
-                battle_list_position = ScreenRegion(
-                    frame_creature_position_start_x,
-                    frame_creature_end_x,
-                    frame_creature_position_start_y,
-                    frame_creature_end_y
-                )
+                    battle_list_position = ScreenRegion(
+                        frame_creature_position_start_x,
+                        frame_creature_end_x,
+                        frame_creature_position_start_y,
+                        frame_creature_end_y
+                    )
 
-                results.append(battle_list_position)
+                    results.append(battle_list_position)
 
-            return results
+                return results
 
-        raise NoEnemyFound()
+            raise NoEnemyFound()
 
     def is_nearest_enemy_attacked(self, frame: np.array, nearest_creature_region: ScreenRegion) -> bool:
         start_x = nearest_creature_region.start_x
@@ -70,7 +73,7 @@ class BattleList:
         end_y = nearest_creature_region.end_y
 
         battle_list_attack_template = Cv2File.load_image(
-            'Wiki/Ui/Battle/Mobs/MountainTroll/mountain_troll_attacked.png',
+            'Wiki/Ui/Battle/Mobs/creature_attacked_placeholder.png',
             grey_scale=False
         )
 

@@ -13,14 +13,14 @@ import cv2
 
 
 class AutoLoot:
-    def __init__(self, player: Player):
+    def __init__(self, player: Player, walk_event: Event, combat_event: Event):
         self.player = player
+        self.walk_event = walk_event
+        self.combat_event = combat_event
 
-    def loot(self, frame_queue: Queue, walk_event: Event, combat_event: Event) -> None:
-        frame = frame_queue.get()
-
+    def loot(self, frame: np.array) -> None:
         try:
-            if walk_event.is_set() or combat_event.is_set():
+            if self.walk_event.is_set() or self.combat_event.is_set():
                 return
 
             position = self.player.position(frame)
@@ -75,11 +75,9 @@ class AutoLoot:
 
                 time.sleep(2)
 
-            walk_event.set()
+            self.walk_event.set()
 
         except PositionError:
-            pass
-        except Exception:
             pass
 
     def __create_looting_area(self, player_position: Position) -> ScreenRegion:

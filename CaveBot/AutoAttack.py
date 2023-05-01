@@ -7,30 +7,25 @@ from queue import Queue
 from threading import Event
 import time
 import cv2
+import numpy as np
 
 
 class AutoAttack:
-    @staticmethod
-    def start(player: Player) -> 'AutoAttack':
+    def __init__(self, player: Player, walk_event: Event, combat_event: Event, creatures: list[str]):
         initial_frame = WindowCapturer.start()
-
-        battle_list = BattleList.create(initial_frame)
-
-        return AutoAttack(battle_list, player)
-
-    def __init__(self, battle_list: BattleList, player: Player):
-        self.battle_list = battle_list
+        self.battle_list = BattleList.create(initial_frame)
         self.player = player
+        self.walk_event = walk_event
+        self.combat_event = combat_event
+        self.creatures = creatures
 
-    def attack(self, frame_queue: Queue, walk_event: Event, combat_event: Event) -> None:
-        frame = frame_queue.get()
-
+    def attack(self, frame: np.array) -> None:
         try:
-            creature_coords_in_battle_list = self.battle_list.find_enemies(frame)
+            creature_coords_in_battle_list = self.battle_list.find_enemies(frame, self.creatures)
 
-            walk_event.clear()
+            self.walk_event.clear()
 
-            combat_event.set()
+            self.combat_event.set()
 
             nearest_creature = Enemy('mountain_troll', creature_coords_in_battle_list[0])
 
@@ -44,7 +39,7 @@ class AutoAttack:
                 time.sleep(1)
 
         except NoEnemyFound:
-            combat_event.clear()
+            self.combat_event.clear()
             return
 
         except Exception as exception:

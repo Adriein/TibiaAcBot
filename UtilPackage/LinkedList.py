@@ -31,9 +31,6 @@ class LinkedList:
 
         current_node.next = new_node
 
-    def pause(self, current_node: Node):
-        self.current = current_node
-
     def next(self) -> None:
         if self.current.next is None:
             self.current = self.head
