@@ -19,6 +19,7 @@
     [3, "north"]
   ],
   "creatures": [
+    "mountain_troll",
     "troll_trained_salamander"
   ]
 }
