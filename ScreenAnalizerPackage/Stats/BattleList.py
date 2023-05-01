@@ -40,7 +40,7 @@ class BattleList:
 
             # match_locations = (y_match_coords, x_match_coords) >= similarity more than threshold
             match_locations = np.where(match >= 0.9)
-
+            print(match_locations)
             # paired_match_locations = [(x, y), (x, y)]
             paired_match_locations = list(zip(*match_locations[::-1]))
 
