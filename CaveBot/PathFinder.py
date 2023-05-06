@@ -40,6 +40,4 @@ class PathFinder:
         # print(max_coincidence)
 
     def __get_pixel_from_coordinate(self, coordinate: MapCoordinate) -> Coordinate:
-        x, y, _ = coordinate
-
-        return Coordinate(x - 31744, y - 30976)
+        return Coordinate(coordinate.x - 31744, coordinate.y - 30976)
