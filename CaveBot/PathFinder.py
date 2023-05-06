@@ -14,7 +14,7 @@ class PathFinder:
 
         mini_map_frame = grey_scale_frame[start_y:end_y, start_x:end_x]
 
-        tibia_map = Cv2File.load_image(f'Wiki/Ui/Map/Floors/floor-{map_coordinate.z}.png')
+        tibia_map = Cv2File.load_image(f'Wiki/Ui/Map/Floors/floor-5.png')
 
         match = cv2.matchTemplate(tibia_map, mini_map_frame, cv2.TM_CCOEFF_NORMED)
 
