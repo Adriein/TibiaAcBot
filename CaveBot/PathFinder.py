@@ -2,23 +2,44 @@ import numpy as np
 import cv2
 from ScreenAnalizerPackage import Scanner
 from FilesystemPackage import Cv2File
+from .MapCoordinate import MapCoordinate
+from ScreenAnalizerPackage import Coordinate
 
 
 class PathFinder:
     def where_am_i(self, frame: np.array):
-        grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        map_coordinate = MapCoordinate(32063, 31884, 5)
 
-        (start_x, end_x, start_y, end_y) = Scanner.mini_map_position(grey_scale_frame)
+        coordinate = self.__get_pixel_from_coordinate(map_coordinate)
+        # grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-        mini_map_frame = grey_scale_frame[start_y:end_y, start_x:end_x]
+        # (start_x, end_x, start_y, end_y) = Scanner.mini_map_position(grey_scale_frame)
 
-        tibia_map = Cv2File.load_image('Wiki/Ui/Map/Floors/floor-5.png')
+        # mini_map_frame = grey_scale_frame[start_y:end_y, start_x:end_x]
 
-        match = cv2.matchTemplate(tibia_map, mini_map_frame, cv2.TM_CCOEFF_NORMED)
+        tibia_map = Cv2File.load_image(f'Wiki/Ui/Map/Floors/floor-{map_coordinate.z}.png')
 
-        [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
+        cv2.drawMarker(tibia_map, (coordinate.x, coordinate.y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
 
-        (start_x, start_y) = max_coordinates
+        test = tibia_map[coordinate.y:coordinate.y + 300, coordinate.x:coordinate.x + 300]
 
-        print(max_coordinates)
-        print(max_coincidence)
+        if cv2.waitKey(1):
+            cv2.destroyAllWindows()
+
+        # show the output image
+        cv2.imshow("Output", test)
+        cv2.waitKey(0)
+
+        # match = cv2.matchTemplate(tibia_map, mini_map_frame, cv2.TM_CCOEFF_NORMED)
+
+        # [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
+
+        # (start_x, start_y) = max_coordinates
+
+        # print(max_coordinates)
+        # print(max_coincidence)
+
+    def __get_pixel_from_coordinate(self, coordinate: MapCoordinate) -> Coordinate:
+        x, y, _ = coordinate
+
+        return Coordinate(x - 31744, y - 30976)
