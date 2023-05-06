@@ -21,7 +21,7 @@ class PathFinder:
 
         cv2.drawMarker(tibia_map, (coordinate.x, coordinate.y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
 
-        test = tibia_map[coordinate.y:coordinate.y + 300, coordinate.x:coordinate.x + 300]
+        test = tibia_map[coordinate.y - 100:coordinate.y + 100, coordinate.x - 100:coordinate.x + 100]
 
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
