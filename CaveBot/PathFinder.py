@@ -8,34 +8,56 @@ from ScreenAnalizerPackage import Coordinate
 
 class PathFinder:
     def where_am_i(self, frame: np.array):
+        initial_map_coordinate = MapCoordinate(32063, 31884, 5)
         grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+        tibia_map = Cv2File.load_image(f'Wiki/Ui/Map/Floors/floor-5.png')
+
+        # find position of minimap in the screen
 
         (start_x, end_x, start_y, end_y) = Scanner.mini_map_position(grey_scale_frame)
 
         mini_map_frame = grey_scale_frame[start_y:end_y, start_x:end_x]
 
-        tibia_map = Cv2File.load_image(f'Wiki/Ui/Map/Floors/floor-5.png')
+        height, width = mini_map_frame.shape
 
-        match = cv2.matchTemplate(tibia_map, mini_map_frame, cv2.TM_CCOEFF_NORMED)
+        # extract the coordinates of the player position using cross needle
+
+        player_coordinates = self.__get_mini_map_player_position(mini_map_frame)
+
+        # cut a portion of the map based on start coordinate
+
+        coordinate = self.__get_pixel_from_coordinate(initial_map_coordinate)
+
+        tibia_map_roi = tibia_map[coordinate.y - 400:coordinate.y + 400, coordinate.x - 400:coordinate.x + 400]
+
+        # find on this map portion the minimap
+
+        match = cv2.matchTemplate(tibia_map_roi, mini_map_frame, cv2.TM_CCOEFF_NORMED)
 
         [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
 
-        (start_x, start_y) = max_coordinates
+        (x, y) = max_coordinates
 
-        test = tibia_map[start_y - 100:start_y + 100, start_x - 100:start_x + 100]
+        start_x = (coordinate.x - 400) + x + player_coordinates.x
+        start_y = (coordinate.y - 400) + y + player_coordinates.y
 
-        if cv2.waitKey(1):
-            cv2.destroyAllWindows()
+        print(self.__get_map_coordinate_from_pixel(Coordinate(start_x, start_y), initial_map_coordinate.z))
 
-        # show the output image
-        cv2.imshow("Output", test)
-        cv2.waitKey(0)
-
-        # print(max_coordinates)
-        # print(max_coincidence)
-
+    def __get_map_coordinate_from_pixel(self, coordinate: Coordinate, floor: int) -> MapCoordinate:
+        return MapCoordinate(coordinate.x + 31744, coordinate.y + 30976, floor)
     def __get_pixel_from_coordinate(self, coordinate: MapCoordinate) -> Coordinate:
         return Coordinate(coordinate.x - 31744, coordinate.y - 30976)
+
+    def __get_mini_map_player_position(self, mini_map_frame: np.array) -> Coordinate:
+        map_position_cross = Cv2File.load_image(f'Wiki/Ui/Map/map_position_cross.png')
+        match = cv2.matchTemplate(mini_map_frame, map_position_cross, cv2.TM_CCOEFF_NORMED)
+
+        [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
+
+        (x, y) = max_coordinates
+
+        return Coordinate(x, y)
 
     def map_position_based_on_map_coordinate(self) -> None:
         map_coordinate = MapCoordinate(32063, 31884, 5)
