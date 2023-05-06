@@ -25,7 +25,7 @@ class PathFinder:
 
         player_coordinates = self.__get_mini_map_player_position(mini_map_frame)
 
-        cv2.drawMarker(frame, (player_coordinates.x, player_coordinates.y), (255, 0, 0), cv2.MARKER_CROSS, cv2.LINE_4)
+        cv2.drawMarker(frame, (player_coordinates.x, player_coordinates.y), (255, 0, 255), cv2.MARKER_DIAMOND, cv2.LINE_4)
 
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
