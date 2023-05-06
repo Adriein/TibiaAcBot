@@ -31,7 +31,7 @@ class PathFinder:
 
         print(coordinate.x, coordinate.y)
 
-        tibia_map_roi = tibia_map[coordinate.y - 400:coordinate.y + 400, coordinate.x - 400:coordinate.x + 400]
+        tibia_map_roi = tibia_map[coordinate.y - 100:coordinate.y + 100, coordinate.x - 100:coordinate.x + 100]
 
         # find on this map portion the minimap
 
@@ -41,8 +41,8 @@ class PathFinder:
 
         (x, y) = max_coordinates
 
-        start_x = (coordinate.x - 400) + x + player_coordinates.x
-        start_y = (coordinate.y - 400) + y + player_coordinates.y
+        start_x = (coordinate.x - 100) + x + player_coordinates.x
+        start_y = (coordinate.y - 100) + y + player_coordinates.y
 
         print(self.__get_map_coordinate_from_pixel(Coordinate(start_x, start_y), initial_map_coordinate.z))
 
