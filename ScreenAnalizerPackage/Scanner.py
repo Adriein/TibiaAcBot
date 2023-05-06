@@ -13,7 +13,7 @@ class Scanner:
     def mini_map_position(frame: np.array) -> tuple[int, int, int, int]:
         mini_map_anchor = Cv2File.load_image('Wiki/Ui/Map/radar_anchor.png')
 
-        match = cv2.matchTemplate(grey_scale_frame, mini_map_anchor, cv2.TM_CCOEFF_NORMED)
+        match = cv2.matchTemplate(frame, mini_map_anchor, cv2.TM_CCOEFF_NORMED)
 
         [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
 
