@@ -5,6 +5,7 @@ import cv2
 from .AutoAttack import AutoAttack
 from .AutoLoot import AutoLoot
 from .Script import Script
+from .PathFinder import PathFinder
 from threading import Thread, Event
 from queue import Queue
 
@@ -34,10 +35,14 @@ class CaveBot:
 
         auto_loot = AutoLoot(player, walking_event, combat_event)
 
-        self.__start_walking(cave_bot_script, walking_event)
+        # self.__start_walking(cave_bot_script, walking_event)
+
+        path_finder = PathFinder()
 
         while True:
             frame = WindowCapturer.start()
+
+            path_finder.where_am_i(frame)
 
             health_thread = Thread(daemon=True, target=player.watch_health, args=(frame,))
 
