@@ -22,3 +22,6 @@ class Coordinate:
 
         return True
 
+    def __str__(self):
+        return f"Coordinate(x={self.x}, y={self.y})"
+
