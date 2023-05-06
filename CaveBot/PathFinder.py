@@ -14,9 +14,7 @@ class PathFinder:
 
         tibia_map = Cv2File.load_image('Wiki/Ui/Map/Floors/floor-5.png')
 
-        grey_scale_tibia_map = cv2.cvtColor(tibia_map, cv2.COLOR_BGR2GRAY)
-
-        match = cv2.matchTemplate(grey_scale_tibia_map, mini_map_frame, cv2.TM_CCOEFF_NORMED)
+        match = cv2.matchTemplate(tibia_map, mini_map_frame, cv2.TM_CCOEFF_NORMED)
 
         [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
 
