@@ -44,6 +44,8 @@ class CaveBot:
 
             path_finder.where_am_i(frame)
 
+            raise Exception
+
             health_thread = Thread(daemon=True, target=player.watch_health, args=(frame,))
 
             attack_thread = Thread(daemon=True, target=auto_attack.attack, args=(frame,))

@@ -8,31 +8,23 @@ import numpy as np
 
 
 class Scanner:
+
     @staticmethod
     def mini_map_position(frame: np.array) -> tuple[int, int, int, int]:
-        grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
         mini_map_anchor = Cv2File.load_image('Wiki/Ui/Map/radar_anchor.png')
 
         match = cv2.matchTemplate(grey_scale_frame, mini_map_anchor, cv2.TM_CCOEFF_NORMED)
 
         [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
 
-        (start_x, start_y) = max_coordinates
+        (x, y) = max_coordinates
 
-        x0 = start_x - 106 - 11
-        x1 = x0 + 106
-        y0 = start_y - 50
-        y1 = y0 + 109
+        start_x = x - 117
+        end_x = start_x + 106
+        start_y = y - 50
+        end_y = start_y + 109
 
-        if cv2.waitKey(1):
-            cv2.destroyAllWindows()
-
-            # draw the bounding box on the image
-        cv2.rectangle(frame, (x0, y0), (x1, y1), (255, 0, 0), 1)
-        # show the output image
-        cv2.imshow("Output", frame)
-        cv2.waitKey(0)
+        return start_x, end_x, start_y, end_y
     @staticmethod
     def player_battle_list_position(frame: np.array) -> tuple[int, int, int, int]:
         grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
