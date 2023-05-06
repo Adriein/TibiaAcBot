@@ -42,7 +42,9 @@ class PathFinder:
         start_x = (coordinate.x - 100) + x + player_coordinates.x
         start_y = (coordinate.y - 100) + y + player_coordinates.y
 
-        print(self.__get_map_coordinate_from_pixel(Coordinate(start_x, start_y), initial_map_coordinate.z))
+        result = self.__get_map_coordinate_from_pixel(Coordinate(start_x, start_y), initial_map_coordinate.z)
+
+        print(str(result))
 
     def __get_map_coordinate_from_pixel(self, coordinate: Coordinate, floor: int) -> MapCoordinate:
         return MapCoordinate(coordinate.x + 31744, coordinate.y + 30976, floor)
