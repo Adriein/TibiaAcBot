@@ -20,12 +20,5 @@ class PathFinder:
 
         (start_x, start_y) = max_coordinates
 
-        test = tibia_map[start_y:100, start_x:100]
-        if cv2.waitKey(1):
-            cv2.destroyAllWindows()
-
-            # draw the bounding box on the image
-        cv2.rectangle(tibia_map, (start_x, start_y), (start_x + 100, start_y + 100), (255, 0, 0), 1)
-        # show the output image
-        cv2.imshow("Output", test)
-        cv2.waitKey(0)
+        print(max_coordinates)
+        print(max_coincidence)
