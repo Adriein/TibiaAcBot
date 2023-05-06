@@ -4,6 +4,7 @@ from ScreenAnalizerPackage import Scanner
 from FilesystemPackage import Cv2File
 from .MapCoordinate import MapCoordinate
 from ScreenAnalizerPackage import Coordinate
+from ScreenAnalizerPackage import ScreenRegion
 
 
 class PathFinder:
@@ -24,15 +25,6 @@ class PathFinder:
         # extract the coordinates of the player position using cross needle
 
         player_coordinates = self.__get_mini_map_player_position(mini_map_frame)
-
-        print(str(player_coordinates))
-
-        if cv2.waitKey(1):
-            cv2.destroyAllWindows()
-
-        # show the output image
-        cv2.imshow("Output", mini_map_frame)
-        cv2.waitKey(0)
 
         # cut a portion of the map based on start coordinate
 
@@ -64,11 +56,18 @@ class PathFinder:
         map_position_cross = Cv2File.load_image(f'Wiki/Ui/Map/map_position_cross.png')
         match = cv2.matchTemplate(mini_map_frame, map_position_cross, cv2.TM_CCOEFF_NORMED)
 
+        height, width = map_position_cross.shape
+
         [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
 
         (x, y) = max_coordinates
 
-        return Coordinate(x, y)
+        end_x = x + width
+        end_y = y + height
+
+        screen_region = ScreenRegion(x, end_x, y, end_y)
+
+        return Coordinate.from_screen_region(screen_region)
 
     def map_position_based_on_map_coordinate(self) -> None:
         map_coordinate = MapCoordinate(32063, 31884, 5)
