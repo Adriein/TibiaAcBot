@@ -25,6 +25,15 @@ class PathFinder:
 
         player_coordinates = self.__get_mini_map_player_position(mini_map_frame)
 
+        cv2.drawMarker(frame, (player_coordinates.x, player_coordinates.y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
+
+        if cv2.waitKey(1):
+            cv2.destroyAllWindows()
+
+        # show the output image
+        cv2.imshow("Output", mini_map_frame)
+        cv2.waitKey(0)
+
         # cut a portion of the map based on start coordinate
 
         coordinate = self.__get_pixel_from_coordinate(initial_map_coordinate)
