@@ -29,7 +29,7 @@ class PathFinder:
 
         coordinate = self.__get_pixel_from_coordinate(initial_map_coordinate)
 
-        print(coordinate)
+        print(coordinate.x, coordinate.y)
 
         tibia_map_roi = tibia_map[coordinate.y - 400:coordinate.y + 400, coordinate.x - 400:coordinate.x + 400]
 
