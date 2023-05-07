@@ -42,9 +42,9 @@ class PathFinder:
 
         (x, y) = max_coordinates
 
-        start_x = coordinate.x + x
+        start_x = (coordinate.x - 100) + x
         end_x = start_x + width
-        start_y = coordinate.y + y
+        start_y = (coordinate.y - 100) + y
         end_y = start_y + height
 
         test = tibia_map[start_y:end_y, start_x: end_x]
