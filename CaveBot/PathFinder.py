@@ -45,9 +45,9 @@ class PathFinder:
         print(x, y)
 
         start_x = x
-        end_x = start_x + width
+        end_x = start_x + width + 200
         start_y = y
-        end_y = start_y + height
+        end_y = start_y + height + 200
 
         test = tibia_map[start_y:end_y, start_x: end_x]
 
