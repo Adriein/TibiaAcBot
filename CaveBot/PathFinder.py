@@ -42,8 +42,21 @@ class PathFinder:
 
         (x, y) = max_coordinates
 
-        start_x = (coordinate.x - 100) + x + player_coordinates.x
-        start_y = (coordinate.y - 100) + y + player_coordinates.y
+        start_x = coordinate.x + x
+        end_x = start_x + width
+        start_y = coordinate.y + y
+        end_y = start_y + height
+
+        test = tibia_map[start_y:end_y, start_x: end_x]
+
+        if cv2.waitKey(1):
+            cv2.destroyAllWindows()
+
+        cv2.imshow("Output", test)
+        cv2.waitKey(0)
+
+        # start_x = (coordinate.x - 100) + x + player_coordinates.x
+        # start_y = (coordinate.y - 100) + y + player_coordinates.y
 
         result = self.__get_map_coordinate_from_pixel(Coordinate(start_x, start_y), initial_map_coordinate.z)
 
