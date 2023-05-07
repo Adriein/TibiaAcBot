@@ -45,11 +45,11 @@ class PathFinder:
         print(x, y)
 
         start_x = x
-        end_x = start_x + width + 200
+        end_x = start_x + width
         start_y = y
-        end_y = start_y + height + 200
+        end_y = start_y + height
 
-        test = tibia_map[start_y:end_y, start_x: end_x]
+        test = tibia_map_roi[start_y:end_y, start_x: end_x]
 
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
