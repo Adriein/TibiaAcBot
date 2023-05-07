@@ -42,8 +42,8 @@ class PathFinder:
 
         (x, y) = max_coordinates
 
-        start_x = (coordinate.x - 100) + x + player_coordinates.x
-        start_y = (coordinate.y - 100) + y + player_coordinates.y
+        start_x = coordinate.x + x + player_coordinates.x
+        start_y = coordinate.y + y + player_coordinates.y
 
         result = self.__get_map_coordinate_from_pixel(Coordinate(start_x, start_y), initial_map_coordinate.z)
 
