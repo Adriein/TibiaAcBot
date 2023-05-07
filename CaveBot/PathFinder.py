@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+import math
 from ScreenAnalizerPackage import Scanner
 from FilesystemPackage import Cv2File
 from .MapCoordinate import MapCoordinate
@@ -32,11 +33,11 @@ class PathFinder:
 
         print(str(coordinate))
 
-        test_start_x = coordinate.x - (53 + 20)
-        test_end_x = coordinate.x + (53 + 20)
+        test_start_x = coordinate.x - (math.floor(width/2) + 20)
+        test_end_x = coordinate.x + (math.floor(width/2) + 20)
 
-        test_start_y = coordinate.y - (54 + 20)
-        test_end_y = coordinate.y + (54 + 1 + 20)
+        test_start_y = coordinate.y - (math.floor(height/2) + 20)
+        test_end_y = coordinate.y + (math.floor(height/2) + 1 + 20)
 
         tibia_map_roi = tibia_map[test_start_y:test_end_y, test_start_x:test_end_x]
 
