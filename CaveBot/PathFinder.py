@@ -33,6 +33,9 @@ class PathFinder:
 
         print(str(coordinate))
 
+        print(math.floor(width/2))
+        print(math.floor(height/2))
+
         test_start_x = coordinate.x - (math.floor(width/2) + 20)
         test_end_x = coordinate.x + (math.floor(width/2) + 20)
 
