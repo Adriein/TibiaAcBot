@@ -34,13 +34,6 @@ class PathFinder:
 
         tibia_map_roi = tibia_map[coordinate.y - 100:coordinate.y + 100, coordinate.x - 100:coordinate.x + 100]
 
-        if cv2.waitKey(1):
-            cv2.destroyAllWindows()
-
-        # show the output image
-        cv2.imshow("Output", tibia_map_roi)
-        cv2.waitKey(0)
-
         # find on this map portion the minimap
 
         match = cv2.matchTemplate(tibia_map_roi, mini_map_frame, cv2.TM_CCOEFF_NORMED)
