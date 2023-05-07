@@ -42,6 +42,8 @@ class PathFinder:
 
         (x, y) = max_coordinates
 
+        print(x, y)
+
         start_x = x
         end_x = start_x + width
         start_y = y
