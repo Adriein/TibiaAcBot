@@ -42,7 +42,7 @@ class CaveBot:
         while True:
             frame = WindowCapturer.start()
 
-            path_finder.where_am_i(frame)
+            path_finder.execute(frame)
 
             raise Exception
 

@@ -1,74 +1,10 @@
 import numpy as np
-import cv2
-import math
-from ScreenAnalizerPackage import Scanner
-from FilesystemPackage import Cv2File
-from .MapCoordinate import MapCoordinate
-from ScreenAnalizerPackage import Coordinate
+from PathFindingPackage import Map
 
 
 class PathFinder:
-    def where_am_i(self, frame: np.array):
-        initial_map_coordinate = MapCoordinate(32063, 31884, 5)
-        grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    def execute(self, last_waypoint: str, nest_waypoint: str, frame: np.array):
+        game_map = Map()
 
-        tibia_map = Cv2File.load_image(f'Wiki/Ui/Map/Floors/floor-5.png')
+        tile = game_map.where_am_i(last_waypoint, frame)
 
-        # find position of minimap in the screen
-
-        (start_x, end_x, start_y, end_y) = Scanner.mini_map_position(grey_scale_frame)
-
-        mini_map_frame = grey_scale_frame[start_y:end_y, start_x:end_x]
-
-        height, width = mini_map_frame.shape
-
-        # cut a portion of the map based on start coordinate
-
-        coordinate = self.__get_pixel_from_coordinate(initial_map_coordinate)
-
-        test_start_x = coordinate.x - (math.floor(width/2) + 20)
-        test_end_x = coordinate.x + (math.floor(width/2) + 20)
-
-        test_start_y = coordinate.y - (math.floor(height/2) + 20)
-        test_end_y = coordinate.y + (math.floor(height/2) + 1 + 20)
-
-        tibia_map_roi = tibia_map[test_start_y:test_end_y, test_start_x:test_end_x]
-
-        # find on this map portion the minimap
-
-        match = cv2.matchTemplate(tibia_map_roi, mini_map_frame, cv2.TM_CCOEFF_NORMED)
-
-        [_, max_coincidence, _, max_coordinates] = cv2.minMaxLoc(match)
-
-        (x, y) = max_coordinates
-
-        start_x = coordinate.x - 20 + x
-        start_y = coordinate.y - 20 + y
-
-        result = self.__get_map_coordinate_from_pixel(Coordinate(start_x, start_y), initial_map_coordinate.z)
-
-        print(str(result))
-
-    def __get_map_coordinate_from_pixel(self, coordinate: Coordinate, floor: int) -> MapCoordinate:
-        return MapCoordinate(coordinate.x + 31744, coordinate.y + 30976, floor)
-
-    def __get_pixel_from_coordinate(self, coordinate: MapCoordinate) -> Coordinate:
-        return Coordinate(coordinate.x - 31744, coordinate.y - 30976)
-
-    def map_position_based_on_map_coordinate(self) -> None:
-        map_coordinate = MapCoordinate(32063, 31884, 5)
-
-        coordinate = self.__get_pixel_from_coordinate(map_coordinate)
-
-        tibia_map = Cv2File.load_image(f'Wiki/Ui/Map/Floors/floor-{map_coordinate.z}.png')
-
-        cv2.drawMarker(tibia_map, (coordinate.x, coordinate.y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
-
-        test = tibia_map[coordinate.y - 100:coordinate.y + 100, coordinate.x - 100:coordinate.x + 100]
-
-        if cv2.waitKey(1):
-            cv2.destroyAllWindows()
-
-        # show the output image
-        cv2.imshow("Output", test)
-        cv2.waitKey(0)

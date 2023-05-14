@@ -1,4 +1,5 @@
-from PathFindingPackage.CoordinateNode import CoordinateNode
+from .Edge import Edge
+from .Tile import Tile
 
 
 class MapGraph:
@@ -6,18 +7,19 @@ class MapGraph:
         self.nodes = {}
         self.num_nodes = 0
 
-    def add_node(self, id: str):
+    def add_node(self, node: Tile):
         self.num_nodes += 1
-        new_node = CoordinateNode(id)
-        self.nodes[id] = new_node
-        return new_node
+        self.nodes[str(node.id)] = node
 
-    def add_edge(self, src, dest, weight=0):
-        if src not in self.nodes:
-            self.add_node(src)
-        if dest not in self.nodes:
-            self.add_node(dest)
-        self.nodes[src].add_neighbor(self.nodes[dest], weight)
+        return self
+
+    def add_edge(self, edge: Edge):
+        if edge.src not in self.nodes:
+            self.add_node(edge.src)
+        if edge.destination not in self.nodes:
+            self.add_node(edge.destination)
+
+        self.nodes[str(edge.src.id)].add_adjacent_tile(edge.destination, edge.distance_between)
 
     def __iter__(self):
         return iter(self.nodes.values())
