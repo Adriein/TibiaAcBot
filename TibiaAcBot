@@ -54,3 +54,14 @@ We need to capture the window in color because we need to know if we are attacki
         cv2.imshow("Output", actual_position)
         cv2.waitKey(0)
         cv2.drawMarker(frame, (click_point_x, click_point_y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
+
+    def map_position_based_on_map_coordinate(self) -> None:
+        waypoint = Waypoint(32063, 31884, 5)
+
+        coordinate = self.__get_pixel_from_waypoint(waypoint)
+
+        tibia_map = Cv2File.load_image(f'Wiki/Ui/Map/Floors/floor-{waypoint.z}.png')
+
+        cv2.drawMarker(tibia_map, (coordinate.x, coordinate.y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
+
+        test = tibia_map[coordinate.y - 100:coordinate.y + 100, coordinate.x - 100:coordinate.x + 100]
