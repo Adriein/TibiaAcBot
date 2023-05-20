@@ -99,8 +99,6 @@ class Map:
 
             visited.add(current_tile)
 
-
-
             for neighbor_tile in current_tile.adjacent_tiles:
                 if neighbor_tile in visited:
                     continue
@@ -149,4 +147,3 @@ class Map:
         for step in range(4):
             next_waypoint = Waypoint(current_tile.waypoint.x + cardinality[step])
             current_tile.add_adjacent_tile(Tile.build())
-
