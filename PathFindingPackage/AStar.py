@@ -42,6 +42,7 @@ class AStar:
                 if neighbor_tile in visited:
                     continue
 
+                print(self.__is_walkable_waypoint(neighbor_tile))
                 if not self.__is_walkable_waypoint(neighbor_tile):
                     visited.add(neighbor_tile)
                     continue
