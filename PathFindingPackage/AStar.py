@@ -30,7 +30,7 @@ class AStar:
                     path.append(current_tile)
                     current_tile = current_tile.parent
 
-                path.reverse()
+                # path.reverse()
 
                 return path
 
