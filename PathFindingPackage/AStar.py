@@ -13,6 +13,7 @@ class AStar:
         tibia_walkable_map = Cv2File.load_image(f'Wiki/Ui/Map/Walkable/floor-5-path.png', False)
 
         self.tibia_walkable_map_hsv = cv2.cvtColor(tibia_walkable_map, cv2.COLOR_BGR2HSV)
+
     def execute(self, current: Waypoint, destination: Waypoint) -> LinkedList:
         open_set = []
         visited = set()
