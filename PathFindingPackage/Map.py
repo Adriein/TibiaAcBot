@@ -65,7 +65,7 @@ class Map:
     def __string_to_waypoint(self, string_waypoint: str) -> Waypoint:
         x, y, z = string_waypoint.split(',')
 
-        return Waypoint(x, y, z)
+        return Waypoint(int(x), int(y), int(z))
 
     def __get_map_tile_from_pixel(self, coordinate: Coordinate, floor: int) -> Tile:
         return Tile(uuid.uuid4(), Waypoint(coordinate.x + 31744, coordinate.y + 30976, floor))
