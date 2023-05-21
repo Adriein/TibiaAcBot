@@ -24,7 +24,7 @@ class Tile:
         return self.f_score < other.f_score
 
     def __hash__(self):
-        return hash(self)
+        return hash((self.waypoint.x, self.waypoint.y, self.waypoint.z))
 
     def __eq__(self, other):
         if isinstance(other, Tile):
