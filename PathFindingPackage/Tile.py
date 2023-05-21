@@ -66,4 +66,6 @@ class Tile:
 
     def __calculate_distance_between_two_points(self, destination: Waypoint) -> float:
         print(str(destination))
+        print(type(self.waypoint.x))
+        print(type(destination.x))
         return ((destination.x - self.waypoint.x) ** 2 + (destination.y - self.waypoint.y) ** 2) ** 0.5
