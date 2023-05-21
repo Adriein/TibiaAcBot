@@ -60,8 +60,8 @@ class AStar:
         tibia_walkable_map_hsv = cv2.cvtColor(tibia_walkable_map, cv2.COLOR_BGR2HSV)
 
         # Define the lower and upper bounds of the yellow color range in BGR format
-        lower_yellow = np.array([0, 150, 150], dtype=np.uint8)
-        upper_yellow = np.array([100, 255, 255], dtype=np.uint8)
+        lower_yellow = np.array([20, 100, 100])
+        upper_yellow = np.array([30, 255, 255])
 
         pixel = self.__get_pixel_from_waypoint(current.waypoint)
 
