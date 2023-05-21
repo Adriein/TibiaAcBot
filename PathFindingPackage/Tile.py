@@ -13,7 +13,7 @@ class Tile:
         self.id = id
         self.waypoint = waypoint
 
-        self.g_score = 1  # Cost from start node
+        self.g_score = float('inf')  # Cost from start node
         self.h_score = 0  # Heuristic score
         self.f_score = float('inf')  # Total score (g_score + h_score)
         self.parent = None  # Parent node
@@ -35,11 +35,32 @@ class Tile:
     def set_parent(self, node: 'Tile'):
         self.parent = node
 
-    def add_adjacent_tile(self, tile: 'Tile') -> None:
-        self.adjacent_tiles.append(tile)
+    def create_adjacent_tiles(self) -> None:
+        for cardinal_point in range(4):
+            if cardinal_point == 0:
+                north_tile = Tile.build(Waypoint(self.waypoint.x, self.waypoint.y + 1, self.waypoint.z))
+                self.adjacent_tiles.append(north_tile)
 
-    def calculate_cost(self, destination: Waypoint):
+                continue
+            if cardinal_point == 1:
+                south_tile = Tile.build(Waypoint(self.waypoint.x, self.waypoint.y - 1, self.waypoint.z))
+                self.adjacent_tiles.append(south_tile)
+
+                continue
+            if cardinal_point == 2:
+                east_tile = Tile.build(Waypoint(self.waypoint.x + 1, self.waypoint.y, self.waypoint.z))
+                self.adjacent_tiles.append(east_tile)
+
+                continue
+            if cardinal_point == 3:
+                west_tile = Tile.build(Waypoint(self.waypoint.x - 1, self.waypoint.y, self.waypoint.z))
+                self.adjacent_tiles.append(west_tile)
+
+                continue
+
+    def calculate_cost(self, initial: Waypoint, destination: Waypoint):
         self.h_score = self.__calculate_distance_between_two_points(destination)
+        self.g_score = self.__calculate_distance_between_two_points(initial)
 
         self.f_score = self.h_score + self.g_score
 

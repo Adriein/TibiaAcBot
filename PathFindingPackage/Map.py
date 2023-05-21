@@ -62,21 +62,11 @@ class Map:
         return []
 
     def __create_graph_between_waypoints(self, current: Waypoint, destination: Waypoint) -> Any:
-        start_screen_coordinate = self.__get_pixel_from_waypoint(current)
-        destination_screen_coordinate = self.__get_pixel_from_waypoint(destination)
-
-        initial_direction = self.__calculate_initial_direction(current, destination)
-
-        # determine the direction where we have to start looking
-        # start a loop tracking the visited pixels and do the color logic on the pixels until reach the destination coordinate
-
-        tibia_walkable_map = Cv2File.load_image(f'Wiki/Ui/Map/Walkable/floor-5-path.png', False)
-
         open_set = []
         visited = set()
 
         start_tile = Tile.build(current)
-        start_tile.calculate_cost(destination)
+        start_tile.calculate_cost(current, destination)
 
         destination_tile = Tile.build(destination)
 
@@ -86,7 +76,6 @@ class Map:
             current_tile: Tile = heapq.heappop(open_set)
 
             if current_tile == destination_tile:
-                # Goal reached, construct the path
                 path = []
 
                 while current_tile:
@@ -99,13 +88,19 @@ class Map:
 
             visited.add(current_tile)
 
+            current_tile.create_adjacent_tiles()
+
             for neighbor_tile in current_tile.adjacent_tiles:
                 if neighbor_tile in visited:
                     continue
 
+                if not self.__is_walkable_waypoint(neighbor_tile):
+                    visited.add(neighbor_tile)
+
+                neighbor_tile.calculate_cost(current, destination)
+
                 if neighbor_tile.f_score < current_tile.f_score or neighbor_tile not in open_set:
                     neighbor_tile.parent = current_tile
-                    neighbor.g_score = tentative_g_score
 
                     if neighbor_tile not in open_set:
                         open_set.append(neighbor_tile)
@@ -121,29 +116,18 @@ class Map:
     def __get_pixel_from_waypoint(self, waypoint: Waypoint) -> Coordinate:
         return Coordinate(waypoint.x - 31744, waypoint.y - 30976)
 
-    def __calculate_initial_direction(self, current: Waypoint, destination: Waypoint) -> str:
-        if destination.x > current.x:
-            if destination.y > current.y:
-                return 'south-east'
+    def __is_walkable_waypoint(self, current: Tile) -> bool:
+        tibia_walkable_map = Cv2File.load_image(f'Wiki/Ui/Map/Walkable/floor-5-path.png', False)
 
-            return 'north-east'
+        # Define the lower and upper bounds of the yellow color range in BGR format
+        lower_yellow = np.array([0, 150, 150])
+        upper_yellow = np.array([100, 255, 255])
 
-        if destination.x == current.x:
-            if destination.y > current.y:
-                return 'south'
+        pixel = self.__get_pixel_from_waypoint(current.waypoint)
 
-            return 'north'
+        pixel_color = tibia_walkable_map[pixel.y, pixel.x]
 
-        if destination.y > current.y:
-            return 'south-west'
+        if cv2.inRange(pixel_color, lower_yellow, upper_yellow):
+            return False
 
-        return 'north-west'
-
-    def __create_adjacent_tiles(self, current_tile: Tile, destination: Tile) -> None:
-        # 0,1 stands for x (1, -1) means move left and right
-        # 2,3 stands for y (1, -1) means move up and down
-        cardinality = {0: 1, 1: -1, 2: 1, 3: -1}
-
-        for step in range(4):
-            next_waypoint = Waypoint(current_tile.waypoint.x + cardinality[step])
-            current_tile.add_adjacent_tile(Tile.build())
+        return True
