@@ -67,10 +67,9 @@ class AStar:
 
         pixel_color = tibia_walkable_map_hsv[pixel.y, pixel.x]
 
-        if cv2.inRange(pixel_color, lower_yellow, upper_yellow):
-            return False
+        mask = cv2.inRange(pixel_color, lower_yellow, upper_yellow)
 
-        return True
+        return np.any(mask == 255)
 
     def __get_pixel_from_waypoint(self, waypoint: Waypoint) -> Coordinate:
         return Coordinate(waypoint.x - 31744, waypoint.y - 30976)
