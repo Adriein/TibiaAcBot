@@ -42,7 +42,7 @@ class AStar:
                 if neighbor_tile in visited:
                     continue
 
-                if not self.__is_walkable_waypoint(neighbor_tile):
+                if self.__is_not_walkable_waypoint(neighbor_tile):
                     visited.add(neighbor_tile)
                     continue
 
@@ -54,7 +54,7 @@ class AStar:
                     if neighbor_tile not in open_set:
                         open_set.append(neighbor_tile)
 
-    def __is_walkable_waypoint(self, current: Tile) -> bool:
+    def __is_not_walkable_waypoint(self, current: Tile) -> bool:
         tibia_walkable_map = Cv2File.load_image(f'Wiki/Ui/Map/Walkable/floor-5-path.png', False)
 
         tibia_walkable_map_hsv = cv2.cvtColor(tibia_walkable_map, cv2.COLOR_BGR2HSV)
@@ -68,8 +68,7 @@ class AStar:
         pixel_color = tibia_walkable_map_hsv[pixel.y, pixel.x]
 
         mask = cv2.inRange(pixel_color, lower_yellow, upper_yellow)
-        print(str(current))
-        print(np.all(mask == 255))
+
         return np.all(mask == 255)
 
     def __get_pixel_from_waypoint(self, waypoint: Waypoint) -> Coordinate:
