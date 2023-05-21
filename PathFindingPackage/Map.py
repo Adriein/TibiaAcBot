@@ -63,6 +63,8 @@ class Map:
 
         tile_matrix = Array.chunk(tile_path, 2)
 
+        print(tile_matrix)
+
         path = LinkedList()
 
         for tile_pair in tile_matrix:
