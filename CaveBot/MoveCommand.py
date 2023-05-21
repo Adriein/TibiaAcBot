@@ -10,3 +10,6 @@ class MoveCommand:
     def __init__(self, steps: int, direction: str):
         self.steps = steps
         self.key = self.__DIRECTION_KEYBOARD_MAP.get(direction)
+
+    def __str__(self):
+        return f'key={self.key}'
