@@ -10,7 +10,7 @@ from FilesystemPackage import Cv2File
 from ScreenAnalizerPackage import Coordinate
 from .Tile import Tile
 from .Waypoint import Waypoint
-from AStar import AStar
+from .AStar import AStar
 
 
 class Map:
