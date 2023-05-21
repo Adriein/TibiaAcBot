@@ -38,3 +38,15 @@ class LinkedList:
 
         self.current = self.current.next
 
+    def reverse(self) -> None:
+        prev = None
+        current = self.head
+
+        while current is not None:
+            next_node = current.next
+            current.next = prev
+            prev = current
+            current = next_node
+
+        return prev
+
