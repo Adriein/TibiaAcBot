@@ -71,7 +71,7 @@ class AStar:
             cv2.destroyAllWindows()
 
         # show the output image
-        cv2.imshow("Output", tibia_walkable_map[pixel.y:pixel.y + 30, pixel.x: pixel.x + 40])
+        cv2.imshow("Output", tibia_walkable_map_hsv[pixel.y:pixel.y + 30, pixel.x: pixel.x + 40])
         cv2.waitKey(0)
 
         mask = cv2.inRange(pixel_color, lower_yellow, upper_yellow)
