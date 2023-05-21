@@ -69,7 +69,7 @@ class AStar:
 
         mask = cv2.inRange(pixel_color, lower_yellow, upper_yellow)
         print(str(current))
-        print(np.any(mask == 255))
+        print(mask)
         return np.any(mask == 255)
 
     def __get_pixel_from_waypoint(self, waypoint: Waypoint) -> Coordinate:
