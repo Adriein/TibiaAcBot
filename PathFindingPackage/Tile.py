@@ -23,6 +23,9 @@ class Tile:
     def __lt__(self, other):
         return self.f_score < other.f_score
 
+    def __hash__(self):
+        return hash(self)
+
     def __eq__(self, other):
         if isinstance(other, Tile):
             return self.waypoint.x == other.waypoint.x and self.waypoint.y == other.waypoint.y and self.waypoint.z == other.waypoint.z
