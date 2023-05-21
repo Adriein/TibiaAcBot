@@ -1,13 +1,12 @@
-from typing import Any
-
 import numpy as np
 import uuid
 import cv2
 import math
-from UtilPackage import LinkedList
+from UtilPackage import LinkedList, Array
 from ScreenAnalizerPackage import Scanner
 from FilesystemPackage import Cv2File
 from ScreenAnalizerPackage import Coordinate
+from CaveBot.MoveCommand import MoveCommand
 from .Tile import Tile
 from .Waypoint import Waypoint
 from .AStar import AStar
@@ -60,7 +59,17 @@ class Map:
         current_waypoint = self.__string_to_waypoint(current_waypoint)
         destination_waypoint = self.__string_to_waypoint(destination_waypoint)
 
-        return self.path_finding_algorithm.execute(current_waypoint, destination_waypoint)
+        tile_path = self.path_finding_algorithm.execute(current_waypoint, destination_waypoint)
+
+        tile_matrix = Array.chunk(tile_path, 2)
+
+        path = LinkedList()
+
+        for tile_pair in tile_matrix:
+            direction = self.__waypoints_to_cardinal_direction(tile_pair)
+            path.append(MoveCommand(1, direction))
+
+        return path
 
     def __string_to_waypoint(self, string_waypoint: str) -> Waypoint:
         x, y, z = string_waypoint.split(',')
@@ -72,3 +81,20 @@ class Map:
 
     def __get_pixel_from_waypoint(self, waypoint: Waypoint) -> Coordinate:
         return Coordinate(waypoint.x - 31744, waypoint.y - 30976)
+
+    def __waypoints_to_cardinal_direction(self, tile_pair: list[Tile]) -> str:
+        source = tile_pair[0]
+        destination = tile_pair[1]
+
+        if destination.waypoint.x > source.waypoint.x:
+            return 'east'
+
+        if destination.waypoint.x < source.waypoint.x:
+            return 'west'
+
+        if destination.waypoint.y < source.waypoint.y:
+            return 'north'
+
+        if destination.waypoint.y > source.waypoint.y:
+            return 'south'
+

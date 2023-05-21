@@ -1,4 +1,3 @@
-from UtilPackage import LinkedList
 from FilesystemPackage import Cv2File
 from ScreenAnalizerPackage import Coordinate
 from .Tile import Tile
@@ -14,7 +13,7 @@ class AStar:
 
         self.tibia_walkable_map_hsv = cv2.cvtColor(tibia_walkable_map, cv2.COLOR_BGR2HSV)
 
-    def execute(self, current: Waypoint, destination: Waypoint) -> LinkedList:
+    def execute(self, current: Waypoint, destination: Waypoint) -> list[Tile]:
         open_set = []
         visited = set()
 
@@ -29,7 +28,7 @@ class AStar:
             current_tile: Tile = heapq.heappop(open_set)
 
             if current_tile == destination_tile:
-                path = LinkedList()
+                path = list()
 
                 while current_tile:
                     path.append(current_tile)

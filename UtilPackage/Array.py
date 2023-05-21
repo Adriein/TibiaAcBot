@@ -1,3 +1,7 @@
+from typing import TypeVar
+
+T = TypeVar('T')
+
 class Array:
     @staticmethod
     def reverse(arr: list) -> list[str]:
@@ -10,3 +14,11 @@ class Array:
     @staticmethod
     def is_array(arr: any) -> bool:
         return isinstance(arr, list)
+
+    @staticmethod
+    def chunk(arr: list[T], size) -> list[list[T]]:
+        result = []
+        for i in range(0, len(arr), size):
+            result.append(arr[i:i + size])
+
+        return result
