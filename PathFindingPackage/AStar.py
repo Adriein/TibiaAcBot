@@ -42,7 +42,6 @@ class AStar:
                 if neighbor_tile in visited:
                     continue
 
-                print(self.__is_walkable_waypoint(neighbor_tile))
                 if not self.__is_walkable_waypoint(neighbor_tile):
                     visited.add(neighbor_tile)
                     continue
@@ -70,6 +69,7 @@ class AStar:
 
         mask = cv2.inRange(pixel_color, lower_yellow, upper_yellow)
         print(str(current))
+        print(np.any(mask == 255))
         return np.any(mask == 255)
 
     def __get_pixel_from_waypoint(self, waypoint: Waypoint) -> Coordinate:
