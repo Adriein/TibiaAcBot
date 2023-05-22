@@ -2,7 +2,7 @@ import numpy as np
 import uuid
 import cv2
 import math
-from UtilPackage import LinkedList, Array
+from UtilPackage import LinkedList
 from ScreenAnalizerPackage import Scanner
 from FilesystemPackage import Cv2File
 from ScreenAnalizerPackage import Coordinate
@@ -61,13 +61,16 @@ class Map:
 
         tile_path = self.path_finding_algorithm.execute(current_waypoint, destination_waypoint)
 
-        tile_matrix = Array.chunk(tile_path, 2)
-
         path = LinkedList()
 
-        for tile_pair in tile_matrix:
-            direction = self.__waypoints_to_cardinal_direction(tile_pair)
-            path.append(MoveCommand(1, direction))
+        for index, current_tile in enumerate(tile_path):
+            try:
+                destination_tile = tile_path[index + 1]
+
+                direction = self.__waypoints_to_cardinal_direction(current_tile, destination_tile)
+                path.append(MoveCommand(1, direction))
+            except IndexError:
+                pass
 
         return path
 
@@ -82,19 +85,15 @@ class Map:
     def __get_pixel_from_waypoint(self, waypoint: Waypoint) -> Coordinate:
         return Coordinate(waypoint.x - 31744, waypoint.y - 30976)
 
-    def __waypoints_to_cardinal_direction(self, tile_pair: list[Tile]) -> str:
-        source = tile_pair[0]
-        destination = tile_pair[1]
-
-        if destination.waypoint.x > source.waypoint.x:
+    def __waypoints_to_cardinal_direction(self, current: Tile, destination: Tile) -> str:
+        if destination.waypoint.x > current.waypoint.x:
             return 'east'
 
-        if destination.waypoint.x < source.waypoint.x:
+        if destination.waypoint.x < current.waypoint.x:
             return 'west'
 
-        if destination.waypoint.y < source.waypoint.y:
+        if destination.waypoint.y < current.waypoint.y:
             return 'north'
 
-        if destination.waypoint.y > source.waypoint.y:
+        if destination.waypoint.y > current.waypoint.y:
             return 'south'
-
