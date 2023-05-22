@@ -1,9 +1,11 @@
 import json
 import time
+import numpy as np
 from typing import Dict, Any
 from threading import Event
 from .Player import Player
 from .MoveCommand import MoveCommand
+from .PathFinder import PathFinder
 from UtilPackage import LinkedList
 
 
@@ -14,7 +16,9 @@ class Script:
     __waypoints: LinkedList = LinkedList()
     creatures: list[str] = list()
 
-    def __new__(cls, script_json_data: Dict[str, Any], player: Player):
+    __previous_waypoint = None
+
+    def __new__(cls, script_json_data: Dict[str, Any], player: Player, path_finder: PathFinder):
         if cls.__INSTANCE:
             return cls.__INSTANCE
 
@@ -32,6 +36,7 @@ class Script:
                 cls.__waypoints.append(MoveCommand(steps, direction))
 
         cls.player = player
+        cls.path_finder = path_finder
 
         return cls.__INSTANCE
 
@@ -40,17 +45,22 @@ class Script:
         with open(name, Script.__READ_MODE) as file:
             data = json.load(file)
 
-        return Script(data, player)
+        return Script(data, player, PathFinder())
 
-    def start(self, walk_event: Event) -> None:
+    def start(self, walk_event: Event, frame: np.array) -> None:
         while self.__waypoints.current is not None:
             if not walk_event.is_set():
                 continue
 
-            command: MoveCommand = self.__waypoints.current.data
+            walk_instructions = self.path_finder.execute(self.__previous_waypoint, self.__waypoints.current.data, frame)
 
-            time.sleep(0.6)
+            while walk_instructions.current is not None:
+                command: MoveCommand = walk_instructions.current.data
 
-            self.player.move(command)
+                time.sleep(0.8)
+
+                self.player.move(command)
+
+            self.__previous_waypoint = self.__waypoints.current.data
 
             self.__waypoints.next()

@@ -1,23 +1,14 @@
 import numpy as np
 from PathFindingPackage import Map
-from .MoveCommand import MoveCommand
-import time
-from .Player import Player
+from UtilPackage import LinkedList
 
 
 class PathFinder:
-    def execute(self, last_waypoint: str, next_waypoint: str, frame: np.array, player: Player):
-        game_map = Map()
+    def __init__(self):
+        self.game_map = Map()
 
-        path = game_map.find_shortest_path(last_waypoint, next_waypoint)
-        print(str(path))
+    def execute(self, last_known_waypoint: str, destination_waypoint: str, frame: np.array) -> LinkedList:
+        current_tile = self.game_map.where_am_i(last_known_waypoint, frame)
+        current_waypoint = current_tile.waypoint.to_plain()
 
-        while path.current is not None:
-            command: MoveCommand = path.current.data
-
-            time.sleep(0.8)
-
-            player.move(command)
-
-            path.next()
-
+        return self.game_map.find_shortest_path(current_waypoint, destination_waypoint)
