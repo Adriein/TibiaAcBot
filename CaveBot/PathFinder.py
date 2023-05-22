@@ -10,7 +10,8 @@ class PathFinder:
         game_map = Map()
 
         path = game_map.find_shortest_path(last_waypoint, next_waypoint)
-
+        print(str(path))
+        raise Exception
         while path.current is not None:
             command: MoveCommand = path.current.data
 
