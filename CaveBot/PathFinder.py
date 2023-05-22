@@ -15,7 +15,7 @@ class PathFinder:
         while path.current is not None:
             command: MoveCommand = path.current.data
 
-            time.sleep(1)
+            time.sleep(0.8)
 
             player.move(command)
 

@@ -33,6 +33,7 @@ class LinkedList:
 
     def next(self) -> None:
         if self.current.next is None:
+            self.current = None
             return
 
         self.current = self.current.next
