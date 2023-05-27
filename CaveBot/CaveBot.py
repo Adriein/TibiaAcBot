@@ -12,13 +12,6 @@ from queue import Queue
 
 class CaveBot:
 
-    def __start_walking(self, cave_bot_script: Script, walking_event: Event):
-        walking_event.set()
-
-        walk_thread = Thread(daemon=True, target=cave_bot_script.start, args=(walking_event,))
-
-        walk_thread.start()
-
     def start(self):
         TibiaAcBotLogger.info('CaveBot starting')
 
@@ -35,22 +28,20 @@ class CaveBot:
 
         auto_loot = AutoLoot(player, walking_event, combat_event)
 
-        # self.__start_walking(cave_bot_script, walking_event)
-
-        path_finder = PathFinder()
+        walking_event.set()
 
         while True:
             frame = WindowCapturer.start()
 
-            path_finder.execute('32063,31884,5', '32063,31877,5', frame, player)
-
-            raise Exception
+            walk_thread = Thread(daemon=True, target=cave_bot_script.start, args=(walking_event, frame))
 
             health_thread = Thread(daemon=True, target=player.watch_health, args=(frame,))
 
             attack_thread = Thread(daemon=True, target=auto_attack.attack, args=(frame,))
 
             loot_thread = Thread(daemon=True, target=auto_loot.loot, args=(frame,))
+
+            walk_thread.start()
 
             health_thread.start()
 
