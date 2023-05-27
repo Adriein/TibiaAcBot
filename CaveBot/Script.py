@@ -49,7 +49,8 @@ class Script:
                 continue
 
             walk_instructions = self.path_finder.execute(self.__previous_waypoint, self.__waypoints.current.data, frame)
-
+            print(str(walk_instructions))
+            raise Exception
             while walk_instructions.current is not None:
                 command: MoveCommand = walk_instructions.current.data
 
