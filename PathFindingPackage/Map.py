@@ -17,7 +17,6 @@ class Map:
         self.path_finding_algorithm = AStar()
 
     def where_am_i(self, last_waypoint: str, frame: np.array) -> Tile:
-        last_waypoint = Waypoint(32063, 31884, 5)
         grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         tibia_map = Cv2File.load_image(f'Wiki/Ui/Map/Floors/floor-5.png')

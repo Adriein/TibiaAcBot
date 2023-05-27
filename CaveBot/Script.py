@@ -48,6 +48,9 @@ class Script:
             if not self.walk_event.is_set():
                 continue
 
+            if self.__previous_waypoint is None:
+                self.__previous_waypoint = self.__waypoints.current.data
+
             walk_instructions = self.path_finder.execute(self.__previous_waypoint, self.__waypoints.current.data, frame)
             print(self.__waypoints.current.data)
             print(str(walk_instructions))
