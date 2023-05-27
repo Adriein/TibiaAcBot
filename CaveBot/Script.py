@@ -51,7 +51,7 @@ class Script:
             self.__previous_waypoint = self.__waypoints.current.data
 
         walk_instructions = self.path_finder.execute(self.__previous_waypoint, self.__waypoints.current.data, frame)
-
+        print(str(walk_instructions))
         while walk_instructions.current is not None:
             command: MoveCommand = walk_instructions.current.data
 
