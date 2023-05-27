@@ -1,3 +1,5 @@
+import time
+
 from .Player import Player
 from LoggerPackage import Logger as TibiaAcBotLogger
 from ScreenAnalizerPackage import WindowCapturer
@@ -28,6 +30,7 @@ class CaveBot:
         walking_event.set()
 
         while True:
+            time.sleep(1)
             frame = WindowCapturer.start()
 
             walk_thread = Thread(daemon=True, target=cave_bot_script.start, args=(frame,))
