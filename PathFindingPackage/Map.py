@@ -61,7 +61,9 @@ class Map:
         destination_waypoint = self.__string_to_waypoint(destination_waypoint)
 
         tile_path = self.path_finding_algorithm.execute(current_waypoint, destination_waypoint)
-
+        print(str(current_waypoint))
+        print(str(destination_waypoint))
+        print(str(tile_path))
         path = LinkedList()
 
         for index, current_tile in enumerate(tile_path):
