@@ -34,7 +34,8 @@ class CaveBot:
 
             screen_x = Screen.MONITOR.width / 2
             screen_y = Screen.MONITOR.height / 2
-
+            print(screen_x)
+            print(screen_y)
             if cv2.waitKey(1):
                 cv2.destroyAllWindows()
 
