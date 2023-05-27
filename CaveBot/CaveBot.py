@@ -1,12 +1,11 @@
-import time
-
 from .Player import Player
 from LoggerPackage import Logger as TibiaAcBotLogger
-from ScreenAnalizerPackage import WindowCapturer
+from ScreenAnalizerPackage import WindowCapturer, Screen
 from .AutoAttack import AutoAttack
 from .AutoLoot import AutoLoot
 from .Script import Script
 from threading import Thread, Event
+import cv2
 
 
 class CaveBot:
@@ -21,7 +20,8 @@ class CaveBot:
 
         # Thread(daemon=True, target=player.watch_mana).start()
 
-        cave_bot_script = Script.load('Wiki/Script/Rookgard/mountain_troll_salamander_script.json', player, walking_event)
+        cave_bot_script = Script.load('Wiki/Script/Rookgard/mountain_troll_salamander_script.json', player,
+                                      walking_event)
 
         auto_attack = AutoAttack(player, walking_event, combat_event, cave_bot_script.creatures)
 
@@ -31,6 +31,17 @@ class CaveBot:
 
         while True:
             frame = WindowCapturer.start()
+
+            screen_x = Screen.MONITOR.width / 2
+            screen_y = Screen.MONITOR.height / 2
+
+            if cv2.waitKey(1):
+                cv2.destroyAllWindows()
+
+            cv2.drawMarker(frame, (screen_x, screen_y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
+            cv2.imshow("Output", frame)
+            cv2.waitKey(0)
+
 
             walk_thread = Thread(daemon=True, target=cave_bot_script.start, args=(frame,))
 
