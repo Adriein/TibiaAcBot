@@ -61,6 +61,8 @@ class Script:
 
                 self.player.move(command)
 
+                walk_instructions.next()
+
             self.__previous_waypoint = self.__waypoints.current.data
 
             self.__waypoints.next()

@@ -7,5 +7,5 @@ class Waypoint:
     def __str__(self):
         return f'x={self.x} y={self.y} z={self.z}'
 
-    def to_plain(self) -> str:
+    def to_string(self) -> str:
         return f'{self.x},{self.y},{self.z}'
