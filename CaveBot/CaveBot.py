@@ -39,7 +39,7 @@ class CaveBot:
             if cv2.waitKey(1):
                 cv2.destroyAllWindows()
 
-            cv2.drawMarker(frame, (screen_x, screen_y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
+            cv2.drawMarker(frame, (int(screen_x), int(screen_y)), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
             cv2.imshow("Output", frame)
             cv2.waitKey(0)
 
