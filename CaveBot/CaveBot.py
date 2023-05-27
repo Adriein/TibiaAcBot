@@ -19,8 +19,11 @@ class CaveBot:
 
         # Thread(daemon=True, target=player.watch_mana).start()
 
-        cave_bot_script = Script.load('Wiki/Script/Rookgard/mountain_troll_salamander_script.json', player,
-                                      walking_event)
+        cave_bot_script = Script.load(
+            'Wiki/Script/Rookgard/mountain_troll_salamander_script.json',
+            player,
+            walking_event
+        )
 
         auto_attack = AutoAttack(player, walking_event, combat_event, cave_bot_script.creatures)
 
