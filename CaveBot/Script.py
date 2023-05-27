@@ -44,26 +44,25 @@ class Script:
         return Script(data, player, PathFinder(), walk_event)
 
     def start(self, frame: np.array) -> None:
-        while self.__waypoints.current is not None:
-            if not self.walk_event.is_set():
-                continue
+        if not self.walk_event.is_set():
+            return
 
-            if self.__previous_waypoint is None:
-                self.__previous_waypoint = self.__waypoints.current.data
-
-            walk_instructions = self.path_finder.execute(self.__previous_waypoint, self.__waypoints.current.data, frame)
-            print(self.__waypoints.current.data)
-            print(str(walk_instructions))
-
-            while walk_instructions.current is not None:
-                command: MoveCommand = walk_instructions.current.data
-
-                time.sleep(0.8)
-
-                self.player.move(command)
-
-                walk_instructions.next()
-
+        if self.__previous_waypoint is None:
             self.__previous_waypoint = self.__waypoints.current.data
 
-            self.__waypoints.next()
+        walk_instructions = self.path_finder.execute(self.__previous_waypoint, self.__waypoints.current.data, frame)
+        print(self.__waypoints.current.data)
+        print(str(walk_instructions))
+
+        while walk_instructions.current is not None:
+            command: MoveCommand = walk_instructions.current.data
+
+            time.sleep(0.8)
+
+            self.player.move(command)
+
+            walk_instructions.next()
+
+        self.__previous_waypoint = self.__waypoints.current.data
+
+        self.__waypoints.next()
