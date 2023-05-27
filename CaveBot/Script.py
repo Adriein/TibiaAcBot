@@ -65,4 +65,7 @@ class Script:
 
         self.__waypoints.next()
 
+        if self.__waypoints.has_to_reset():
+            self.__waypoints.reset()
+
         time.sleep(2)

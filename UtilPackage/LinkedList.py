@@ -50,3 +50,10 @@ class LinkedList:
             current = next_node
 
         self.head = prev
+
+    def has_to_reset(self) -> bool:
+        return self.current is None
+
+    def reset(self) -> None:
+        if self.current is None:
+            self.current = self.head
