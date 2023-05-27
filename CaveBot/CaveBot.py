@@ -1,11 +1,10 @@
 from .Player import Player
 from LoggerPackage import Logger as TibiaAcBotLogger
-from ScreenAnalizerPackage import WindowCapturer, Screen
+from ScreenAnalizerPackage import WindowCapturer
 from .AutoAttack import AutoAttack
 from .AutoLoot import AutoLoot
 from .Script import Script
 from threading import Thread, Event
-import cv2
 
 
 class CaveBot:
@@ -31,20 +30,6 @@ class CaveBot:
 
         while True:
             frame = WindowCapturer.start()
-
-            screen_x = Screen.MONITOR.width / 2
-            screen_y = Screen.MONITOR.height / 2
-            print(screen_x)
-            print(screen_y)
-            if cv2.waitKey(1):
-                cv2.destroyAllWindows()
-
-            cv2.drawMarker(frame, (int(screen_x), int(screen_y)), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
-            cv2.imshow("Output", frame)
-            cv2.waitKey(0)
-
-            raise Exception
-
 
             walk_thread = Thread(daemon=True, target=cave_bot_script.start, args=(frame,))
 
