@@ -46,10 +46,10 @@ class CaveBot:
 
             loot_thread.start()
 
+            walk_thread.join()
             health_thread.join()
             attack_thread.join()
             loot_thread.join()
-            walk_thread.join()
 
             # cv2.imshow("Computer Vision", frame)
 
