@@ -18,7 +18,7 @@ class Script:
 
     __previous_waypoint = None
 
-    def __new__(cls, script_json_data: Dict[str, Any], player: Player, path_finder: PathFinder):
+    def __new__(cls, script_json_data: Dict[str, Any], player: Player, path_finder: PathFinder, walk_event: Event):
         if cls.__INSTANCE:
             return cls.__INSTANCE
 
@@ -27,29 +27,25 @@ class Script:
         for creature in script_json_data['creatures']:
             cls.creatures.append(creature)
 
-        for command in script_json_data['walk']:
-            [steps, direction] = command
-
-            move_command = MoveCommand(steps, direction)
-
-            for step in range(move_command.steps):
-                cls.__waypoints.append(MoveCommand(steps, direction))
+        for waypoint in script_json_data['walk']:
+            cls.__waypoints.append(waypoint)
 
         cls.player = player
         cls.path_finder = path_finder
+        cls.walk_event = walk_event
 
         return cls.__INSTANCE
 
     @staticmethod
-    def load(name: str, player: Player) -> 'Script':
+    def load(name: str, player: Player, walk_event: Event) -> 'Script':
         with open(name, Script.__READ_MODE) as file:
             data = json.load(file)
 
-        return Script(data, player, PathFinder())
+        return Script(data, player, PathFinder(), walk_event)
 
-    def start(self, walk_event: Event, frame: np.array) -> None:
+    def start(self, frame: np.array) -> None:
         while self.__waypoints.current is not None:
-            if not walk_event.is_set():
+            if not self.walk_event.is_set():
                 continue
 
             walk_instructions = self.path_finder.execute(self.__previous_waypoint, self.__waypoints.current.data, frame)
