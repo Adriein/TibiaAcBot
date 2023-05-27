@@ -42,6 +42,8 @@ class CaveBot:
             cv2.imshow("Output", frame)
             cv2.waitKey(0)
 
+            raise Exception
+
 
             walk_thread = Thread(daemon=True, target=cave_bot_script.start, args=(frame,))
 
