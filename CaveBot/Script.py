@@ -64,3 +64,5 @@ class Script:
         self.__previous_waypoint = self.__waypoints.current.data
 
         self.__waypoints.next()
+
+        time.sleep(2)

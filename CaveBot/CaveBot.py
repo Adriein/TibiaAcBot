@@ -30,8 +30,6 @@ class CaveBot:
         walking_event.set()
 
         while True:
-            print('waiting 5 seconds')
-            time.sleep(5)
             frame = WindowCapturer.start()
 
             walk_thread = Thread(daemon=True, target=cave_bot_script.start, args=(frame,))
