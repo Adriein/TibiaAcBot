@@ -1,13 +1,10 @@
 from .Player import Player
 from LoggerPackage import Logger as TibiaAcBotLogger
 from ScreenAnalizerPackage import WindowCapturer
-import cv2
 from .AutoAttack import AutoAttack
 from .AutoLoot import AutoLoot
 from .Script import Script
-from .PathFinder import PathFinder
 from threading import Thread, Event
-from queue import Queue
 
 
 class CaveBot:
