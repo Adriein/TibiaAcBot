@@ -102,8 +102,11 @@ class Screen:
 
         (right_arrow_start_x, right_arrow_start_y) = max_coordinates
 
-        x = ((left_arrow_start_x + 7 + right_arrow_start_x) // 2) - 480
-        y = left__arrow_start_y + 5
+        _, left_arrow_width = left_game_window_arrow.shape
+        _, right_arrow_width = right_game_window_arrow.shape
+
+        x = left_arrow_start_x + left_arrow_width + (left_arrow_start_x - right_arrow_start_x)
+        y = 10
 
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
