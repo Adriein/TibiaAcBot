@@ -22,6 +22,7 @@ class Screen:
     TIBIA_WINDOW_ID = None
     OBS_TIBIA_PREVIEW_WINDOW_ID = None
     TIBIA_PID_BIN_PATH = "gmbh/tibia/packages/tibia/bin"
+    GAME_WINDOW = None
 
     @staticmethod
     def screenshot() -> np.ndarray:
@@ -122,3 +123,5 @@ class Screen:
         Screen.TIBIA_WINDOW_ID = Screen.__tibia_window_id()
 
         Screen.OBS_TIBIA_PREVIEW_WINDOW_ID = Screen.__obs_tibia_preview_window_id()
+
+        Screen.GAME_WINDOW = Screen.__game_window_location()
