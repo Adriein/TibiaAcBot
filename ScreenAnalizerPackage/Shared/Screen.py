@@ -119,6 +119,8 @@ class Screen:
         # Calculate the size of each tile
         tile_size = 32
 
+        roi = frame[start_y: end_y, start_x:end_x]
+
         # Iterate over the rows and columns to draw the grid
         for row in range(11):
             for col in range(15):
@@ -131,11 +133,11 @@ class Screen:
                 y_end = y + tile_size
 
                 # Draw a white rectangle for each tile
-                cv2.rectangle(frame, (x, y), (x_end, y_end), (255, 255, 255), -1)
+                cv2.rectangle(roi, (x, y), (x_end, y_end), (255, 0, 0), 1)
         # show the output image
         cv2.imshow("Output", frame)
         cv2.waitKey(0)
-
+        raise Exception
         return ScreenRegion(x, y, 960, 704)
 
     @staticmethod
