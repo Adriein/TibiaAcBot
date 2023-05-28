@@ -135,7 +135,7 @@ class Screen:
                 # Draw a white rectangle for each tile
                 cv2.rectangle(roi, (x, y), (x_end, y_end), (255, 0, 0), 1)
         # show the output image
-        cv2.imshow("Output", frame)
+        cv2.imshow("Output", roi)
         cv2.waitKey(0)
         raise Exception
         return ScreenRegion(x, y, 960, 704)
