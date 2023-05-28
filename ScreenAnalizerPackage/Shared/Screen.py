@@ -108,7 +108,7 @@ class Screen:
         start_x = left_arrow_start_x + 140
         end_x = right_arrow_start_x - 135
         start_y = left_arrow_start_y + left_arrow_height
-        end_y = 545
+        end_y = 543
 
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
