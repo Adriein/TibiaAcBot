@@ -110,6 +110,9 @@ class Screen:
         start_y = left_arrow_start_y + left_arrow_height
         end_y = 542
 
+        print(int(start_x / 2))
+        print(int(start_y / 2))
+
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
         cv2.drawMarker(frame, (int(start_x / 2), int(start_y / 2)), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
