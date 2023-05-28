@@ -119,8 +119,6 @@ class Screen:
         # Calculate the size of each tile
         tile_size = 32
 
-        roi = frame[start_y: end_y, start_x:end_x]
-
         # Iterate over the rows and columns to draw the grid
         for row in range(11):
             for col in range(15):
@@ -133,9 +131,9 @@ class Screen:
                 y_end = y + tile_size
 
                 # Draw a white rectangle for each tile
-                cv2.rectangle(roi, (x, y), (x_end, y_end), (255, 0, 0), 1)
+                cv2.rectangle(frame, (x, y), (x_end, y_end), (255, 0, 0), 1)
         # show the output image
-        cv2.imshow("Output", roi)
+        cv2.imshow("Output", frame)
         cv2.waitKey(0)
         raise Exception
         return ScreenRegion(x, y, 960, 704)
@@ -149,4 +147,4 @@ class Screen:
 
         Screen.OBS_TIBIA_PREVIEW_WINDOW_ID = Screen.__obs_tibia_preview_window_id()
 
-        Screen.GAME_WINDOW = Screen.__game_window_location()
+        # Screen.GAME_WINDOW = Screen.__game_window_location()
