@@ -96,7 +96,7 @@ class Screen:
 
         match = cv2.matchTemplate(frame, right_game_window_arrow, cv2.TM_CCOEFF_NORMED)
 
-        (left_arrow_start_x, left__arrow_start_y) = max_coordinates
+        (left_arrow_start_x, left_arrow_start_y) = max_coordinates
 
         [_, _, _, max_coordinates] = cv2.minMaxLoc(match)
 
@@ -105,10 +105,10 @@ class Screen:
         left_arrow_height, left_arrow_width = left_game_window_arrow.shape
         _, right_arrow_width = right_game_window_arrow.shape
 
-        start_x = left__arrow_start_y + left_arrow_height
-        end_x = 300
-        start_y = left__arrow_start_y
-        end_y = left__arrow_start_y + left_arrow_height
+        start_x = left_arrow_start_x
+        end_x = left_arrow_start_x + left_arrow_width
+        start_y = left_arrow_start_y
+        end_y = left_arrow_start_y + left_arrow_height
 
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
