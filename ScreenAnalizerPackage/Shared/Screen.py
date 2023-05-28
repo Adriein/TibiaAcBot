@@ -12,6 +12,7 @@ from ScreenAnalizerPackage.Error.WindowSearchCommandError import WindowSearchCom
 from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
 from ScreenAnalizerPackage.Shared.Monitor import Monitor
 from UtilPackage.Array import Array
+from FilesystemPackage import Cv2File
 
 
 class Screen:
@@ -81,6 +82,37 @@ class Screen:
         except Exception as exception:
             Logger.error(str(exception), exception)
             raise WindowSearchCommandError(Screen.OBS_TIBIA_PREVIEW_WINDOW_NAME)
+
+    @staticmethod
+    def __game_window_location() -> ScreenRegion:
+        frame = Screen.screenshot()
+        left_game_window_arrow = Cv2File.load_image(f'Wiki/Ui/GameWindow/left_game_window_arrow.png')
+        right_game_window_arrow = Cv2File.load_image(f'Wiki/Ui/GameWindow/right_game_window_arrow.png')
+
+        match = cv2.matchTemplate(frame, left_game_window_arrow, cv2.TM_CCOEFF_NORMED)
+
+        [_, _, _, max_coordinates] = cv2.minMaxLoc(match)
+
+        match = cv2.matchTemplate(frame, right_game_window_arrow, cv2.TM_CCOEFF_NORMED)
+
+        (left_arrow_start_x, left__arrow_start_y) = max_coordinates
+
+        [_, _, _, max_coordinates] = cv2.minMaxLoc(match)
+
+        (right_arrow_start_x, right_arrow_start_y) = max_coordinates
+
+        x = ((left_arrow_start_x + 7 + right_arrow_start_x) // 2) - 480
+        y = left__arrow_start_y + 5
+
+        if cv2.waitKey(1):
+            cv2.destroyAllWindows()
+
+        cv2.rectangle(frame, (x, y), (960, 704), (255, 0, 0), 1)
+        # show the output image
+        cv2.imshow("Output", frame)
+        cv2.waitKey(0)
+
+        return ScreenRegion(x, y, 960, 704)
 
     @staticmethod
     def setup_global_variables() -> None:
