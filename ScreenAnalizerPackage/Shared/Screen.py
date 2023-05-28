@@ -115,8 +115,23 @@ class Screen:
 
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
-        cv2.drawMarker(frame, (middle_x, middle_y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
-        cv2.rectangle(frame, (start_x, start_y), (end_x, end_y), (255, 0, 0), 1)
+
+        # Calculate the size of each tile
+        tile_size = 32
+
+        # Iterate over the rows and columns to draw the grid
+        for row in range(11):
+            for col in range(15):
+                # Calculate the coordinates of the top-left corner of each tile
+                x = col * tile_size
+                y = row * tile_size
+
+                # Calculate the coordinates of the bottom-right corner of each tile
+                x_end = x + tile_size
+                y_end = y + tile_size
+
+                # Draw a white rectangle for each tile
+                cv2.rectangle(frame, (x, y), (x_end, y_end), (255, 255, 255), -1)
         # show the output image
         cv2.imshow("Output", frame)
         cv2.waitKey(0)
