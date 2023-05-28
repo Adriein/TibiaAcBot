@@ -106,9 +106,9 @@ class Screen:
         _, right_arrow_width = right_game_window_arrow.shape
 
         start_x = left_arrow_start_x
-        end_x = left_arrow_start_x + left_arrow_width + (left_arrow_start_x - right_arrow_start_x)
-        start_y = left_arrow_height
-        end_y = 20
+        end_x = left_arrow_start_x + left_arrow_width
+        start_y = left__arrow_start_y
+        end_y = left__arrow_start_y  + left_arrow_height
 
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
