@@ -102,16 +102,18 @@ class Screen:
 
         (right_arrow_start_x, right_arrow_start_y) = max_coordinates
 
-        _, left_arrow_width = left_game_window_arrow.shape
+        left_arrow_height, left_arrow_width = left_game_window_arrow.shape
         _, right_arrow_width = right_game_window_arrow.shape
 
-        x = left_arrow_start_x + left_arrow_width + (left_arrow_start_x - right_arrow_start_x)
-        y = 10
+        start_x = left_arrow_start_x
+        end_x = left_arrow_start_x + left_arrow_width + (left_arrow_start_x - right_arrow_start_x)
+        start_y = left_arrow_height
+        end_y = 20
 
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
 
-        cv2.rectangle(frame, (x, y), (960, 704), (255, 0, 0), 1)
+        cv2.rectangle(frame, (start_x, start_y), (end_x, end_y), (255, 0, 0), 1)
         # show the output image
         cv2.imshow("Output", frame)
         cv2.waitKey(0)
