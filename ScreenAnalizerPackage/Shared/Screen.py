@@ -110,13 +110,13 @@ class Screen:
         start_y = left_arrow_start_y + left_arrow_height
         end_y = 542
 
-        print(int(start_x / 2))
-        print(int(start_y / 2))
+        middle_x = int((start_x + end_x) / 2)
+        middle_y = int((start_y + end_y) / 2)
 
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
-        cv2.drawMarker(frame, (int(start_x / 2), int(start_y / 2)), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
-        #cv2.rectangle(frame, (start_x, start_y), (end_x, end_y), (255, 0, 0), 1)
+        cv2.drawMarker(frame, (middle_x, middle_y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
+        cv2.rectangle(frame, (start_x, start_y), (end_x, end_y), (255, 0, 0), 1)
         # show the output image
         cv2.imshow("Output", frame)
         cv2.waitKey(0)
