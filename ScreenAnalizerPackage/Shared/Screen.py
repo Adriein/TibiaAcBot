@@ -106,7 +106,7 @@ class Screen:
         _, right_arrow_width = right_game_window_arrow.shape
 
         start_x = left_arrow_start_x + 140
-        end_x = right_arrow_start_x - 150
+        end_x = right_arrow_start_x - 130
         start_y = left_arrow_start_y
         end_y = left_arrow_start_y + left_arrow_height
 
