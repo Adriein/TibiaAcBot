@@ -113,15 +113,7 @@ class Screen:
         middle_x = int((start_x + end_x) / 2)
         middle_y = int((start_y + end_y) / 2)
 
-        cv2.rectangle(frame, (middle_x - 22, middle_y + 22), (middle_x + 22, middle_y - 22), (255, 0, 0), 1)
-
-        if cv2.waitKey(1):
-            cv2.destroyAllWindows()
-
-        cv2.imshow("Output", frame)
-        cv2.waitKey(0)
-        raise Exception
-        return ScreenRegion(x, y, 960, 704)
+        return ScreenRegion(start_x, end_x, start_y, end_y)
 
     @staticmethod
     def setup_global_variables() -> None:
