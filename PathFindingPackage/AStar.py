@@ -9,9 +9,11 @@ import cv2
 
 class AStar:
     def __init__(self):
-        tibia_walkable_map = Cv2File.load_image(f'Wiki/Ui/Map/Walkable/floor-5-path.png', False)
+        tibia_walkable_map_floor_5 = Cv2File.load_image(f'Wiki/Ui/Map/Walkable/floor-5-path.png', False)
+        tibia_walkable_map_floor_6 = Cv2File.load_image(f'Wiki/Ui/Map/Walkable/floor-6-path.png', False)
 
-        self.tibia_walkable_map_hsv = cv2.cvtColor(tibia_walkable_map, cv2.COLOR_BGR2HSV)
+        self.tibia_walkable_map_hsv_floor_5 = cv2.cvtColor(tibia_walkable_map_floor_5, cv2.COLOR_BGR2HSV)
+        self.tibia_walkable_map_hsv_floor_6 = cv2.cvtColor(tibia_walkable_map_floor_6, cv2.COLOR_BGR2HSV)
 
     def execute(self, current: Waypoint, destination: Waypoint) -> list[Tile]:
         open_set = []
@@ -65,11 +67,19 @@ class AStar:
 
         pixel = self.__get_pixel_from_waypoint(current.waypoint)
 
-        pixel_color = self.tibia_walkable_map_hsv[pixel.y, pixel.x]
+        pixel_color = None
+
+        if current.waypoint.z == 5:
+            pixel_color = self.tibia_walkable_map_hsv_floor_5[pixel.y, pixel.x]
+
+        if current.waypoint.z == 6:
+            pixel_color = self.tibia_walkable_map_hsv_floor_6[pixel.y, pixel.x]
 
         mask = cv2.inRange(pixel_color, lower_yellow, upper_yellow)
 
         return np.all(mask == 255)
+
+
 
     def __get_pixel_from_waypoint(self, waypoint: Waypoint) -> Coordinate:
         return Coordinate(waypoint.x - 31744, waypoint.y - 30976)
