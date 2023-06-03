@@ -40,7 +40,7 @@ class CaveBot:
 
             attack_thread = Thread(daemon=True, target=auto_attack.attack, args=(frame,))
 
-            loot_thread = Thread(daemon=True, target=auto_loot.loot, args=(frame,))
+            loot_thread = Thread(daemon=True, target=auto_loot.loot)
 
             # walk_thread.start()
 

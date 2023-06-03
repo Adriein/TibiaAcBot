@@ -5,7 +5,6 @@ from ScreenAnalizerPackage import PositionError
 from ScreenAnalizerPackage import Coordinate
 from ScreenAnalizerPackage import Screen
 from threading import Event
-import numpy as np
 
 
 class AutoLoot2:
@@ -14,10 +13,10 @@ class AutoLoot2:
         self.walk_event = walk_event
         self.combat_event = combat_event
 
-    def loot(self, frame: np.array) -> None:
+    def loot(self) -> None:
         try:
-            # if self.walk_event.is_set() or self.combat_event.is_set():
-              #  return
+            if self.walk_event.is_set() or self.combat_event.is_set():
+                return
 
             coordinates = self.__create_looting_area()
 
@@ -62,4 +61,3 @@ class AutoLoot2:
         result.append(eight_looting_point)
 
         return result
-
