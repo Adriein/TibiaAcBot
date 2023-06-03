@@ -113,7 +113,7 @@ class Screen:
         middle_x = int((start_x + end_x) / 2)
         middle_y = int((start_y + end_y) / 2)
 
-        cv2.rectangle(frame, (middle_x - 16, middle_y + 16), (middle_x + 16, middle_y - 16), (255, 0, 0), 1)
+        cv2.rectangle(frame, (middle_x - 22, middle_y + 22), (middle_x + 22, middle_y - 22), (255, 0, 0), 1)
 
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
