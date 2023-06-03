@@ -1,15 +1,11 @@
 import time
-from ctypes import Union
-
 from CaveBot.Player import Player
 from ScreenAnalizerPackage import ScreenRegion
-from ScreenAnalizerPackage import Position
 from ScreenAnalizerPackage import PositionError
 from ScreenAnalizerPackage import Coordinate
 from ScreenAnalizerPackage import Screen
 from threading import Event
 import numpy as np
-import cv2
 
 
 class AutoLoot2:
@@ -36,7 +32,7 @@ class AutoLoot2:
             pass
 
     def __create_looting_area(self) -> list[Coordinate]:
-        screen_region: Union[None, ScreenRegion] = Screen.GAME_WINDOW
+        screen_region = Screen.GAME_WINDOW
 
         if screen_region is None:
             raise Exception
