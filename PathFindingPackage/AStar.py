@@ -9,6 +9,10 @@ import cv2
 
 class AStar:
     def __init__(self):
+        '''
+        I need to iterate to all the waypoints of the script in order to cache all the floors that i should visit during
+        the duration of the script
+        '''
         tibia_walkable_map_floor_5 = Cv2File.load_image(f'Wiki/Ui/Map/Walkable/floor-5-path.png', False)
         tibia_walkable_map_floor_6 = Cv2File.load_image(f'Wiki/Ui/Map/Walkable/floor-6-path.png', False)
 

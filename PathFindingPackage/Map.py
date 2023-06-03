@@ -21,6 +21,10 @@ class Map:
 
         grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
+        '''
+        I need to extract the floow wich im in right now not hardcoded to floor 5
+        '''
+
         tibia_map = Cv2File.load_image(f'Wiki/Ui/Map/Floors/floor-5.png')
 
         # find position of minimap in the screen
