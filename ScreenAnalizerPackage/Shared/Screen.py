@@ -113,26 +113,11 @@ class Screen:
         middle_x = int((start_x + end_x) / 2)
         middle_y = int((start_y + end_y) / 2)
 
+        cv2.rectangle(frame, (middle_x - 16, middle_y + 16), (middle_x + 16, middle_y - 16), (255, 0, 0), 1)
+
         if cv2.waitKey(1):
             cv2.destroyAllWindows()
 
-        # Calculate the size of each tile
-        tile_size = 32
-
-        # Iterate over the rows and columns to draw the grid
-        for row in range(11):
-            for col in range(15):
-                # Calculate the coordinates of the top-left corner of each tile
-                x = col * tile_size
-                y = row * tile_size
-
-                # Calculate the coordinates of the bottom-right corner of each tile
-                x_end = x + tile_size
-                y_end = y + tile_size
-
-                # Draw a white rectangle for each tile
-                cv2.rectangle(frame, (x, y), (x_end, y_end), (255, 0, 0), 1)
-        # show the output image
         cv2.imshow("Output", frame)
         cv2.waitKey(0)
         raise Exception
