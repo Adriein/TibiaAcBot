@@ -132,4 +132,4 @@ class Screen:
 
         Screen.OBS_TIBIA_PREVIEW_WINDOW_ID = Screen.__obs_tibia_preview_window_id()
 
-        # Screen.GAME_WINDOW = Screen.__game_window_location()
+        Screen.GAME_WINDOW = Screen.__game_window_location()
