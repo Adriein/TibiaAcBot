@@ -1,3 +1,4 @@
+from ctypes import Union
 from io import BytesIO
 
 import cv2
@@ -22,7 +23,7 @@ class Screen:
     TIBIA_WINDOW_ID = None
     OBS_TIBIA_PREVIEW_WINDOW_ID = None
     TIBIA_PID_BIN_PATH = "gmbh/tibia/packages/tibia/bin"
-    GAME_WINDOW = None
+    GAME_WINDOW: Union[None, ScreenRegion] = None
 
     @staticmethod
     def screenshot() -> np.ndarray:
