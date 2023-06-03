@@ -2,7 +2,7 @@ from .Player import Player
 from LoggerPackage import Logger as TibiaAcBotLogger
 from ScreenAnalizerPackage import WindowCapturer
 from .AutoAttack import AutoAttack
-from .AutoLoot2 import AutoLoot2
+from .AutoLoot import AutoLoot2
 from .Script import Script
 from threading import Thread, Event
 
@@ -34,7 +34,7 @@ class CaveBot:
         while True:
             frame = WindowCapturer.start()
 
-            # walk_thread = Thread(daemon=True, target=cave_bot_script.start, args=(frame,))
+            walk_thread = Thread(daemon=True, target=cave_bot_script.start, args=(frame,))
 
             health_thread = Thread(daemon=True, target=player.watch_health, args=(frame,))
 
@@ -42,7 +42,7 @@ class CaveBot:
 
             loot_thread = Thread(daemon=True, target=auto_loot.loot)
 
-            # walk_thread.start()
+            walk_thread.start()
 
             health_thread.start()
 
@@ -50,7 +50,7 @@ class CaveBot:
 
             loot_thread.start()
 
-            # walk_thread.join()
+            walk_thread.join()
             health_thread.join()
             attack_thread.join()
             loot_thread.join()
