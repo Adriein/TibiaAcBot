@@ -47,7 +47,7 @@ class AutoLoot2:
         fourth_looting_point = Coordinate(third_looting_point.x, third_looting_point.y + 44)
         fifth_looting_point = Coordinate(center_game_window_coordinate.x, center_game_window_coordinate.y + 44)
         six_looting_point = Coordinate(center_game_window_coordinate.x - 44, fifth_looting_point.y)
-        seven_looting_point = Coordinate(center_game_window_coordinate.x - 44, center_game_window_coordinate.y.y)
+        seven_looting_point = Coordinate(center_game_window_coordinate.x - 44, center_game_window_coordinate.y)
         eight_looting_point = Coordinate(seven_looting_point.x, center_game_window_coordinate.y - 44)
 
         result = list()
