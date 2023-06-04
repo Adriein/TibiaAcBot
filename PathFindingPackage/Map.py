@@ -30,7 +30,7 @@ class Map:
         last_waypoint = self.__string_to_waypoint(last_waypoint[0])
 
         grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
+        print(z_correction)
         tibia_map = Cv2File.load_image(f'Wiki/Ui/Map/Floors/floor-{last_waypoint.z + z_correction}.png')
 
         # find position of minimap in the screen
