@@ -5,7 +5,6 @@ from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
 from ScreenAnalizerPackage.Shared.Screen import Screen
 from .StatNotFound import StatNotFound
 from UtilPackage import Array
-from LoggerPackage import Logger
 import math
 import os
 import numpy as np

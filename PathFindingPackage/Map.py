@@ -16,16 +16,20 @@ class Map:
     def __init__(self):
         self.path_finding_algorithm = AStar()
 
-    def where_am_i(self, last_waypoint: str, frame: np.array) -> Tile:
-        last_waypoint = self.__string_to_waypoint(last_waypoint)
+    def where_am_i(self, last_waypoint: list[str], frame: np.array) -> Tile:
+        action = last_waypoint[1]
+
+        z_correction = 0
+
+        if action is not None:
+            if action == 'stairDown':
+                z_correction = +1
+
+        last_waypoint = self.__string_to_waypoint(last_waypoint[0])
 
         grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-        '''
-        I need to extract the floow wich im in right now not hardcoded to floor 5
-        '''
-
-        tibia_map = Cv2File.load_image(f'Wiki/Ui/Map/Floors/floor-5.png')
+        tibia_map = Cv2File.load_image(f'Wiki/Ui/Map/Floors/floor-{last_waypoint.z + z_correction}.png')
 
         # find position of minimap in the screen
 
