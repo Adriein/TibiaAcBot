@@ -17,10 +17,10 @@ class Map:
         self.path_finding_algorithm = AStar()
 
     def where_am_i(self, last_waypoint: list[str], frame: np.array) -> Tile:
+        z_correction = 0
+
         try:
             action = last_waypoint[1]
-
-            z_correction = 0
 
             if action == 'stairDown':
                 z_correction = +1
