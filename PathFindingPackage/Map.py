@@ -18,7 +18,7 @@ class Map:
 
     def where_am_i(self, last_waypoint: list[str], frame: np.array) -> Tile:
         z_correction = 0
-
+        print(last_waypoint)
         try:
             action = last_waypoint[1]
 

@@ -11,6 +11,4 @@ class PathFinder:
         current_tile = self.game_map.where_am_i(last_known_waypoint, frame)
         current_waypoint = current_tile.waypoint.to_string()
 
-        print(current_waypoint)
-
         return self.game_map.find_shortest_path(current_waypoint, destination_waypoint[0])
