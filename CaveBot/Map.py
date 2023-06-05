@@ -54,7 +54,7 @@ class Map:
         start_x = pixel_on_map.x - 20 + x
         start_y = pixel_on_map.y - 20 + y
 
-        return self.__get_map_tile_from_pixel(Coordinate(start_x, start_y), last_waypoint.z)
+        return self.__get_map_tile_from_pixel(Coordinate(start_x, start_y), current_floor)
 
     def find_shortest_path(self, current_waypoint: str, destination_waypoint: str) -> LinkedList:
         current_waypoint = self.__string_to_waypoint(current_waypoint)
