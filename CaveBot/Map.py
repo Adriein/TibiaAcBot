@@ -6,8 +6,8 @@ from UtilPackage import LinkedList
 from ScreenAnalizerPackage import Scanner
 from FilesystemPackage import Cv2File
 from ScreenAnalizerPackage import Coordinate
-from CaveBot.MoveCommand import MoveCommand
-from CaveBot.Script import Script
+from .MoveCommand import MoveCommand
+from .Script import Script
 from .Tile import Tile
 from .Waypoint import Waypoint
 from .AStar import AStar

@@ -1,5 +1,5 @@
 import numpy as np
-from PathFindingPackage import Map
+from .Map import Map
 from UtilPackage import LinkedList
 
 
