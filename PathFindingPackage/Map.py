@@ -7,7 +7,7 @@ from ScreenAnalizerPackage import Scanner
 from FilesystemPackage import Cv2File
 from ScreenAnalizerPackage import Coordinate
 from CaveBot.MoveCommand import MoveCommand
-from CaveBot import Script
+from CaveBot.Script import Script
 from .Tile import Tile
 from .Waypoint import Waypoint
 from .AStar import AStar
