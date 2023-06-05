@@ -2,10 +2,7 @@ import json
 import time
 import numpy as np
 from typing import Dict, Any
-from threading import Event
-from .Player import Player
 from .MoveCommand import MoveCommand
-from .PathFinder import PathFinder
 from UtilPackage import LinkedList
 
 
@@ -20,7 +17,9 @@ class Script:
 
     FLOOR_LEVEL = 5
 
-    def __new__(cls, script_json_data: Dict[str, Any], player: Player, path_finder: PathFinder, walk_event: Event):
+    FLOORS_LEVELS: set[int] = set()
+
+    def __new__(cls, script_json_data: Dict[str, Any]):
         if cls.__INSTANCE:
             return cls.__INSTANCE
 
@@ -30,20 +29,23 @@ class Script:
             cls.creatures.append(creature)
 
         for waypoint in script_json_data['walk']:
+            cls.FLOORS_LEVELS.add(Script.__extract_z_level_from_waypoint(waypoint))
             cls.__waypoints.append(waypoint)
-
-        cls.player = player
-        cls.path_finder = path_finder
-        cls.walk_event = walk_event
 
         return cls.__INSTANCE
 
     @staticmethod
-    def load(name: str, player: Player, walk_event: Event) -> 'Script':
+    def load(name: str) -> 'Script':
         with open(name, Script.__READ_MODE) as file:
             data = json.load(file)
 
-        return Script(data, player, PathFinder(), walk_event)
+        return Script(data)
+
+    @staticmethod
+    def __extract_z_level_from_waypoint(waypoint: str) -> int:
+        x, y, z = waypoint.split(',')
+
+        return int(z)
 
     def start(self, frame: np.array) -> None:
         if not self.walk_event.is_set():
@@ -52,12 +54,10 @@ class Script:
         if self.__previous_waypoint is None:
             self.__previous_waypoint = self.__waypoints.current.data
 
-        walk_instructions = self.path_finder.execute(self.__previous_waypoint, self.__waypoints.current.data, Script.FLOOR_LEVEL, frame)
+        walk_instructions = self.path_finder.execute(self.__previous_waypoint, self.__waypoints.current.data,
+                                                     Script.FLOOR_LEVEL, frame)
 
         while walk_instructions.current is not None:
-            if not self.walk_event.is_set():
-                break
-
             command: MoveCommand = walk_instructions.current.data
 
             time.sleep(0.8)

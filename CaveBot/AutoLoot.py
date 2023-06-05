@@ -7,7 +7,7 @@ from ScreenAnalizerPackage import Screen
 from threading import Event
 
 
-class AutoLoot2:
+class AutoLoot:
     def __init__(self, player: Player, walk_event: Event, combat_event: Event):
         self.player = player
         self.walk_event = walk_event

@@ -2,7 +2,7 @@ from .Player import Player
 from LoggerPackage import Logger as TibiaAcBotLogger
 from ScreenAnalizerPackage import WindowCapturer
 from .AutoAttack import AutoAttack
-from .AutoLoot import AutoLoot2
+from .AutoLoot import AutoLoot
 from .Script import Script
 from threading import Thread, Event
 
@@ -19,15 +19,11 @@ class CaveBot:
 
         # Thread(daemon=True, target=player.watch_mana).start()
 
-        cave_bot_script = Script.load(
-            'Wiki/Script/Rookgard/mountain_troll_salamander_script.json',
-            player,
-            walking_event
-        )
+        cave_bot_script = Script.load('Wiki/Script/Rookgard/mountain_troll_salamander_script.json')
 
         auto_attack = AutoAttack(player, walking_event, combat_event, cave_bot_script.creatures)
 
-        auto_loot = AutoLoot2(player, walking_event, combat_event)
+        auto_loot = AutoLoot(player, walking_event, combat_event)
 
         walking_event.set()
 
