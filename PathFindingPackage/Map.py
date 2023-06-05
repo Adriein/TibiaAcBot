@@ -76,9 +76,6 @@ class Map:
         print('path:')
         print(str(tile_path))
 
-        if tile_path is None:
-            raise Exception
-
         path = LinkedList()
 
         for index, current_tile in enumerate(tile_path):
