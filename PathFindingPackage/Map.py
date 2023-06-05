@@ -23,7 +23,7 @@ class Map:
             action = last_waypoint[1]
 
             if action == 'stairDown':
-                z_correction = +1
+                z_correction = 1
         except IndexError:
             pass
 
