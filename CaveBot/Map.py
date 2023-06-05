@@ -62,6 +62,9 @@ class Map:
 
         tile_path = self.path_finding_algorithm.execute(current_waypoint, destination_waypoint)
 
+        if tile_path is None:
+            return []
+
         path = LinkedList()
 
         for index, current_tile in enumerate(tile_path):
