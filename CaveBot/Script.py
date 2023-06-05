@@ -55,6 +55,9 @@ class Script:
         walk_instructions = self.path_finder.execute(self.__previous_waypoint, self.__waypoints.current.data, Script.FLOOR_LEVEL, frame)
 
         while walk_instructions.current is not None:
+            if not self.walk_event.is_set():
+                break
+
             command: MoveCommand = walk_instructions.current.data
 
             time.sleep(0.8)
