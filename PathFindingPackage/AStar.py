@@ -83,7 +83,5 @@ class AStar:
 
         return np.all(mask == 255)
 
-
-
     def __get_pixel_from_waypoint(self, waypoint: Waypoint) -> Coordinate:
         return Coordinate(waypoint.x - 31744, waypoint.y - 30976)

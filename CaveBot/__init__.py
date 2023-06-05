@@ -3,3 +3,4 @@ from .Keyboard import Keyboard
 from .Mouse import Mouse
 from .Enemy import Enemy
 from .MoveCommand import MoveCommand
+from .Script import Script

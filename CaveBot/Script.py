@@ -18,6 +18,8 @@ class Script:
 
     __previous_waypoint = None
 
+    FLOOR_LEVEL = 5
+
     def __new__(cls, script_json_data: Dict[str, Any], player: Player, path_finder: PathFinder, walk_event: Event):
         if cls.__INSTANCE:
             return cls.__INSTANCE
@@ -60,6 +62,14 @@ class Script:
             self.player.move(command)
 
             walk_instructions.next()
+
+        try:
+            waypoint_type = self.__waypoints.current.data[1]
+
+            if waypoint_type == 'stairDown':
+                Script.FLOOR_LEVEL = Script.FLOOR_LEVEL + 1
+        except IndexError:
+            pass
 
         self.__previous_waypoint = self.__waypoints.current.data
 
