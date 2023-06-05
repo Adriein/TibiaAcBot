@@ -68,6 +68,10 @@ class Script:
 
             if waypoint_type == 'stairDown':
                 Script.FLOOR_LEVEL = Script.FLOOR_LEVEL + 1
+
+            if waypoint_type == 'stairUp':
+                Script.FLOOR_LEVEL = Script.FLOOR_LEVEL - 1
+
         except IndexError:
             pass
 
