@@ -7,7 +7,6 @@ from ScreenAnalizerPackage import Scanner
 from FilesystemPackage import Cv2File
 from ScreenAnalizerPackage import Coordinate
 from .MoveCommand import MoveCommand
-from .Script import Script
 from .Tile import Tile
 from .Waypoint import Waypoint
 from .AStar import AStar
@@ -17,12 +16,12 @@ class Map:
     def __init__(self):
         self.path_finding_algorithm = AStar()
 
-    def where_am_i(self, last_waypoint: str, frame: np.array) -> Tile:
+    def where_am_i(self, last_waypoint: str, current_floor: int, frame: np.array) -> Tile:
         last_waypoint = self.__string_to_waypoint(last_waypoint)
 
         grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-        tibia_map = Cv2File.load_image(f'Wiki/Ui/Map/Floors/floor-{Script.FLOOR_LEVEL}.png')
+        tibia_map = Cv2File.load_image(f'Wiki/Ui/Map/Floors/floor-{current_floor}.png')
 
         # find position of minimap in the screen
 

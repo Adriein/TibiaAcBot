@@ -52,7 +52,7 @@ class Script:
         if self.__previous_waypoint is None:
             self.__previous_waypoint = self.__waypoints.current.data
 
-        walk_instructions = self.path_finder.execute(self.__previous_waypoint, self.__waypoints.current.data, frame)
+        walk_instructions = self.path_finder.execute(self.__previous_waypoint, self.__waypoints.current.data, Script.FLOOR_LEVEL, frame)
 
         while walk_instructions.current is not None:
             command: MoveCommand = walk_instructions.current.data
