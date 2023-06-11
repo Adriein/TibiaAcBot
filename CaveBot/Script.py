@@ -24,7 +24,7 @@ class Script:
             self.creatures.append(creature)
 
         for waypoint in script_json_data['walk']:
-            self.FLOORS_LEVELS.add(Script.__extract_z_level_from_waypoint(waypoint))
+            self.FLOORS_LEVELS.add(Script.__extract_z_level_from_waypoint(waypoint[0]))
             self.waypoints.append(waypoint)
 
     @staticmethod
