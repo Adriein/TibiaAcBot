@@ -23,7 +23,7 @@ class AutoLoot:
             for coordinate in coordinates:
                 self.player.loot(coordinate)
 
-                time.sleep(0.8)
+                time.sleep(0.4)
 
             self.walk_event.set()
 
