@@ -3,8 +3,9 @@ from LoggerPackage import Logger as TibiaAcBotLogger
 from ScreenAnalizerPackage import WindowCapturer
 from .AutoAttack import AutoAttack
 from .AutoLoot import AutoLoot
+from .AutoWalk import AutoWalk
 from .Script import Script
-from threading import Thread, Event
+from threading import Thread, Event, Condition
 
 
 class CaveBot:
@@ -20,32 +21,31 @@ class CaveBot:
         # Thread(daemon=True, target=player.watch_mana).start()
         cave_bot_script = Script.load('Wiki/Script/Rookgard/mountain_troll_salamander_script.json')
 
+        auto_walk = AutoWalk(cave_bot_script, player)
+
         auto_attack = AutoAttack(player, walking_event, combat_event, cave_bot_script.creatures)
 
         auto_loot = AutoLoot(player, walking_event, combat_event)
+
+        walk_thread = Thread(daemon=True, target=auto_walk.start, args=(walking_event,))
+
+        walk_thread.start()
 
         walking_event.set()
 
         while True:
             frame = WindowCapturer.start()
 
-            walk_thread = Thread(daemon=True, target=cave_bot_script.start, args=(frame,))
-
-            health_thread = Thread(daemon=True, target=player.watch_health, args=(frame,))
+            health_thread = Thread(daemon=True, target=player.watch_health, args=(frame, walking_event))
 
             attack_thread = Thread(daemon=True, target=auto_attack.attack, args=(frame,))
 
             loot_thread = Thread(daemon=True, target=auto_loot.loot)
 
-            walk_thread.start()
-
             health_thread.start()
-
             attack_thread.start()
-
             loot_thread.start()
 
-            walk_thread.join()
             health_thread.join()
             attack_thread.join()
             loot_thread.join()

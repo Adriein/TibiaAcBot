@@ -9,6 +9,7 @@ from .AutoHealer import AutoHealer
 from .MoveCommand import MoveCommand
 import time
 import numpy as np
+from threading import Event
 
 
 class Player:
@@ -28,7 +29,10 @@ class Player:
 
         return player_health
 
-    def watch_health(self, frame: np.array) -> None:
+    def watch_health(self, frame: np.array, walking_event: Event) -> None:
+        if walking_event.is_set():
+            return
+
         time.sleep(1)
         current_hp = self.health(frame)
 
