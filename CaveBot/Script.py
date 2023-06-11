@@ -1,8 +1,4 @@
 import json
-import time
-import numpy as np
-from typing import Dict, Any
-from .MoveCommand import MoveCommand
 from UtilPackage import LinkedList
 
 
@@ -15,7 +11,7 @@ class Script:
 
     __previous_waypoint = None
 
-    FLOOR_LEVEL = 5
+    FLOOR_LEVEL = 8
 
     FLOORS_LEVELS: set[int] = set()
 
