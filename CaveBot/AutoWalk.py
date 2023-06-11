@@ -47,6 +47,8 @@ class AutoWalk:
                 frame
             )
 
+            print(walk_instructions)
+
             while walk_instructions.current is not None:
                 walking_event.wait()
 
