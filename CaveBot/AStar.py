@@ -8,14 +8,18 @@ import cv2
 
 
 class AStar:
-    def __init__(self):
+    def __init__(self, false_positives: list[Waypoint]):
         '''
         I need to iterate to all the waypoints of the script in order to cache all the floors that i should visit during
         the duration of the script
         '''
         tibia_walkable_map_floor_8 = Cv2File.load_image(f'Wiki/Ui/Map/Walkable/floor-8-path.png', False)
+        tibia_walkable_map_floor_9 = Cv2File.load_image(f'Wiki/Ui/Map/Walkable/floor-9-path.png', False)
 
         self.tibia_walkable_map_hsv_floor_8 = cv2.cvtColor(tibia_walkable_map_floor_8, cv2.COLOR_BGR2HSV)
+        self.tibia_walkable_map_hsv_floor_9 = cv2.cvtColor(tibia_walkable_map_floor_9, cv2.COLOR_BGR2HSV)
+
+        self.__FALSE_POSITIVES = false_positives
 
     def execute(self, current: Waypoint, destination: Waypoint) -> list[Tile]:
         open_set = []
@@ -67,12 +71,19 @@ class AStar:
         lower_yellow = np.array([0, 100, 100], dtype=np.uint8)
         upper_yellow = np.array([100, 255, 255], dtype=np.uint8)
 
+        for waypoint in self.__FALSE_POSITIVES:
+            if waypoint == current.waypoint:
+                return False
+
         pixel = self.__get_pixel_from_waypoint(current.waypoint)
 
         pixel_color = None
 
         if current.waypoint.z == 8:
             pixel_color = self.tibia_walkable_map_hsv_floor_8[pixel.y, pixel.x]
+
+        if current.waypoint.z == 9:
+            pixel_color = self.tibia_walkable_map_hsv_floor_9[pixel.y, pixel.x]
 
         mask = cv2.inRange(pixel_color, lower_yellow, upper_yellow)
 

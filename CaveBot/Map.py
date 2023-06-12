@@ -13,8 +13,22 @@ from .AStar import AStar
 
 
 class Map:
+    FALSE_NON_WALKABLE_POSITIVES = [
+        "32439, 32308, 8",
+        "32435, 32295, 8",
+        "32423, 32303, 8",
+        "32429, 32306, 8",
+        "32444, 32295, 9",
+        "32444, 32294, 9",
+        "32444, 32293, 9",
+    ]
     def __init__(self):
-        self.path_finding_algorithm = AStar()
+        self.IGNORE_WAYPOINTS = list()
+
+        for waypoint in self.FALSE_NON_WALKABLE_POSITIVES:
+            self.IGNORE_WAYPOINTS.append(self.__string_to_waypoint(waypoint))
+
+        self.path_finding_algorithm = AStar(self.IGNORE_WAYPOINTS)
 
     def where_am_i(self, last_waypoint: str, current_floor: int, frame: np.array) -> Tile:
         last_waypoint = self.__string_to_waypoint(last_waypoint)
