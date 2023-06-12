@@ -1,5 +1,5 @@
 from UtilPackage import LinkedList
-from ScreenAnalizerPackage import WindowCapturer
+from ScreenAnalizerPackage import WindowCapturer, Screen, Coordinate
 from .Script import Script
 from .Player import Player
 from .PathFinder import PathFinder
@@ -62,7 +62,8 @@ class AutoWalk:
                 waypoint_type = self.__waypoints.current.data[1]
 
                 if waypoint_type == 'holeUp':
-                    self.player.rope(self.__waypoints.current.data[0])
+                    player_position = Coordinate.from_screen_region(Screen.GAME_WINDOW)
+                    self.player.rope(player_position)
                     self.FLOOR_LEVEL = self.FLOOR_LEVEL - 1
 
                 if waypoint_type == 'holeDown':
