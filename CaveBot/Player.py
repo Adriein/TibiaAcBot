@@ -56,6 +56,13 @@ class Player:
     def attack(self, coordinates: Coordinate) -> None:
         self.mouse.use_left_button(coordinates)
 
+    def rope(self, coordinates: Coordinate) -> None:
+        Keyboard.press('f')
+        self.mouse.use_left_button(coordinates)
+
+    def eat(self) -> None:
+        Keyboard.press('v')
+
     def loot(self, coordinates: Coordinate) -> None:
         self.mouse.use_right_button(coordinates)
 

@@ -61,6 +61,13 @@ class AutoWalk:
             try:
                 waypoint_type = self.__waypoints.current.data[1]
 
+                if waypoint_type == 'holeUp':
+                    self.player.rope(self.__waypoints.current.data[0])
+                    self.FLOOR_LEVEL = self.FLOOR_LEVEL - 1
+
+                if waypoint_type == 'holeDown':
+                    self.FLOOR_LEVEL = self.FLOOR_LEVEL + 1
+
                 if waypoint_type == 'stairDown':
                     self.FLOOR_LEVEL = self.FLOOR_LEVEL + 1
 
