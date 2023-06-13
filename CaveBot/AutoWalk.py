@@ -52,7 +52,7 @@ class AutoWalk:
 
                 command: MoveCommand = walk_instructions.current.data
 
-                time.sleep(0.8)
+                time.sleep(0.4)
 
                 self.player.move(command)
 
@@ -85,4 +85,4 @@ class AutoWalk:
             if self.__waypoints.has_to_reset():
                 self.__waypoints.reset()
 
-            time.sleep(0.5)
+            time.sleep(0.3)
