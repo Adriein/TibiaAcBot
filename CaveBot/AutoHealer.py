@@ -13,11 +13,11 @@ class AutoHealer:
     def __init__(self, player: Player):
         self.player = player
 
-    def heal(self, walking_event: Event) -> None:
+    def heal(self, combat_event: Event) -> None:
         while True:
             time.sleep(3)
 
-            if walking_event.is_set():
+            if combat_event.is_set():
                 continue
 
             self.player.eat()

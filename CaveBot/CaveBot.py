@@ -32,7 +32,7 @@ class CaveBot:
 
         walk_thread = Thread(daemon=True, target=auto_walk.start, args=(walking_event,))
 
-        health_thread = Thread(daemon=True, target=auto_healer.heal, args=(walking_event,))
+        health_thread = Thread(daemon=True, target=auto_healer.heal, args=(combat_event,))
 
         health_thread.start()
 
