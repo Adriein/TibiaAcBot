@@ -5,12 +5,8 @@ from ScreenAnalizerPackage import Coordinate
 from LoggerPackage import Logger
 from .Keyboard import Keyboard
 from .Mouse import Mouse
-from .AutoHealer import AutoHealer
 from .MoveCommand import MoveCommand
-import time
 import numpy as np
-from threading import Event
-
 
 class Player:
     @staticmethod
