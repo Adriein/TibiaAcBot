@@ -17,7 +17,7 @@ class AutoHealer:
         while True:
             time.sleep(3)
 
-            if combat_event.is_set():
+            if not combat_event.is_set():
                 continue
 
             self.player.eat()
