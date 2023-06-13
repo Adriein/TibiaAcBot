@@ -20,7 +20,7 @@ class CaveBot:
         combat_event = Event()
 
         # Thread(daemon=True, target=player.watch_mana).start()
-        cave_bot_script = Script.load('Wiki/Script/Thais/thais_wasp.json')
+        cave_bot_script = Script.load('Wiki/Script/Thais/thais_wasp_first_floor.json')
 
         auto_walk = AutoWalk(cave_bot_script, player)
 
