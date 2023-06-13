@@ -20,6 +20,8 @@ class AutoHealer:
             if walking_event.is_set():
                 continue
 
+            self.player.eat()
+
             frame = WindowCapturer.start()
             health = self.player.health(frame)
 
