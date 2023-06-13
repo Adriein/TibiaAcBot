@@ -3,7 +3,7 @@ from .Keyboard import Keyboard
 
 
 class AutoHealer:
-    HIT_POINT_THRESHOLD = 20
+    HIT_POINT_THRESHOLD = 500
     MANA_THRESHOLD = 5
 
     def heal(self) -> None:
