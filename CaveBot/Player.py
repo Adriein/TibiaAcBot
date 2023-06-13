@@ -15,12 +15,11 @@ from threading import Event
 class Player:
     @staticmethod
     def create() -> 'Player':
-        return Player(HitPoint(), Mana(), AutoHealer(), Mouse())
+        return Player(HitPoint(), Mana(), Mouse())
 
-    def __init__(self, hp: HitPoint, mana_bar: Mana, auto_healer: AutoHealer, mouse: Mouse):
+    def __init__(self, hp: HitPoint, mana_bar: Mana, mouse: Mouse):
         self.hp = hp
         self.mana_bar = mana_bar
-        self.auto_healer = auto_healer
         self.mouse = mouse
 
     # STATS
@@ -29,28 +28,10 @@ class Player:
 
         return player_health
 
-    def watch_health(self, frame: np.array, walking_event: Event) -> None:
-        if walking_event.is_set():
-            return
-
-        time.sleep(1)
-        current_hp = self.health(frame)
-
-        if self.auto_healer.have_to_be_healed(current_hp):
-            self.auto_healer.heal()
-
-    def mana(self) -> int:
-        player_mana = self.mana_bar.get()
+    def mana(self, frame: np.array) -> int:
+        player_mana = self.mana_bar.get(frame)
         Logger.debug(f'mana: {player_mana}')
         return player_mana
-
-    def watch_mana(self) -> None:
-        while True:
-            time.sleep(3)
-            current_mana = self.mana()
-
-            if self.auto_healer.need_mana(current_mana):
-                self.auto_healer.use_mana_potion()
 
     # ACTIONS
     def attack(self, coordinates: Coordinate) -> None:

@@ -4,8 +4,9 @@ from ScreenAnalizerPackage import WindowCapturer
 from .AutoAttack import AutoAttack
 from .AutoLoot import AutoLoot
 from .AutoWalk import AutoWalk
+from .AutoHealer import AutoHealer
 from .Script import Script
-from threading import Thread, Event, Condition
+from threading import Thread, Event
 
 
 class CaveBot:
@@ -27,7 +28,13 @@ class CaveBot:
 
         auto_loot = AutoLoot(player, walking_event, combat_event)
 
+        auto_healer = AutoHealer(player)
+
         walk_thread = Thread(daemon=True, target=auto_walk.start, args=(walking_event,))
+
+        health_thread = Thread(daemon=True, target=auto_healer.heal, args=(walking_event,))
+
+        health_thread.start()
 
         walk_thread.start()
 
@@ -36,17 +43,13 @@ class CaveBot:
         while True:
             frame = WindowCapturer.start()
 
-            health_thread = Thread(daemon=True, target=player.watch_health, args=(frame, walking_event))
-
             attack_thread = Thread(daemon=True, target=auto_attack.attack, args=(frame,))
 
             loot_thread = Thread(daemon=True, target=auto_loot.loot)
 
-            health_thread.start()
             attack_thread.start()
             loot_thread.start()
 
-            health_thread.join()
             attack_thread.join()
             loot_thread.join()
 
