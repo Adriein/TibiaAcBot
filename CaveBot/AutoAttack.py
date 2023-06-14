@@ -1,9 +1,9 @@
 from ScreenAnalizerPackage import BattleList
 from ScreenAnalizerPackage import NoEnemyFound
 from ScreenAnalizerPackage import WindowCapturer
+from LoggerPackage import Logger as TibiaAcBotLogger
 from .Player import Player
 from .Enemy import Enemy
-from queue import Queue
 from threading import Event
 import time
 import cv2
@@ -39,6 +39,11 @@ class AutoAttack:
                 time.sleep(1)
 
         except NoEnemyFound:
+            self.combat_event.clear()
+            return
+
+        except Exception as exception:
+            TibiaAcBotLogger.error('AUTO_ATTACK_FATAL_ERROR', exception)
             self.combat_event.clear()
             return
 

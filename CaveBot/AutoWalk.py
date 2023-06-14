@@ -1,4 +1,5 @@
 from UtilPackage import LinkedList
+from LoggerPackage import Logger as TibiaAcBotLogger
 from ScreenAnalizerPackage import WindowCapturer, Screen, Coordinate
 from .Script import Script
 from .Player import Player
@@ -47,6 +48,10 @@ class AutoWalk:
                 frame
             )
 
+            if not walk_instructions:
+                TibiaAcBotLogger.debug('NO WALK INSTRUCTIONS')
+                continue
+
             while walk_instructions.current is not None:
                 walking_event.wait()
 
@@ -62,11 +67,11 @@ class AutoWalk:
                 waypoint_type = self.__waypoints.current.data[1]
 
                 if waypoint_type == 'holeUp':
-                    time.sleep(0.5)
+                    time.sleep(1)
                     player_position = Coordinate.from_screen_region(Screen.GAME_WINDOW)
                     self.player.rope(player_position)
                     self.FLOOR_LEVEL = self.FLOOR_LEVEL - 1
-                    time.sleep(0.5)
+                    time.sleep(1)
 
                 if waypoint_type == 'holeDown':
                     self.FLOOR_LEVEL = self.FLOOR_LEVEL + 1

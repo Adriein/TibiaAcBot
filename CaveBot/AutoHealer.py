@@ -26,7 +26,6 @@ class AutoHealer:
             health = self.player.health(frame)
 
             if self.have_to_be_healed(health):
-                TibiaAcBotLogger.debug(f'player healed')
                 Keyboard.press('r')
 
     def have_to_be_healed(self, hp: int) -> bool:

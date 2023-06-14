@@ -1,4 +1,5 @@
 import time
+from LoggerPackage import Logger as TibiaAcBotLogger
 from CaveBot.Player import Player
 from ScreenAnalizerPackage import ScreenRegion
 from ScreenAnalizerPackage import PositionError
@@ -29,6 +30,9 @@ class AutoLoot:
 
         except PositionError:
             pass
+
+        except Exception as exception:
+            TibiaAcBotLogger.error('AUTO_LOOT_FATAL_ERROR', exception)
 
     def __create_looting_area(self) -> list[Coordinate]:
         screen_region = Screen.GAME_WINDOW
