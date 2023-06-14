@@ -68,13 +68,21 @@ class AutoWalk:
 
                 if waypoint_type == 'holeUp':
                     time.sleep(1)
+
                     player_position = Coordinate.from_screen_region(Screen.GAME_WINDOW)
                     self.player.rope(player_position)
+
+                    current_floor = self.FLOOR_LEVEL
+
                     self.FLOOR_LEVEL = self.FLOOR_LEVEL - 1
                     time.sleep(1)
 
+                    TibiaAcBotLogger.debug(f'TRIED TO ROPE UP IN FLOOR {current_floor}, NOW IN FLOOR {self.FLOOR_LEVEL}')
+
                 if waypoint_type == 'holeDown':
+                    current_floor = self.FLOOR_LEVEL
                     self.FLOOR_LEVEL = self.FLOOR_LEVEL + 1
+                    TibiaAcBotLogger.debug(f'TRIED TO HOLE DOWN IN FLOOR {current_floor}, NOW IN FLOOR {self.FLOOR_LEVEL}')
 
                 if waypoint_type == 'stairDown':
                     self.FLOOR_LEVEL = self.FLOOR_LEVEL + 1
