@@ -32,13 +32,14 @@ class AutoAttack:
 
                 nearest_creature = Enemy('mountain_troll', creature_coords_in_battle_list[0])
 
-                battle_list_attack_coords = nearest_creature.click_coords()
                 battle_list_attack_position = nearest_creature.position
 
                 print(len(creature_coords_in_battle_list))
 
                 for _ in creature_coords_in_battle_list:
-                    self.player.attack(battle_list_attack_coords)
+                    self.player.attack()
+
+                    print(self.battle_list.is_nearest_enemy_attacked(frame, battle_list_attack_position))
 
                     while self.battle_list.is_nearest_enemy_attacked(frame, battle_list_attack_position):
                         time.sleep(0.5)

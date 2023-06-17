@@ -30,7 +30,7 @@ class Player:
         return player_mana
 
     # ACTIONS
-    def attack(self, coordinates: Coordinate) -> None:
+    def attack(self) -> None:
         Keyboard.press('space')
         # self.mouse.use_left_button(coordinates)
 
