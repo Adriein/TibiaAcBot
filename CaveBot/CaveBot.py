@@ -1,6 +1,6 @@
 from .Player import Player
 from LoggerPackage import Logger as TibiaAcBotLogger
-from ScreenAnalizerPackage import WindowCapturer
+from ScreenAnalizerPackage import Screen
 from .AutoAttack import AutoAttack
 from .AutoLoot import AutoLoot
 from .AutoWalk import AutoWalk
@@ -22,7 +22,7 @@ class CaveBot:
         # Thread(daemon=True, target=player.watch_mana).start()
         cave_bot_script = Script.load('Wiki/Script/Thais/thais_wasp.json')
 
-        auto_loot = AutoLoot(player)
+        auto_loot = AutoLoot(player, Screen.GAME_WINDOW)
 
         auto_walk = AutoWalk(cave_bot_script, player, walking_event)
 

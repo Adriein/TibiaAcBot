@@ -4,12 +4,16 @@ from CaveBot.Player import Player
 from ScreenAnalizerPackage import ScreenRegion
 from ScreenAnalizerPackage import PositionError
 from ScreenAnalizerPackage import Coordinate
-from ScreenAnalizerPackage import Screen
 
 
 class AutoLoot:
-    def __init__(self, player: Player):
+    def __init__(self, player: Player, game_window: ScreenRegion):
         self.player = player
+
+        if game_window is None:
+            raise Exception
+
+        self.game_window = game_window
 
     def loot(self) -> None:
         try:
@@ -27,14 +31,7 @@ class AutoLoot:
             TibiaAcBotLogger.error('AUTO_LOOT_FATAL_ERROR', exception)
 
     def __create_looting_area(self) -> list[Coordinate]:
-        screen_region = Screen.GAME_WINDOW
-
-        if screen_region is None:
-            raise Exception
-
-        screen_region: ScreenRegion
-
-        center_game_window_coordinate = Coordinate.from_screen_region(screen_region)
+        center_game_window_coordinate = Coordinate.from_screen_region(self.game_window)
 
         first_looting_point = Coordinate(center_game_window_coordinate.x, center_game_window_coordinate.y - 44)
         second_looting_point = Coordinate(center_game_window_coordinate.x + 44, first_looting_point.y)
