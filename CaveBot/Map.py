@@ -22,6 +22,7 @@ class Map:
         "32444, 32295, 9",
         "32444, 32294, 9",
         "32444, 32293, 9",
+        "32883, 32006, 9",
     ]
     def __init__(self):
         self.IGNORE_WAYPOINTS = list()
