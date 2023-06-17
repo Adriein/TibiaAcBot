@@ -37,6 +37,8 @@ class AutoAttack:
                 for _ in creature_coords_in_battle_list:
                     self.player.attack()
 
+                    time.sleep(0.6)
+
                     while True:
                         actual_frame = WindowCapturer.start()
 
