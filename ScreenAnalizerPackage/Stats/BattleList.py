@@ -91,4 +91,6 @@ class BattleList:
         # check if red color is present in the roi image
         mask = cv2.inRange(battle_list_roi_hsv, lower_red, upper_red)
 
+        print(mask)
+
         return np.any(mask == 255)
