@@ -15,9 +15,11 @@ class AStar:
         '''
         tibia_walkable_map_floor_8 = Cv2File.load_image(f'Wiki/Ui/Map/Walkable/floor-8-path.png', False)
         tibia_walkable_map_floor_9 = Cv2File.load_image(f'Wiki/Ui/Map/Walkable/floor-9-path.png', False)
+        tibia_walkable_map_floor_10 = Cv2File.load_image(f'Wiki/Ui/Map/Walkable/floor-10-path.png', False)
 
         self.tibia_walkable_map_hsv_floor_8 = cv2.cvtColor(tibia_walkable_map_floor_8, cv2.COLOR_BGR2HSV)
         self.tibia_walkable_map_hsv_floor_9 = cv2.cvtColor(tibia_walkable_map_floor_9, cv2.COLOR_BGR2HSV)
+        self.tibia_walkable_map_hsv_floor_10 = cv2.cvtColor(tibia_walkable_map_floor_10, cv2.COLOR_BGR2HSV)
 
         self.__FALSE_POSITIVES = false_positives
 
@@ -84,6 +86,9 @@ class AStar:
 
         if current.waypoint.z == 9:
             pixel_color = self.tibia_walkable_map_hsv_floor_9[pixel.y, pixel.x]
+
+        if current.waypoint.z == 10:
+            pixel_color = self.tibia_walkable_map_hsv_floor_10[pixel.y, pixel.x]
 
         mask = cv2.inRange(pixel_color, lower_yellow, upper_yellow)
 
