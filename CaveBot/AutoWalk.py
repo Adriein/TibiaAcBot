@@ -58,7 +58,7 @@ class AutoWalk:
 
                 command: MoveCommand = walk_instructions.current.data
 
-                time.sleep(0.4)
+                time.sleep(0.2)
 
                 self.player.move(command)
 
