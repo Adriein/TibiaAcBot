@@ -31,7 +31,8 @@ class Player:
 
     # ACTIONS
     def attack(self, coordinates: Coordinate) -> None:
-        self.mouse.use_left_button(coordinates)
+        Keyboard.press('space')
+        # self.mouse.use_left_button(coordinates)
 
     def rope(self, coordinates: Coordinate) -> None:
         Keyboard.press('f')
