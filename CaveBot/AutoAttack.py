@@ -39,10 +39,13 @@ class AutoAttack:
                 for _ in creature_coords_in_battle_list:
                     self.player.attack()
 
-                    print(self.battle_list.is_nearest_enemy_attacked(frame, battle_list_attack_position))
+                    while True:
+                        actual_frame = WindowCapturer.start()
 
-                    while self.battle_list.is_nearest_enemy_attacked(frame, battle_list_attack_position):
-                        time.sleep(0.5)
+                        if not self.battle_list.is_nearest_enemy_attacked(actual_frame, battle_list_attack_position):
+                            break
+
+                    print('he matado 1')
 
             except NoEnemyFound:
                 if self.walk_event.is_set():
