@@ -29,6 +29,9 @@
     ["32430,32302,9", "holeUp"]
   ],
   "creatures": [
-    "wasp"
+    {
+      "name": "wasp",
+      "runner": false
+    }
   ]
 }

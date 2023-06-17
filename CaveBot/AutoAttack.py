@@ -7,10 +7,11 @@ from .Enemy import Enemy
 from .AutoLoot import AutoLoot
 from threading import Event
 import time
+from .ScriptEnemy import ScriptEnemy
 
 
 class AutoAttack:
-    def __init__(self, auto_loot: AutoLoot, player: Player, walk_event: Event, combat_event: Event, creatures: list[str]):
+    def __init__(self, auto_loot: AutoLoot, player: Player, walk_event: Event, combat_event: Event, creatures: list[ScriptEnemy]):
         initial_frame = WindowCapturer.start()
         self.battle_list = BattleList.create(initial_frame)
         self.auto_loot = auto_loot
@@ -24,17 +25,15 @@ class AutoAttack:
             frame = WindowCapturer.start()
 
             try:
-                creature_coords_in_battle_list = self.battle_list.find_enemies(frame, self.creatures)
+                enemies_in_battle_list = self.battle_list.find_enemies(frame, self.creatures)
 
                 self.walk_event.clear()
 
                 self.combat_event.set()
 
-                nearest_creature = Enemy('mountain_troll', creature_coords_in_battle_list[0])
+                battle_list_attack_position = enemies_in_battle_list[0].position
 
-                battle_list_attack_position = nearest_creature.position
-
-                for _ in creature_coords_in_battle_list:
+                for enemy in enemies_in_battle_list:
                     self.player.attack()
 
                     time.sleep(0.6)

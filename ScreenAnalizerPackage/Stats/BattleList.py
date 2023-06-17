@@ -5,6 +5,7 @@ from FilesystemPackage import Cv2File
 from UtilPackage import String
 import numpy as np
 import cv2
+from CaveBot import ScriptEnemy, Enemy
 
 
 class BattleList:
@@ -24,7 +25,7 @@ class BattleList:
     def __init__(self, region: ScreenRegion):
         self.region = region
 
-    def find_enemies(self, frame: np.array, enemies: list[str]) -> list[ScreenRegion]:
+    def find_enemies(self, frame: np.array, enemies: list[ScriptEnemy]) -> list[Enemy]:
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         battle_list_roi = frame[self.region.start_y: self.region.end_y, self.region.start_x: self.region.end_x]
@@ -32,7 +33,7 @@ class BattleList:
         results = list()
 
         for enemy in enemies:
-            enemy_path = f'Wiki/Ui/Battle/Mobs/{String.snake_to_camel_case(enemy)}/{enemy}_label.png'
+            enemy_path = f'Wiki/Ui/Battle/Mobs/{String.snake_to_camel_case(enemy.name)}/{enemy.name}_label.png'
             creature_template = Cv2File.load_image(enemy_path)
 
             match = cv2.matchTemplate(battle_list_roi, creature_template, cv2.TM_CCOEFF_NORMED)
@@ -61,7 +62,9 @@ class BattleList:
                         frame_creature_end_y
                     )
 
-                    results.append(battle_list_position)
+                    creature = Enemy(enemy.name, enemy.runner, battle_list_position)
+
+                    results.append(creature)
 
         if not results:
             raise NoEnemyFound()

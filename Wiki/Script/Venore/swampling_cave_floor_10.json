@@ -16,9 +16,21 @@
 
   ],
   "creatures": [
-    "salamander",
-    "swampling",
-    "emerald_damselfly",
-    "marsh_stalker"
+    {
+      "name": "salamander",
+      "runner": true
+    },
+    {
+      "name": "swampling",
+      "runner": false
+    },
+    {
+      "name": "emerald_damselfly",
+      "runner": true
+    },
+    {
+      "name": "marsh_stalker",
+      "runner": true
+    }
   ]
 }
