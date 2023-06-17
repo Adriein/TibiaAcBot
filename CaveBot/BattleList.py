@@ -5,7 +5,8 @@ from FilesystemPackage import Cv2File
 from UtilPackage import String
 import numpy as np
 import cv2
-from CaveBot import ScriptEnemy, Enemy
+from .Enemy import Enemy
+from .ScriptEnemy import ScriptEnemy
 
 
 class BattleList:

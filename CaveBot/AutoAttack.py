@@ -1,9 +1,8 @@
-from ScreenAnalizerPackage import BattleList
+from .BattleList import BattleList
 from ScreenAnalizerPackage import NoEnemyFound
 from ScreenAnalizerPackage import WindowCapturer
 from LoggerPackage import Logger as TibiaAcBotLogger
 from .Player import Player
-from .Enemy import Enemy
 from .AutoLoot import AutoLoot
 from threading import Event
 import time
