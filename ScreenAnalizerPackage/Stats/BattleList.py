@@ -84,6 +84,13 @@ class BattleList:
 
         battle_list_roi_hsv = cv2.cvtColor(battle_list_roi, cv2.COLOR_BGR2HSV)
 
+        if cv2.waitKey(1):
+            cv2.destroyAllWindows()
+
+        # show the output image
+        cv2.imshow("Output", battle_list_roi)
+        cv2.waitKey(0)
+
         # create a red color range
         lower_red = np.array([0, 50, 50])
         upper_red = np.array([10, 255, 255])

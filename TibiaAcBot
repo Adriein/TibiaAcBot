@@ -65,8 +65,3 @@ We need to capture the window in color because we need to know if we are attacki
         cv2.drawMarker(tibia_map, (coordinate.x, coordinate.y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
 
         test = tibia_map[coordinate.y - 100:coordinate.y + 100, coordinate.x - 100:coordinate.x + 100]
-
-        "32063,31884,5",
-    "32063,31877,5",
-    "32066,31877,5",
-    "32066,31884,5"
