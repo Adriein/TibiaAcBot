@@ -4,46 +4,55 @@ from ScreenAnalizerPackage import WindowCapturer
 from LoggerPackage import Logger as TibiaAcBotLogger
 from .Player import Player
 from .Enemy import Enemy
+from .AutoLoot import AutoLoot
 from threading import Event
 import time
-import cv2
-import numpy as np
 
 
 class AutoAttack:
-    def __init__(self, player: Player, walk_event: Event, combat_event: Event, creatures: list[str]):
+    def __init__(self, auto_loot: AutoLoot, player: Player, walk_event: Event, combat_event: Event, creatures: list[str]):
         initial_frame = WindowCapturer.start()
         self.battle_list = BattleList.create(initial_frame)
+        self.auto_loot = auto_loot
         self.player = player
         self.walk_event = walk_event
         self.combat_event = combat_event
         self.creatures = creatures
 
-    def attack(self, frame: np.array) -> None:
-        try:
-            creature_coords_in_battle_list = self.battle_list.find_enemies(frame, self.creatures)
+    def attack(self) -> None:
+        while True:
+            frame = WindowCapturer.start()
 
-            self.walk_event.clear()
+            try:
+                creature_coords_in_battle_list = self.battle_list.find_enemies(frame, self.creatures)
 
-            self.combat_event.set()
+                self.walk_event.clear()
 
-            nearest_creature = Enemy('mountain_troll', creature_coords_in_battle_list[0])
+                self.combat_event.set()
 
-            creature_click_coordinate = nearest_creature.click_coords()
+                nearest_creature = Enemy('mountain_troll', creature_coords_in_battle_list[0])
 
-            cv2.drawMarker(frame, (creature_click_coordinate.x, creature_click_coordinate.y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
+                battle_list_attack_coords = nearest_creature.click_coords()
+                battle_list_attack_position = nearest_creature.position
 
-            if not self.battle_list.is_nearest_enemy_attacked(frame, nearest_creature.position):
-                self.player.attack(creature_click_coordinate)
+                for _ in creature_coords_in_battle_list:
+                    self.player.attack(battle_list_attack_coords)
 
-                time.sleep(1)
+                    while self.battle_list.is_nearest_enemy_attacked(frame, battle_list_attack_position):
+                        time.sleep(0.5)
 
-        except NoEnemyFound:
-            self.combat_event.clear()
-            return
+            except NoEnemyFound:
+                if self.walk_event.is_set():
+                    continue
 
-        except Exception as exception:
-            TibiaAcBotLogger.error('AUTO_ATTACK_FATAL_ERROR', exception)
-            self.combat_event.clear()
-            return
+                self.auto_loot.loot()
 
+                self.combat_event.clear()
+                self.walk_event.set()
+
+                continue
+
+            except Exception as exception:
+                TibiaAcBotLogger.error('AUTO_ATTACK_FATAL_ERROR', exception)
+                self.combat_event.clear()
+                continue

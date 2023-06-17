@@ -20,21 +20,22 @@ class AutoWalk:
 
     FLOORS_LEVELS: set[int] = set()
 
-    def __new__(cls, script: Script, player: Player):
+    def __new__(cls, script: Script, player: Player, walking_event: Event):
         if cls.__INSTANCE:
             return cls.__INSTANCE
 
         cls.__INSTANCE = super().__new__(cls)
 
+        cls.walking_event = walking_event
         cls.__waypoints = script.waypoints
         cls.player = player
         cls.path_finder = PathFinder()
 
         return cls.__INSTANCE
 
-    def start(self, walking_event: Event) -> None:
+    def start(self) -> None:
         while True:
-            walking_event.wait()
+            self.walking_event.wait()
 
             frame = WindowCapturer.start()
 
@@ -53,7 +54,7 @@ class AutoWalk:
                 continue
 
             while walk_instructions.current is not None:
-                walking_event.wait()
+                self.walking_event.wait()
 
                 command: MoveCommand = walk_instructions.current.data
 

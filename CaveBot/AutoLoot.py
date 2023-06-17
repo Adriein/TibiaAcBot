@@ -5,28 +5,20 @@ from ScreenAnalizerPackage import ScreenRegion
 from ScreenAnalizerPackage import PositionError
 from ScreenAnalizerPackage import Coordinate
 from ScreenAnalizerPackage import Screen
-from threading import Event
 
 
 class AutoLoot:
-    def __init__(self, player: Player, walk_event: Event, combat_event: Event):
+    def __init__(self, player: Player):
         self.player = player
-        self.walk_event = walk_event
-        self.combat_event = combat_event
 
     def loot(self) -> None:
         try:
-            if self.walk_event.is_set() or self.combat_event.is_set():
-                return
-
             coordinates = self.__create_looting_area()
 
             for coordinate in coordinates:
                 self.player.loot(coordinate)
 
                 time.sleep(0.4)
-
-            self.walk_event.set()
 
         except PositionError:
             pass

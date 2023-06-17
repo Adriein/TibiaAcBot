@@ -22,17 +22,21 @@ class CaveBot:
         # Thread(daemon=True, target=player.watch_mana).start()
         cave_bot_script = Script.load('Wiki/Script/Thais/thais_wasp.json')
 
-        auto_walk = AutoWalk(cave_bot_script, player)
+        auto_loot = AutoLoot(player)
 
-        auto_attack = AutoAttack(player, walking_event, combat_event, cave_bot_script.creatures)
+        auto_walk = AutoWalk(cave_bot_script, player, walking_event)
 
-        auto_loot = AutoLoot(player, walking_event, combat_event)
+        auto_attack = AutoAttack(auto_loot, player, walking_event, combat_event, cave_bot_script.creatures)
 
-        auto_healer = AutoHealer(player)
+        auto_healer = AutoHealer(player, combat_event)
 
-        walk_thread = Thread(daemon=True, target=auto_walk.start, args=(walking_event,))
+        attack_thread = Thread(daemon=True, target=auto_attack.attack)
 
-        health_thread = Thread(daemon=True, target=auto_healer.heal, args=(combat_event,))
+        walk_thread = Thread(daemon=True, target=auto_walk.start)
+
+        health_thread = Thread(daemon=True, target=auto_healer.heal)
+
+        attack_thread.start()
 
         health_thread.start()
 
@@ -40,21 +44,3 @@ class CaveBot:
 
         walking_event.set()
 
-        while True:
-            frame = WindowCapturer.start()
-
-            attack_thread = Thread(daemon=True, target=auto_attack.attack, args=(frame,))
-
-            loot_thread = Thread(daemon=True, target=auto_loot.loot)
-
-            attack_thread.start()
-            loot_thread.start()
-
-            attack_thread.join()
-            loot_thread.join()
-
-            # cv2.imshow("Computer Vision", frame)
-
-            # if cv2.waitKey(1) == ord('q'):
-            #  cv2.destroyAllWindows()
-            # break

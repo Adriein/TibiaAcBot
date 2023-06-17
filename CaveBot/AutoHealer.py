@@ -7,17 +7,18 @@ import time
 
 
 class AutoHealer:
-    HIT_POINT_THRESHOLD = 500
+    HIT_POINT_THRESHOLD = 50000
     MANA_THRESHOLD = 5
 
-    def __init__(self, player: Player):
+    def __init__(self, player: Player, combat_event: Event):
         self.player = player
+        self.combat_event = combat_event
 
-    def heal(self, combat_event: Event) -> None:
+    def heal(self) -> None:
         while True:
             time.sleep(3)
 
-            if not combat_event.is_set():
+            if not self.combat_event.is_set():
                 continue
 
             self.player.eat()
