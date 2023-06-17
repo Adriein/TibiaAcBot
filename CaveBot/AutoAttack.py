@@ -35,6 +35,8 @@ class AutoAttack:
                 battle_list_attack_coords = nearest_creature.click_coords()
                 battle_list_attack_position = nearest_creature.position
 
+                print(len(creature_coords_in_battle_list))
+
                 for _ in creature_coords_in_battle_list:
                     self.player.attack(battle_list_attack_coords)
 
