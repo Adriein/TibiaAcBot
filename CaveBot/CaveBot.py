@@ -44,3 +44,6 @@ class CaveBot:
 
         walking_event.set()
 
+        while True:
+            pass
+
