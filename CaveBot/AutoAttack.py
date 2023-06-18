@@ -19,12 +19,12 @@ class AutoAttack:
         self.walk_event = walk_event
         self.combat_event = combat_event
         self.creatures = creatures
+        self.runner_enemy = False
 
     def attack(self) -> None:
         while True:
             frame = WindowCapturer.start()
-            global runner_enemy
-            runner_enemy = False
+            self.runner_enemy = False
 
             try:
                 enemies_in_battle_list = self.battle_list.find_enemies(frame, self.creatures)
@@ -36,10 +36,9 @@ class AutoAttack:
                 battle_list_attack_position = enemies_in_battle_list[0].position
 
                 for enemy in enemies_in_battle_list:
-                    global runner_enemy
-                    runner_enemy = enemy.runner
+                    self.runner_enemy = enemy.runner
 
-                    if runner_enemy:
+                    if self.runner_enemy:
                         self.player.chase_opponent()
 
                     self.player.attack()
@@ -52,18 +51,17 @@ class AutoAttack:
                         if not self.battle_list.is_nearest_enemy_attacked(actual_frame, battle_list_attack_position):
                             break
 
-                    if runner_enemy:
+                    if self.runner_enemy:
                         self.auto_loot.loot()
                         self.player.not_chase_opponent()
 
-                print(runner_enemy)
                 self.combat_event.clear()
 
             except NoEnemyFound:
                 if self.walk_event.is_set():
                     continue
-                print(runner_enemy)
-                if not runner_enemy:
+
+                if not self.runner_enemy:
                     self.auto_loot.loot()
 
                 self.combat_event.clear()
