@@ -42,7 +42,9 @@ class Player:
         Keyboard.press('v')
 
     def loot(self, coordinates: Coordinate) -> None:
+        Keyboard.key_down('shift')
         self.mouse.use_right_button(coordinates)
+        Keyboard.key_up('shift')
 
     def chase_opponent(self) -> None:
         Keyboard.press('g')

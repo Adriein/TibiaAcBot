@@ -1,6 +1,7 @@
 from Xlib import X, display, XK
 from Xlib.protocol import event
 from ScreenAnalizerPackage import Screen
+import pyautogui
 
 
 class Keyboard:
@@ -41,3 +42,11 @@ class Keyboard:
         # Sync to make sure the event is processed
         d.flush()
         # Console.execute(f'xdotool windowfocus --sync {Screen.TIBIA_WINDOW_ID} key {key}')
+
+    @staticmethod
+    def key_down(key: str) -> None:
+        pyautogui.keyDown(key)
+
+    @staticmethod
+    def key_up(key: str) -> None:
+        pyautogui.keyUp(key)
