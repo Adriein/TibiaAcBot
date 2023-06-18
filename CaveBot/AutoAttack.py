@@ -36,9 +36,9 @@ class AutoAttack:
                 for enemy in enemies_in_battle_list:
                     runner_enemy = False
 
-                    # if enemy.runner:
-                      #  runner_enemy = True
-                      # self.player.chase_opponent()
+                    if enemy.runner:
+                      runner_enemy = True
+                      self.player.chase_opponent()
 
                     self.player.attack()
 
@@ -50,8 +50,8 @@ class AutoAttack:
                         if not self.battle_list.is_nearest_enemy_attacked(actual_frame, battle_list_attack_position):
                             break
 
-                    self.auto_loot.loot()
-                    self.player.not_chase_opponent()
+                    # self.auto_loot.loot()
+                    # self.player.not_chase_opponent()
 
                 self.combat_event.clear()
 
