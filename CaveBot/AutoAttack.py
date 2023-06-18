@@ -34,6 +34,8 @@ class AutoAttack:
                 battle_list_attack_position = enemies_in_battle_list[0].position
 
                 for enemy in enemies_in_battle_list:
+                    runner_enemy = False
+
                     if enemy.runner:
                         runner_enemy = True
                         self.player.chase_opponent()
