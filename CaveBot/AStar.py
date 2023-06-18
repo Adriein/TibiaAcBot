@@ -85,6 +85,12 @@ class AStar:
 
         pixel_color = None
 
+        if current.waypoint.z == 5:
+            pixel_color = self.tibia_walkable_map_hsv_floor_5[pixel.y, pixel.x]
+
+        if current.waypoint.z == 6:
+            pixel_color = self.tibia_walkable_map_hsv_floor_6[pixel.y, pixel.x]
+
         if current.waypoint.z == 8:
             pixel_color = self.tibia_walkable_map_hsv_floor_8[pixel.y, pixel.x]
 
