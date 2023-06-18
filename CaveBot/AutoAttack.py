@@ -61,6 +61,7 @@ class AutoAttack:
                     continue
 
                 if not runner_enemy:
+                    print('auto loteo always')
                     self.auto_loot.loot()
 
                 self.combat_event.clear()
