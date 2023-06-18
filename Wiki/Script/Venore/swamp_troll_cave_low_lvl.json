@@ -17,6 +17,10 @@
     {
       "name": "swamp_troll",
       "runner": true
+    },
+    {
+      "name": "bat",
+      "runner": false
     }
   ]
 }
