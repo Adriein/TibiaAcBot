@@ -41,8 +41,8 @@ class Player:
     def eat(self) -> None:
         Keyboard.press('v')
 
-    def loot(self, coordinates: Coordinate) -> None:
-        self.mouse.use_left_button(coordinates)
+    def loot(self, coordinate: Coordinate) -> None:
+        Keyboard.loot(coordinate)
 
     def chase_opponent(self) -> None:
         Keyboard.press('g')
