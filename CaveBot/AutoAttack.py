@@ -32,6 +32,8 @@ class AutoAttack:
 
                 battle_list_attack_position = enemies_in_battle_list[0].position
 
+                print(len(enemies_in_battle_list))
+
                 for enemy in enemies_in_battle_list:
                     if enemy.runner:
                         self.player.chase_opponent()
