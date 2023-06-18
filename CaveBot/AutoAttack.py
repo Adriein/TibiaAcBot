@@ -24,7 +24,6 @@ class AutoAttack:
     def attack(self) -> None:
         while True:
             frame = WindowCapturer.start()
-            self.runner_enemy = False
 
             try:
                 enemies_in_battle_list = self.battle_list.find_enemies(frame, self.creatures)
