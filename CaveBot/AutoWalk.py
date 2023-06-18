@@ -52,17 +52,20 @@ class AutoWalk:
             if not walk_instructions:
                 TibiaAcBotLogger.debug('NO WALK INSTRUCTIONS')
                 continue
+            try:
+                while walk_instructions.current is not None:
+                    if self.walking_event.is_set():
+                        raise Exception
 
-            while walk_instructions.current is not None:
-                self.walking_event.wait()
+                    command: MoveCommand = walk_instructions.current.data
 
-                command: MoveCommand = walk_instructions.current.data
+                    time.sleep(0.2)
 
-                time.sleep(0.2)
+                    self.player.move(command)
 
-                self.player.move(command)
-
-                walk_instructions.next()
+                    walk_instructions.next()
+            except Exception:
+                continue
 
             try:
                 waypoint_type = self.__waypoints.current.data[1]

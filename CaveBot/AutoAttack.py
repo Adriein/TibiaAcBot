@@ -33,6 +33,9 @@ class AutoAttack:
                 battle_list_attack_position = enemies_in_battle_list[0].position
 
                 for enemy in enemies_in_battle_list:
+                    if enemy.runner:
+                        self.player.chase_opponent()
+
                     self.player.attack()
 
                     time.sleep(0.6)
@@ -44,11 +47,13 @@ class AutoAttack:
                             break
 
                 self.combat_event.clear()
+                self.player.not_chase_opponent()
 
             except NoEnemyFound:
                 if self.walk_event.is_set():
                     continue
 
+                self.player.not_chase_opponent()
                 self.auto_loot.loot()
 
                 self.combat_event.clear()

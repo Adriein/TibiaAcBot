@@ -44,6 +44,12 @@ class Player:
     def loot(self, coordinates: Coordinate) -> None:
         self.mouse.use_right_button(coordinates)
 
+    def chase_opponent(self) -> None:
+        Keyboard.press('g')
+
+    def not_chase_opponent(self) -> None:
+        Keyboard.press('g')
+
     # MOVEMENT
 
     def position(self, frame: np.array) -> Position:
