@@ -10,7 +10,8 @@ from .ScriptEnemy import ScriptEnemy
 
 
 class AutoAttack:
-    def __init__(self, auto_loot: AutoLoot, player: Player, walk_event: Event, combat_event: Event, creatures: list[ScriptEnemy]):
+    def __init__(self, auto_loot: AutoLoot, player: Player, walk_event: Event, combat_event: Event,
+                 creatures: list[ScriptEnemy]):
         initial_frame = WindowCapturer.start()
         self.battle_list = BattleList.create(initial_frame)
         self.auto_loot = auto_loot
@@ -34,11 +35,10 @@ class AutoAttack:
                 battle_list_attack_position = enemies_in_battle_list[0].position
 
                 for enemy in enemies_in_battle_list:
-                    runner_enemy = False
+                    runner_enemy = enemy.runner
 
-                    if enemy.runner:
-                      runner_enemy = True
-                      self.player.chase_opponent()
+                    if runner_enemy:
+                        self.player.chase_opponent()
 
                     self.player.attack()
 
@@ -50,8 +50,9 @@ class AutoAttack:
                         if not self.battle_list.is_nearest_enemy_attacked(actual_frame, battle_list_attack_position):
                             break
 
-                    # self.auto_loot.loot()
-                    # self.player.not_chase_opponent()
+                    if runner_enemy:
+                        self.auto_loot.loot()
+                        self.player.not_chase_opponent()
 
                 self.combat_event.clear()
 
