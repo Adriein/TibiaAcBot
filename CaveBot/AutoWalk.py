@@ -54,7 +54,7 @@ class AutoWalk:
                 continue
             try:
                 while walk_instructions.current is not None:
-                    if self.walking_event.is_set():
+                    if not self.walking_event.is_set():
                         raise Exception
 
                     command: MoveCommand = walk_instructions.current.data

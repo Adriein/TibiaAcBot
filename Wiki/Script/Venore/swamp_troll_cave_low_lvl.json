@@ -20,7 +20,7 @@
     },
     {
       "name": "bat",
-      "runner": false
+      "runner": true
     }
   ]
 }

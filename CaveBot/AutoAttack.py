@@ -38,7 +38,7 @@ class AutoAttack:
 
                     self.player.attack()
 
-                    time.sleep(0.6)
+                    time.sleep(1)
 
                     while True:
                         actual_frame = WindowCapturer.start()
