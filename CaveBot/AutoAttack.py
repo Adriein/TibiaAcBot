@@ -22,6 +22,7 @@ class AutoAttack:
     def attack(self) -> None:
         while True:
             frame = WindowCapturer.start()
+            runner_enemy = False
 
             try:
                 enemies_in_battle_list = self.battle_list.find_enemies(frame, self.creatures)
@@ -34,6 +35,7 @@ class AutoAttack:
 
                 for enemy in enemies_in_battle_list:
                     if enemy.runner:
+                        runner_enemy = True
                         self.player.chase_opponent()
 
                     self.player.attack()
@@ -45,6 +47,7 @@ class AutoAttack:
 
                         if not self.battle_list.is_nearest_enemy_attacked(actual_frame, battle_list_attack_position):
                             break
+
                     self.auto_loot.loot()
                     self.player.not_chase_opponent()
 
@@ -54,7 +57,8 @@ class AutoAttack:
                 if self.walk_event.is_set():
                     continue
 
-                self.auto_loot.loot()
+                if not runner_enemy:
+                    self.auto_loot.loot()
 
                 self.combat_event.clear()
                 self.walk_event.set()
