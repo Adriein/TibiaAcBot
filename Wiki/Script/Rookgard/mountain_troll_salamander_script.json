@@ -12,7 +12,13 @@
     ["32063,31895,5"]
   ],
   "creatures": [
-    "mountain_troll",
-    "troll_trained_salamander"
+    {
+      "name": "mountain_troll",
+      "runner": false
+    },
+    {
+      "name": "troll_trained_salamander",
+      "runner": false
+    }
   ]
 }
