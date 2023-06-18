@@ -54,14 +54,14 @@ class AutoAttack:
                         self.auto_loot.loot()
                         self.player.not_chase_opponent()
 
+                print(runner_enemy)
                 self.combat_event.clear()
 
             except NoEnemyFound:
                 if self.walk_event.is_set():
                     continue
-
+                print(runner_enemy)
                 if not runner_enemy:
-                    print('auto loteo always')
                     self.auto_loot.loot()
 
                 self.combat_event.clear()
