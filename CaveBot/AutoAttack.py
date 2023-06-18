@@ -8,7 +8,7 @@ from threading import Event
 import time
 from .ScriptEnemy import ScriptEnemy
 
-
+runner_enemy = False
 class AutoAttack:
     def __init__(self, auto_loot: AutoLoot, player: Player, walk_event: Event, combat_event: Event,
                  creatures: list[ScriptEnemy]):
@@ -23,6 +23,7 @@ class AutoAttack:
     def attack(self) -> None:
         while True:
             frame = WindowCapturer.start()
+            global runner_enemy
             runner_enemy = False
 
             try:
@@ -35,6 +36,7 @@ class AutoAttack:
                 battle_list_attack_position = enemies_in_battle_list[0].position
 
                 for enemy in enemies_in_battle_list:
+                    global runner_enemy
                     runner_enemy = enemy.runner
 
                     if runner_enemy:
