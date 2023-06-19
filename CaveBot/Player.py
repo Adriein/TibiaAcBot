@@ -39,7 +39,7 @@ class Player:
         self.mouse.use_left_button(coordinates)
 
     def use_hand_stair(self, coordinates: Coordinate) -> None:
-        self.mouse.use_left_button(coordinates)
+        self.mouse.use_right_button(coordinates)
 
     def eat(self) -> None:
         Keyboard.press('v')
