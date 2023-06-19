@@ -11,9 +11,11 @@ class Scanner:
 
     @staticmethod
     def combat_stance_position(frame: np.array) -> tuple[int, int, int, int]:
+        grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
         combat_stance_anchor = Cv2File.load_image('Wiki/Ui/Battle/combat_stance.png')
 
-        match = cv2.matchTemplate(frame, combat_stance_anchor, cv2.TM_CCOEFF_NORMED)
+        match = cv2.matchTemplate(grey_scale_frame, combat_stance_anchor, cv2.TM_CCOEFF_NORMED)
 
         [_, _, _, max_coordinates] = cv2.minMaxLoc(match)
 

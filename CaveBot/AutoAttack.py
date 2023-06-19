@@ -1,11 +1,14 @@
 from .BattleList import BattleList
 from ScreenAnalizerPackage import NoEnemyFound
 from ScreenAnalizerPackage import WindowCapturer
+from ScreenAnalizerPackage import Scanner
 from LoggerPackage import Logger as TibiaAcBotLogger
 from .Player import Player
 from .AutoLoot import AutoLoot
 from threading import Event
 import time
+import numpy as np
+import cv2
 from .ScriptEnemy import ScriptEnemy
 
 runner_enemy = False
@@ -72,3 +75,26 @@ class AutoAttack:
                 TibiaAcBotLogger.error('AUTO_ATTACK_FATAL_ERROR', exception)
                 self.combat_event.clear()
                 continue
+
+    def __has_to_chase_opponent(self, frame: np.array) -> bool:
+        (start_x, end_x, start_y, end_y) = Scanner.combat_stance_position(frame)
+
+        frame_roi = frame[start_y:end_y, start_x:end_x]
+
+        hsv_image = cv2.cvtColor(frame_roi, cv2.COLOR_BGR2HSV)
+
+        # Define the lower and upper bounds for green color in HSV
+        lower_green = np.array([40, 40, 40])
+        upper_green = np.array([70, 255, 255])
+
+        # Create a mask based on the color threshold
+        mask = cv2.inRange(hsv_image, lower_green, upper_green)
+
+        # Count the number of green pixels
+        green_pixel_count = cv2.countNonZero(mask)
+
+        # Determine if the image contains green color
+        if green_pixel_count > 0:
+            return True
+
+        return False
