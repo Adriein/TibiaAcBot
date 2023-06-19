@@ -51,6 +51,9 @@ class AutoWalk:
 
             if not walk_instructions:
                 TibiaAcBotLogger.debug('NO WALK INSTRUCTIONS')
+                TibiaAcBotLogger.debug(f'previous waypoint {self.__previous_waypoint}')
+                TibiaAcBotLogger.debug(f'current objective {self.__waypoints.current.data}')
+
                 continue
             try:
                 while walk_instructions.current is not None:
@@ -92,6 +95,12 @@ class AutoWalk:
                     self.FLOOR_LEVEL = self.FLOOR_LEVEL + 1
 
                 if waypoint_type == 'stairUp':
+                    self.FLOOR_LEVEL = self.FLOOR_LEVEL - 1
+
+                if waypoint_type == 'handStairUp':
+                    player_position = Coordinate.from_screen_region(Screen.GAME_WINDOW)
+                    self.player.use_hand_stair(player_position)
+
                     self.FLOOR_LEVEL = self.FLOOR_LEVEL - 1
 
             except IndexError:
