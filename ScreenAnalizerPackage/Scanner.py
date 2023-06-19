@@ -10,6 +10,20 @@ import numpy as np
 class Scanner:
 
     @staticmethod
+    def combat_stance_position(frame: np.array) -> tuple[int, int, int, int]:
+        combat_stance_anchor = Cv2File.load_image('Wiki/Ui/Battle/combat_stance.png')
+
+        match = cv2.matchTemplate(frame, combat_stance_anchor, cv2.TM_CCOEFF_NORMED)
+
+        [_, _, _, max_coordinates] = cv2.minMaxLoc(match)
+
+        (x, y) = max_coordinates
+
+        height, width = combat_stance_anchor.shape
+
+        return x, x + width, y, y + height
+
+    @staticmethod
     def mini_map_position(frame: np.array) -> tuple[int, int, int, int]:
         mini_map_anchor = Cv2File.load_image('Wiki/Ui/Map/radar_anchor.png')
 
