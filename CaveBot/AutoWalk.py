@@ -98,6 +98,7 @@ class AutoWalk:
                     self.FLOOR_LEVEL = self.FLOOR_LEVEL - 1
 
                 if waypoint_type == 'handStairUp':
+                    time.sleep(1)
                     player_position = Coordinate.from_screen_region(Screen.GAME_WINDOW)
                     self.player.use_hand_stair(player_position)
 
