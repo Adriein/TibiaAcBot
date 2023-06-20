@@ -5,6 +5,7 @@ from ScreenAnalizerPackage import Scanner
 from LoggerPackage import Logger as TibiaAcBotLogger
 from .Player import Player
 from .AutoLoot import AutoLoot
+from .Enemy import Enemy
 from threading import Event
 import time
 import numpy as np
@@ -12,6 +13,8 @@ import cv2
 from .ScriptEnemy import ScriptEnemy
 
 runner_enemy = False
+
+
 class AutoAttack:
     def __init__(self, auto_loot: AutoLoot, player: Player, walk_event: Event, combat_event: Event,
                  creatures: list[ScriptEnemy]):
@@ -76,7 +79,7 @@ class AutoAttack:
                 self.combat_event.clear()
                 continue
 
-    def __has_to_chase_opponent(self, frame: np.array) -> bool:
+    def __is_chasing_opponent_activated(self, frame: np.array) -> bool:
         (start_x, end_x, start_y, end_y) = Scanner.combat_stance_position(frame)
 
         frame_roi = frame[start_y:end_y, start_x:end_x]
@@ -98,3 +101,9 @@ class AutoAttack:
             return True
 
         return False
+
+    def __activate_chase_opponent(self, enemy: Enemy) -> None:
+        frame = WindowCapturer.start()
+
+        if not self.__is_chasing_opponent_activated(frame) and enemy.runner:
+            self.player.chase_opponent()
