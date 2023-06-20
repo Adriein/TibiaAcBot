@@ -32,7 +32,8 @@
   "creatures": [
     {
       "name": "wasp",
-      "runner": false
+      "runner": false,
+      "loot": true
     }
   ]
 }
