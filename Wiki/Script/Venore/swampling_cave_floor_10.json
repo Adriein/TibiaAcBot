@@ -18,19 +18,23 @@
   "creatures": [
     {
       "name": "salamander",
-      "runner": true
+      "runner": true,
+      "loot": false
     },
     {
       "name": "swampling",
-      "runner": true
+      "runner": true,
+      "loot": true
     },
     {
       "name": "emerald_damselfly",
-      "runner": true
+      "runner": true,
+      "loot": false
     },
     {
       "name": "marsh_stalker",
-      "runner": true
+      "runner": true,
+      "loot": false
     }
   ]
 }

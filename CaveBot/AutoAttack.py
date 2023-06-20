@@ -57,7 +57,9 @@ class AutoAttack:
                             break
 
                     if self.runner_enemy:
-                        self.auto_loot.loot()
+                        if enemy.loot:
+                            self.auto_loot.loot()
+
                         self.player.not_chase_opponent()
 
                 self.combat_event.clear()

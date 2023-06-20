@@ -63,7 +63,7 @@ class BattleList:
                         frame_creature_end_y
                     )
 
-                    creature = Enemy(enemy.name, enemy.runner, battle_list_position)
+                    creature = Enemy(enemy.name, enemy.runner, enemy.loot, battle_list_position)
 
                     results.append(creature)
 
