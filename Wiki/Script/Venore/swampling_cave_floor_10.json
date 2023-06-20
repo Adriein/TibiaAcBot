@@ -22,7 +22,7 @@
     },
     {
       "name": "swampling",
-      "runner": false
+      "runner": true
     },
     {
       "name": "emerald_damselfly",
