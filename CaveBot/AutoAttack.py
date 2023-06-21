@@ -43,8 +43,10 @@ class AutoAttack:
                 for enemy in enemies_in_battle_list:
                     self.runner_enemy = enemy.runner
 
-                    if self.runner_enemy:
-                        self.player.chase_opponent()
+                    # if self.runner_enemy:
+                      #  self.player.chase_opponent()
+
+                    self.__activate_chase_opponent(enemy)
 
                     self.player.attack()
 
