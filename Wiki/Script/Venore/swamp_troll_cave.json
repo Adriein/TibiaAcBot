@@ -30,7 +30,8 @@
   "creatures": [
     {
       "name": "swamp_troll",
-      "runner": true
+      "runner": true,
+      "loot": true
     }
   ]
 }
