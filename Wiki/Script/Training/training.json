@@ -1,0 +1,10 @@
+{
+  "walk": [],
+  "creatures": [
+    {
+      "name": "squidgy_slime",
+      "runner": false,
+      "loot": false
+    }
+  ]
+}

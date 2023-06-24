@@ -1,9 +1,6 @@
 from .Player import Player
 from LoggerPackage import Logger as TibiaAcBotLogger
-from ScreenAnalizerPackage import Screen
-from .AutoAttack import AutoAttack
-from .AutoLoot import AutoLoot
-from .AutoWalk import AutoWalk
+from .TrainingAutoAttack import TrainingAutoAttack
 from .AutoHealer import AutoHealer
 from .Script import Script
 from threading import Thread, Event
@@ -14,18 +11,15 @@ class AutoTrainner:
 
     player = Player.create()
 
-    walking_event = Event()
     combat_event = Event()
 
-    cave_bot_script = Script.load('Wiki/Script/Thais/thais_wasp.json')
+    training_script = Script.load('Wiki/Script/Training/training.json')
 
-    auto_loot = AutoLoot(player, Screen.GAME_WINDOW)
-
-    auto_attack = AutoAttack(auto_loot, player, walking_event, combat_event, cave_bot_script.creatures)
+    auto_attack = TrainingAutoAttack(player, training_script.creatures)
 
     auto_healer = AutoHealer(player, combat_event)
 
-    attack_thread = Thread(daemon=True, target=auto_attack.attack)
+    attack_thread = Thread(daemon=True, target=auto_attack.train)
 
     health_thread = Thread(daemon=True, target=auto_healer.heal)
 

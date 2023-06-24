@@ -16,8 +16,7 @@ runner_enemy = False
 
 
 class AutoAttack:
-    def __init__(self, auto_loot: AutoLoot, player: Player, walk_event: Event, combat_event: Event,
-                 creatures: list[ScriptEnemy]):
+    def __init__(self, auto_loot: AutoLoot, player: Player, walk_event: Event, combat_event: Event, creatures: list[ScriptEnemy]):
         initial_frame = WindowCapturer.start()
         self.battle_list = BattleList.create(initial_frame)
         self.auto_loot = auto_loot
