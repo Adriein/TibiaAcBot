@@ -45,7 +45,7 @@ class TibiaAcBot:
 
         parser = argparse.ArgumentParser()
 
-        parser.add_argument('--train', type=str, help='Indicate that program should start in training mode')
+        parser.add_argument('--train', action="store_true", help='Indicate that program should start in training mode')
 
         print(parser.parse_args())
 
