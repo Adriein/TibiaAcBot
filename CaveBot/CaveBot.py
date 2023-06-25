@@ -20,7 +20,7 @@ class CaveBot:
         combat_event = Event()
 
         # Thread(daemon=True, target=player.watch_mana).start()
-        cave_bot_script = Script.load('Wiki/Script/Venore/amazon_camp.json')
+        cave_bot_script = Script.load('Wiki/Script/Venore/amazon_camp_no_witch.json')
 
         auto_loot = AutoLoot(player, Screen.GAME_WINDOW)
 
