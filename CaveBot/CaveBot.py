@@ -26,17 +26,17 @@ class CaveBot:
 
         auto_walk = AutoWalk(cave_bot_script, player, walking_event)
 
-        # auto_attack = AutoAttack(auto_loot, player, walking_event, combat_event, cave_bot_script.creatures)
+        auto_attack = AutoAttack(auto_loot, player, walking_event, combat_event, cave_bot_script.creatures)
 
         auto_healer = AutoHealer(player, combat_event)
 
-        # attack_thread = Thread(daemon=True, target=auto_attack.attack)
+        attack_thread = Thread(daemon=True, target=auto_attack.attack)
 
         walk_thread = Thread(daemon=True, target=auto_walk.start)
 
         health_thread = Thread(daemon=True, target=auto_healer.heal)
 
-        # attack_thread.start()
+        attack_thread.start()
 
         health_thread.start()
 
