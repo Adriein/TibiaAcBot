@@ -55,12 +55,6 @@ class Stat(ABC):
             while True:
                 number_roi = frame[region.start_y: region.end_y, region.start_x: region.end_x]
 
-                if cv2.waitKey(1):
-                    cv2.destroyAllWindows()
-
-                cv2.imshow("Output", number_roi)
-                cv2.waitKey(0)
-
                 result = Scanner.number(confidence=0.6, number_roi=number_roi)
 
                 number_collection.append(result)
