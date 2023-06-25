@@ -1,6 +1,7 @@
 from .BattleList import BattleList
 from ScreenAnalizerPackage import NoEnemyFound
 from ScreenAnalizerPackage import WindowCapturer
+from ScreenAnalizerPackage import Coordinate
 from LoggerPackage import Logger as TibiaAcBotLogger
 from .Player import Player
 import time
@@ -33,8 +34,8 @@ class TrainingAutoAttack:
 
                 battle_list_attack_position = enemies_in_battle_list[0].position
 
-                for _ in enemies_in_battle_list:
-                    self.player.attack()
+                for enemy in enemies_in_battle_list:
+                    self.player.precision_attack(Coordinate.from_screen_region(enemy.position))
 
                     time.sleep(1)
 

@@ -38,6 +38,9 @@ class Player:
         Keyboard.press('space')
         # self.mouse.use_left_button(coordinates)
 
+    def precision_attack(self, coordinates: Coordinate) -> None:
+        self.mouse.use_left_button(coordinates)
+
     def rope(self, coordinates: Coordinate) -> None:
         Keyboard.press('f')
         self.mouse.use_left_button(coordinates)
