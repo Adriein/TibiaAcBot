@@ -23,6 +23,8 @@ class TrainingAutoAttack:
             frame = WindowCapturer.start()
 
             try:
+                self.player.eat()
+
                 enemies_in_battle_list = self.battle_list.find_enemies(frame, self.creatures)
 
                 battle_list_attack_position = enemies_in_battle_list[0].position
@@ -33,6 +35,7 @@ class TrainingAutoAttack:
                     time.sleep(1)
 
                     while True:
+                        self.player.heal()
                         actual_frame = WindowCapturer.start()
 
                         if not self.battle_list.is_nearest_enemy_attacked(actual_frame, battle_list_attack_position):

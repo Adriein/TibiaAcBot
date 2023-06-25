@@ -27,7 +27,7 @@ class AutoHealer:
             health = self.player.health(frame)
 
             if self.have_to_be_healed(health):
-                Keyboard.press('r')
+                self.player.heal()
 
     def have_to_be_healed(self, hp: int) -> bool:
         return hp <= self.HIT_POINT_THRESHOLD

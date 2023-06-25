@@ -8,6 +8,7 @@ from .Mouse import Mouse
 from .MoveCommand import MoveCommand
 import numpy as np
 
+
 class Player:
     @staticmethod
     def create() -> 'Player':
@@ -30,6 +31,9 @@ class Player:
         return player_mana
 
     # ACTIONS
+    def heal(self) -> None:
+        Keyboard.press('r')
+
     def attack(self) -> None:
         Keyboard.press('space')
         # self.mouse.use_left_button(coordinates)

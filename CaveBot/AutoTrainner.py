@@ -18,15 +18,9 @@ class AutoTrainner:
 
         auto_attack = TrainingAutoAttack(player, training_script.creatures, combat_event)
 
-        auto_healer = AutoHealer(player, combat_event)
-
         attack_thread = Thread(daemon=True, target=auto_attack.train)
 
-        health_thread = Thread(daemon=True, target=auto_healer.heal)
-
         attack_thread.start()
-
-        health_thread.start()
 
         while True:
             pass
