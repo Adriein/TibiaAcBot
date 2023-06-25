@@ -27,6 +27,8 @@ class TrainingAutoAttack:
             try:
                 self.player.eat()
 
+                self.player.heal()
+
                 enemies_in_battle_list = self.battle_list.find_enemies(frame, self.creatures)
 
                 battle_list_attack_position = enemies_in_battle_list[0].position
