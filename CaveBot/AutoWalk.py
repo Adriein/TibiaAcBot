@@ -16,7 +16,7 @@ class AutoWalk:
     __waypoints: LinkedList = LinkedList()
     __previous_waypoint = None
 
-    FLOOR_LEVEL = 8
+    FLOOR_LEVEL = 7
 
     FLOORS_LEVELS: set[int] = set()
 
