@@ -19,13 +19,9 @@ class TibiaAcBot:
             TibiaAcBotLogger.info('Press Ctrl+C to stop the execution')
 
             if training_mode:
-                TibiaAcBotLogger.info('Started in train mode')
-
                 AutoTrainner().train()
 
                 raise SystemExit
-
-            TibiaAcBotLogger.info('Started in cave bot mode')
 
             cave_bot = CaveBot()
 

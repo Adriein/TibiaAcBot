@@ -8,7 +8,7 @@ from threading import Thread, Event
 
 class AutoTrainner:
     def train(self) -> None:
-        TibiaAcBotLogger.info('CaveBot starting')
+        TibiaAcBotLogger.info('AutoTraining starting')
 
         player = Player.create()
 
@@ -16,7 +16,7 @@ class AutoTrainner:
 
         training_script = Script.load('Wiki/Script/Training/training.json')
 
-        auto_attack = TrainingAutoAttack(player, training_script.creatures)
+        auto_attack = TrainingAutoAttack(player, training_script.creatures, combat_event)
 
         auto_healer = AutoHealer(player, combat_event)
 
