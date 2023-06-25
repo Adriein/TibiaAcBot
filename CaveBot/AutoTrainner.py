@@ -7,25 +7,26 @@ from threading import Thread, Event
 
 
 class AutoTrainner:
-    TibiaAcBotLogger.info('CaveBot starting')
+    def train(self) -> None:
+        TibiaAcBotLogger.info('CaveBot starting')
 
-    player = Player.create()
+        player = Player.create()
 
-    combat_event = Event()
+        combat_event = Event()
 
-    training_script = Script.load('Wiki/Script/Training/training.json')
+        training_script = Script.load('Wiki/Script/Training/training.json')
 
-    auto_attack = TrainingAutoAttack(player, training_script.creatures)
+        auto_attack = TrainingAutoAttack(player, training_script.creatures)
 
-    auto_healer = AutoHealer(player, combat_event)
+        auto_healer = AutoHealer(player, combat_event)
 
-    attack_thread = Thread(daemon=True, target=auto_attack.train)
+        attack_thread = Thread(daemon=True, target=auto_attack.train)
 
-    health_thread = Thread(daemon=True, target=auto_healer.heal)
+        health_thread = Thread(daemon=True, target=auto_healer.heal)
 
-    attack_thread.start()
+        attack_thread.start()
 
-    health_thread.start()
+        health_thread.start()
 
-    while True:
-        pass
+        while True:
+            pass

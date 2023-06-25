@@ -2,6 +2,7 @@ from LoggerPackage import Logger as TibiaAcBotLogger
 from ScreenAnalizerPackage.Shared.Screen import Screen
 from ScreenAnalizerPackage.Stats.Stat import Stat
 from CaveBot.CaveBot import CaveBot
+from CaveBot.AutoTrainner import AutoTrainner
 from dotenv import load_dotenv
 import argparse
 
@@ -12,12 +13,19 @@ class TibiaAcBot:
         try:
             TibiaAcBot.setup_global()
 
-            TibiaAcBot.collect_program_arguments()
+            training_mode = TibiaAcBot.collect_program_arguments()
 
             TibiaAcBotLogger.info('Started...')
             TibiaAcBotLogger.info('Press Ctrl+C to stop the execution')
 
-            TibiaAcBotLogger.info('Listening...')
+            if training_mode:
+                TibiaAcBotLogger.info('Started in train mode')
+
+                AutoTrainner().train()
+
+                raise SystemExit
+
+            TibiaAcBotLogger.info('Started in cave bot mode')
 
             cave_bot = CaveBot()
 
@@ -40,14 +48,17 @@ class TibiaAcBot:
         Stat.setup_global_variables()
 
     @staticmethod
-    def collect_program_arguments() -> None:
+    def collect_program_arguments() -> bool:
         TibiaAcBotLogger.info('Collecting program arguments...')
 
         parser = argparse.ArgumentParser()
 
         parser.add_argument('--train', action="store_true", help='Indicate that program should start in training mode')
 
-        print(parser.parse_args())
+        if parser.parse_args() and parser.parse_args().train:
+            return True
+
+        return False
 
 
 TibiaAcBot().init()
