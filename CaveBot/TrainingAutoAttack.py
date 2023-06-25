@@ -9,6 +9,7 @@ from threading import Event
 
 
 class TrainingAutoAttack:
+    __COUNTER = 0
     def __init__(self, player: Player, creatures: list[ScriptEnemy], combat_event: Event):
         initial_frame = WindowCapturer.start()
         self.battle_list = BattleList.create(initial_frame)
@@ -35,8 +36,13 @@ class TrainingAutoAttack:
                     time.sleep(1)
 
                     while True:
-                        self.player.heal()
+                        if self.__COUNTER == 100:
+                            self.player.heal()
+                            self.__COUNTER = 0
+
                         actual_frame = WindowCapturer.start()
+
+                        self.__COUNTER = self.__COUNTER + 1
 
                         if not self.battle_list.is_nearest_enemy_attacked(actual_frame, battle_list_attack_position):
                             break
