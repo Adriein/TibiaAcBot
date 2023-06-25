@@ -10,6 +10,7 @@ from threading import Event
 
 class TrainingAutoAttack:
     __COUNTER = 0
+
     def __init__(self, player: Player, creatures: list[ScriptEnemy], combat_event: Event):
         initial_frame = WindowCapturer.start()
         self.battle_list = BattleList.create(initial_frame)
