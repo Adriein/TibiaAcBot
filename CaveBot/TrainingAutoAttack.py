@@ -37,7 +37,7 @@ class TrainingAutoAttack:
                     time.sleep(1)
 
                     while True:
-                        if self.__COUNTER == 2000:
+                        if self.__COUNTER == 50:
                             self.player.heal()
                             self.__COUNTER = 0
 
