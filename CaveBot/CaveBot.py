@@ -20,7 +20,8 @@ class CaveBot:
         combat_event = Event()
 
         # Thread(daemon=True, target=player.watch_mana).start()
-        cave_bot_script = Script.load('Wiki/Script/Thais/thais_wasp.json')
+        # cave_bot_script = Script.load('Wiki/Script/Thais/thais_wasp.json')
+        cave_bot_script = Script.load('Wiki/Script/Venore/swamp_troll_cave.json')
 
         auto_loot = AutoLoot(player, Screen.GAME_WINDOW)
 
