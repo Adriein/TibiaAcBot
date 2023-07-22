@@ -24,8 +24,6 @@ class CaveBot:
         # cave_bot_script = Script.load('Wiki/Script/Thais/thais_wasp.json')
         cave_bot_script = Script.load('Wiki/Script/Venore/swamp_troll_cave.json')
         # cave_bot_script = Script.load('Wiki/Script/Venore/swampling_cave_floor_10.json')
-        print(pyautogui.size())
-        raise Exception
 
         auto_loot = AutoLoot(player, Screen.GAME_WINDOW)
 
