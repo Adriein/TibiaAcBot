@@ -1,41 +1,19 @@
 TibiaBot
 =================================================================================================
 
-Template matching library python: Mahotas and OpenCV
-
-OpenCV seems to have more support and tutorials accepts template matching of multiple objects in
-the screen.
-
 
 Github
 =================================================================================================
 https://github.com/MuriloChianfa/TibiaAuto12
 https://github.com/lucasmonstro/PyTibia
 
-Tasks
-=================================================================================================
-
-1. Be able to import the screenshot -> done
-2. Be able to process the screenshot with opencv -> done
-3. Be able to find your own character in the screen -> done
-4. Be able to read your health bar and mana -> done
-5. Be able to move -> done
-6. Be able to explore
-7. Be able to identify battle list and attack -> done
-8. Be able to loot dead corpses -> done
-
-CaveBot steps
-=================================================================================================
-
-1. Simple cavebot with preregistered instructions to move
-2. Be able to map a maze
-3. Have some sort of decisions in this maze (randomize between multiple shorter paths)
-
 Issues
 =================================================================================================
+path finding seems to be bugged -> strange paths + not very reliable
+when a monster is inside the battle list but there is no way to attack him the bot get stuck while trying to kill it
+change how we move the mouse -> discrepancy between game window size + screen size
 
-
-Miscelania
+Util info
 =================================================================================================
 The Game Window can render a maximum of 15 × 11 square meters (fields) with the size of 44 × 44 pixels each,
 if not enlarged or reduced.
@@ -44,24 +22,3 @@ Find the character feet, we assume the feet are in the center of a sqm, so it me
 directions to get the full box
 
 We need to capture the window in color because we need to know if we are attacking something from the battle list or not
-
-        if cv2.waitKey(1):
-            cv2.destroyAllWindows()
-
-        # draw the bounding box on the image
-        cv2.rectangle(actual_position, (start_x - 40, start_y - 40), (end_x, end_y), (255, 0, 0), 1)
-        # show the output image
-        cv2.imshow("Output", actual_position)
-        cv2.waitKey(0)
-        cv2.drawMarker(frame, (click_point_x, click_point_y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
-
-    def map_position_based_on_map_coordinate(self) -> None:
-        waypoint = Waypoint(32063, 31884, 5)
-
-        coordinate = self.__get_pixel_from_waypoint(waypoint)
-
-        tibia_map = Cv2File.load_image(f'Wiki/Ui/Map/Floors/floor-{waypoint.z}.png')
-
-        cv2.drawMarker(tibia_map, (coordinate.x, coordinate.y), (255, 0, 255), cv2.MARKER_CROSS, cv2.LINE_4)
-
-        test = tibia_map[coordinate.y - 100:coordinate.y + 100, coordinate.x - 100:coordinate.x + 100]
