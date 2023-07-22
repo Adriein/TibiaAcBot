@@ -5,7 +5,7 @@ import pyautogui
 class Mouse:
     def use_right_button(self, coordinate: Coordinate) -> None:
         py_auto_gui_y = (coordinate.y * -1) + 768/2
-        py_auto_gui_x = coordinate.x - 1366/2
+        py_auto_gui_x = coordinate.x + 1366/2
 
         pyautogui.moveTo(py_auto_gui_x, py_auto_gui_y)
 
