@@ -20,7 +20,8 @@ class AutoLoot:
             coordinates = self.__create_looting_area()
 
             for coordinate in coordinates:
-                self.player.loot(coordinate)
+                corrected_coordinate = Coordinate.from_game_window_to_screen(coordinate)
+                self.player.loot(corrected_coordinate)
 
                 time.sleep(0.4)
 

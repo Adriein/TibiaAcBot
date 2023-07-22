@@ -77,7 +77,9 @@ class AutoWalk:
                     time.sleep(1)
 
                     player_position = Coordinate.from_screen_region(Screen.GAME_WINDOW)
-                    self.player.rope(player_position)
+                    correct_player_position = Coordinate.from_game_window_to_screen(player_position)
+
+                    self.player.rope(correct_player_position)
 
                     current_floor = self.FLOOR_LEVEL
 
@@ -100,7 +102,8 @@ class AutoWalk:
                 if waypoint_type == 'handStairUp':
                     time.sleep(1)
                     player_position = Coordinate.from_screen_region(Screen.GAME_WINDOW)
-                    self.player.use_hand_stair(player_position)
+                    correct_player_position = Coordinate.from_game_window_to_screen(player_position)
+                    self.player.use_hand_stair(correct_player_position)
 
                     self.FLOOR_LEVEL = self.FLOOR_LEVEL - 1
 

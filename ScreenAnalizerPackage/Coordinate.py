@@ -9,6 +9,13 @@ class Coordinate:
 
         return Coordinate(x, y)
 
+    @staticmethod
+    def from_game_window_to_screen(coordinate: 'Coordinate'):
+        screen_relative_x = int(coordinate.x * (1366 / 940))
+        screen_relative_y = int(coordinate.y * (1366 / 940))
+
+        return Coordinate(screen_relative_x, screen_relative_y)
+
     def __init__(self, x: int, y: int):
         self.x = x
         self.y = y
