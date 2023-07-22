@@ -39,25 +39,21 @@ class Player:
         # self.mouse.use_left_button(coordinates)
 
     def precision_attack(self, coordinates: Coordinate) -> None:
-        self.mouse.move(coordinates)
-        self.mouse.use_left_button()
+        self.mouse.use_left_button(coordinates)
 
     def rope(self, coordinates: Coordinate) -> None:
         Keyboard.press('f')
-        self.mouse.move(coordinates)
-        self.mouse.use_left_button()
+        self.mouse.use_left_button(coordinates)
 
     def use_hand_stair(self, coordinates: Coordinate) -> None:
-        self.mouse.move(coordinates)
-        self.mouse.use_right_button()
+        self.mouse.use_right_button(coordinates)
 
     def eat(self) -> None:
         Keyboard.press('v')
 
     def loot(self, coordinates: Coordinate) -> None:
-        self.mouse.move(coordinates)
         Keyboard.key_down('shift')
-        self.mouse.use_right_button()
+        self.mouse.use_right_button(coordinates)
         Keyboard.key_up('shift')
 
     def chase_opponent(self) -> None:
