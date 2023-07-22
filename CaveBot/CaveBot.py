@@ -25,6 +25,11 @@ class CaveBot:
         cave_bot_script = Script.load('Wiki/Script/Venore/swamp_troll_cave.json')
         # cave_bot_script = Script.load('Wiki/Script/Venore/swampling_cave_floor_10.json')
 
+        print(pyautogui.size())
+        print(str(Screen.GAME_WINDOW))
+
+        raise Exception
+
         auto_loot = AutoLoot(player, Screen.GAME_WINDOW)
 
         auto_walk = AutoWalk(cave_bot_script, player, walking_event)
