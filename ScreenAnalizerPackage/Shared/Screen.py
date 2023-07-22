@@ -5,18 +5,23 @@ import numpy as np
 import pyautogui
 from PIL import Image
 
+from ConsolePackage.CommandExecutionError import CommandExecutionError
 from ConsolePackage.Console import Console
 from LoggerPackage.Logger import Logger
 from ScreenAnalizerPackage.Error.WindowSearchCommandError import WindowSearchCommandError
 from ScreenAnalizerPackage.ScreenRegion import ScreenRegion
 from ScreenAnalizerPackage.Shared.Monitor import Monitor
+from UtilPackage.Array import Array
 from FilesystemPackage import Cv2File
 
 
 class Screen:
     MONITOR = None
+    TIBIA_WINDOW_NAME = "Tibia"
     OBS_TIBIA_PREVIEW_WINDOW_NAME = "Projector"
+    TIBIA_WINDOW_ID = None
     OBS_TIBIA_PREVIEW_WINDOW_ID = None
+    TIBIA_PID_BIN_PATH = "gmbh/tibia/packages/tibia/bin"
     GAME_WINDOW = None
 
     @staticmethod
@@ -41,6 +46,29 @@ class Screen:
         [width, height] = pyautogui.size()
 
         return Monitor(width, height)
+
+    @staticmethod
+    def __tibia_window_id() -> int:
+        try:
+            window_ids = Console.execute(fr'xdotool search --name "\b"{Screen.TIBIA_WINDOW_NAME}"\b"')
+            window_ids_parsed_result = list(filter(None, window_ids.split('\n')))
+
+            if Array.is_array(window_ids_parsed_result):
+                for window_id in window_ids_parsed_result:
+                    try:
+                        window_pid = Console.execute(f'xdotool getwindowpid {window_id}')
+
+                        pid_info = Console.execute(f'pwdx {window_pid}')
+
+                        if Screen.TIBIA_PID_BIN_PATH in pid_info.lower():
+                            return int(window_id)
+
+                    except CommandExecutionError:
+                        continue
+
+        except Exception as exception:
+            Logger.error(str(exception), exception)
+            raise WindowSearchCommandError(Screen.TIBIA_WINDOW_NAME)
 
     @staticmethod
     def __obs_tibia_preview_window_id() -> int:
@@ -91,6 +119,8 @@ class Screen:
     def setup_global_variables() -> None:
 
         Screen.MONITOR = Screen.__size()
+
+        Screen.TIBIA_WINDOW_ID = Screen.__tibia_window_id()
 
         Screen.OBS_TIBIA_PREVIEW_WINDOW_ID = Screen.__obs_tibia_preview_window_id()
 
