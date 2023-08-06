@@ -1,5 +1,3 @@
-from ScreenAnalizerPackage import HitPoint
-from ScreenAnalizerPackage import Mana
 from ScreenAnalizerPackage import Position
 from ScreenAnalizerPackage import Coordinate
 from LoggerPackage import Logger
@@ -12,23 +10,10 @@ import numpy as np
 class Player:
     @staticmethod
     def create() -> 'Player':
-        return Player(HitPoint(), Mana(), Mouse())
+        return Player(Mouse())
 
-    def __init__(self, hp: HitPoint, mana_bar: Mana, mouse: Mouse):
-        self.hp = hp
-        self.mana_bar = mana_bar
+    def __init__(self, mouse: Mouse):
         self.mouse = mouse
-
-    # STATS
-    def health(self, frame: np.array) -> int:
-        player_health = self.hp.get(frame)
-
-        return player_health
-
-    def mana(self, frame: np.array) -> int:
-        player_mana = self.mana_bar.get(frame)
-        Logger.debug(f'mana: {player_mana}')
-        return player_mana
 
     # ACTIONS
     def heal(self) -> None:
