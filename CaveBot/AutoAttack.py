@@ -30,6 +30,8 @@ class AutoAttack:
         while True:
             frame = WindowCapturer.start()
 
+            Scanner.ring_position(frame);
+
             try:
                 enemies_in_battle_list = self.battle_list.find_enemies(frame, self.creatures)
 
