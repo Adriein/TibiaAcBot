@@ -27,17 +27,17 @@ class CaveBot:
 
         auto_loot = AutoLoot(player, Screen.GAME_WINDOW)
 
-        auto_walk = AutoWalk(cave_bot_script, player, walking_event)
+        # auto_walk = AutoWalk(cave_bot_script, player, walking_event)
 
         auto_attack = AutoAttack(auto_loot, player, walking_event, combat_event, cave_bot_script.creatures)
 
         attack_thread = Thread(daemon=True, target=auto_attack.attack)
 
-        walk_thread = Thread(daemon=True, target=auto_walk.start)
+        # walk_thread = Thread(daemon=True, target=auto_walk.start)
 
         attack_thread.start()
 
-        walk_thread.start()
+        # walk_thread.start()
 
         walking_event.set()
 

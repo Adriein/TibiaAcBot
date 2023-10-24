@@ -8,7 +8,21 @@ import numpy as np
 
 
 class Scanner:
+    @staticmethod
+    def ring_position(frame: np.array) -> tuple[int, int, int, int]:
+        grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
+        soul_anchor = Cv2File.load_image('Wiki/Ui/GameWindow/soul.png')
+
+        match = cv2.matchTemplate(grey_scale_frame, soul_anchor, cv2.TM_CCOEFF_NORMED)
+
+        [_, _, _, max_coordinates] = cv2.minMaxLoc(match)
+
+        (x, y) = max_coordinates
+
+        height, width = soul_anchor.shape
+
+        return x, x + width, y, y + height
     @staticmethod
     def combat_stance_position(frame: np.array) -> tuple[int, int, int, int]:
         grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -22,6 +36,24 @@ class Scanner:
         (x, y) = max_coordinates
 
         height, width = combat_stance_anchor.shape
+
+        frame_roi = frame[y:y + height + 20, x:x + width]
+
+        hsv_image = cv2.cvtColor(frame_roi, cv2.COLOR_BGR2HSV)
+
+        # Window name in which image is displayed
+        window_name = 'image'
+
+        # Using cv2.imshow() method
+        # Displaying the image
+        cv2.imshow(window_name, hsv_image)
+
+        # waits for user to press any key
+        # (this is necessary to avoid Python kernel form crashing)
+        cv2.waitKey(0)
+
+        # closing all open windows
+        cv2.destroyAllWindows()
 
         return x, x + width, y, y + height
 
