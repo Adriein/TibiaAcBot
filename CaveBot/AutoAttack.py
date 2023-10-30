@@ -121,6 +121,20 @@ class AutoAttack:
 
         frame_roi = frame[start_y:end_y, start_x:end_x]
 
+        # Window name in which image is displayed
+        window_name = 'image'
+
+        # Using cv2.imshow() method
+        # Displaying the image
+        cv2.imshow(window_name, frame_roi)
+
+        # waits for user to press any key
+        # (this is necessary to avoid Python kernel form crashing)
+        cv2.waitKey(0)
+
+        # closing all open windows
+        cv2.destroyAllWindows()
+
         # Define the RGB value of the color you want to find
         color_to_find = (76, 111, 204)  # Corresponding to #416fcc in RGB
 
