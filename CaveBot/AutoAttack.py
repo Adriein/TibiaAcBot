@@ -126,8 +126,16 @@ class AutoAttack:
         # Define the RGB value of the color you want to find
         color_to_find = (76, 111, 204)  # Corresponding to #416fcc in RGB
 
-        # Check if the color is present in the image
-        color_found = np.any(np.all(mask == color_to_find, axis=-1))
+        # Calculate the Euclidean distance between the image and target color
+        color_difference = np.linalg.norm(mask - color_to_find, axis=-1)
+
+        print(color_difference)
+
+        # Define a threshold for color similarity
+        threshold = 50  # You can adjust this threshold based on your needs
+
+        # Check if the color is similar to the target color
+        color_found = np.any(color_difference < threshold)
 
         print(color_found)
 
