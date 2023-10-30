@@ -121,9 +121,6 @@ class AutoAttack:
 
         frame_roi = frame[start_y:end_y, start_x:end_x]
 
-        # Window name in which image is displayed
-        window_name = 'image'
-
         # Define the RGB value of the color you want to find
         color_to_find = (76, 111, 204)  # Corresponding to #416fcc in RGB
 
