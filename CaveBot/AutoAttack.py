@@ -128,12 +128,10 @@ class AutoAttack:
         # Create a mask based on the color threshold
         mask = cv2.inRange(frame_roi, lower_blue, upper_blue)
 
-        # Count the number of green pixels
-        blue_pixel_count = cv2.countNonZero(mask)
-        print(blue_pixel_count)
+        # Count the number of blue pixels
+        print(np.any(mask > 0))
+
+        blue_present = np.any(mask > 0)
 
         # Determine if the image contains blue color
-        if blue_pixel_count > 0:
-            return True
-
-        return False
+        return blue_present
