@@ -127,7 +127,7 @@ class AutoAttack:
         color_to_find = (191, 0, 0)
 
         # Check if the color is similar to the target color
-        color_found = np.any(np.all(hsv_image == color_to_find, axis=-1))
+        color_found = np.all(hsv_image == color_to_find, axis=-1).any()
 
         print(color_found)
 
