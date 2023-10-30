@@ -121,14 +121,12 @@ class AutoAttack:
 
         frame_roi = frame[start_y:end_y, start_x:end_x]
 
-        hsv_image = cv2.cvtColor(frame_roi, cv2.COLOR_BGR2HSV)
-
         # Define the lower and upper bounds for blue color in HSV
         lower_blue = np.array([90, 50, 50])
         upper_blue = np.array([130, 255, 255])
 
         # Create a mask based on the color threshold
-        mask = cv2.inRange(hsv_image, lower_blue, upper_blue)
+        mask = cv2.inRange(frame_roi, lower_blue, upper_blue)
 
         # Count the number of green pixels
         blue_pixel_count = cv2.countNonZero(mask)
