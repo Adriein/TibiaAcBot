@@ -123,33 +123,11 @@ class AutoAttack:
 
         hsv_image = cv2.cvtColor(frame_roi, cv2.COLOR_BGR2HSV)
 
-        # Window name in which image is displayed
-        window_name = 'image'
-
-        # Using cv2.imshow() method
-        # Displaying the image
-        cv2.imshow(window_name, hsv_image)
-
-        # waits for user to press any key
-        # (this is necessary to avoid Python kernel form crashing)
-        cv2.waitKey(0)
-
-        # closing all open windows
-        cv2.destroyAllWindows()
-
-        # Define the RGB value of the color you want to find
-        color_to_find = (76, 111, 204)  # Corresponding to #416fcc in RGB
-
-        # Calculate the Euclidean distance between the image and target color
-        color_difference = np.linalg.norm(frame_roi - color_to_find, axis=-1)
-
-        print(color_difference)
-
-        # Define a threshold for color similarity
-        threshold = 50  # You can adjust this threshold based on your needs
+        # Define the RGB value of the color red that are counter of the ring
+        color_to_find = (191, 0, 0)
 
         # Check if the color is similar to the target color
-        color_found = np.any(color_difference < threshold)
+        color_found = np.any(np.all(hsv_image == color_to_find, axis=-1))
 
         print(color_found)
 
