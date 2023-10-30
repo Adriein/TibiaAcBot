@@ -69,3 +69,6 @@ class Player:
 
     def move(self, command: MoveCommand) -> None:
         Keyboard.press(command.key)
+
+    def use_stealth_ring(self) -> None:
+        Keyboard.press('t')

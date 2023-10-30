@@ -9,6 +9,7 @@ class Script:
 
     waypoints: LinkedList = LinkedList()
     creatures: list[ScriptEnemy] = list()
+    force_ring: bool = False
 
     __previous_waypoint = None
 
@@ -23,6 +24,9 @@ class Script:
         for waypoint in script_json_data['walk']:
             self.FLOORS_LEVELS.add(Script.__extract_z_level_from_waypoint(waypoint[0]))
             self.waypoints.append(waypoint)
+
+        if 'ring' in script_json_data:
+            self.force_ring = True
 
     @staticmethod
     def load(name: str) -> 'Script':

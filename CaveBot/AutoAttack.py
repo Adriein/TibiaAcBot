@@ -16,7 +16,7 @@ runner_enemy = False
 
 
 class AutoAttack:
-    def __init__(self, auto_loot: AutoLoot, player: Player, walk_event: Event, combat_event: Event, creatures: list[ScriptEnemy]):
+    def __init__(self, auto_loot: AutoLoot, player: Player, walk_event: Event, combat_event: Event, creatures: list[ScriptEnemy], force_ring: bool):
         initial_frame = WindowCapturer.start()
         self.battle_list = BattleList.create(initial_frame)
         self.auto_loot = auto_loot
@@ -25,6 +25,7 @@ class AutoAttack:
         self.combat_event = combat_event
         self.creatures = creatures
         self.runner_enemy = False
+        self.force_ring = force_ring
 
     def attack(self) -> None:
         while True:
@@ -40,6 +41,10 @@ class AutoAttack:
                 battle_list_attack_position = enemies_in_battle_list[0].position
 
                 for enemy in enemies_in_battle_list:
+                    if self.force_ring and not self.__is_stealth_ring_on(frame):
+                        print('use ring')
+                        self.player.use_stealth_ring()
+
                     self.runner_enemy = enemy.runner
 
                     self.__activate_chase_opponent(enemy)
@@ -110,3 +115,26 @@ class AutoAttack:
 
         if not self.__is_chasing_opponent_activated(frame) and enemy.runner:
             self.player.chase_opponent()
+
+    def __is_stealth_ring_on(self, frame: np.array) -> bool:
+        (start_x, end_x, start_y, end_y) = Scanner.ring_position(frame)
+
+        frame_roi = frame[start_y:end_y, start_x:end_x]
+
+        hsv_image = cv2.cvtColor(frame_roi, cv2.COLOR_BGR2HSV)
+
+        # Define the lower and upper bounds for blue color in HSV
+        lower_blue = np.array([90, 50, 50])
+        upper_blue = np.array([130, 255, 255])
+
+        # Create a mask based on the color threshold
+        mask = cv2.inRange(hsv_image, lower_blue, upper_blue)
+
+        # Count the number of green pixels
+        blue_pixel_count = cv2.countNonZero(mask)
+
+        # Determine if the image contains green color
+        if blue_pixel_count > 0:
+            return True
+
+        return False
