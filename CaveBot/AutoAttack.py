@@ -41,8 +41,7 @@ class AutoAttack:
                 battle_list_attack_position = enemies_in_battle_list[0].position
 
                 for enemy in enemies_in_battle_list:
-                    if self.force_ring and not self.__is_stealth_ring_on(frame):
-                        print('use ring')
+                    if self.force_ring:
                         self.player.use_stealth_ring()
 
                     self.runner_enemy = enemy.runner
