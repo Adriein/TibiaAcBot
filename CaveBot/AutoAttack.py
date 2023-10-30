@@ -121,12 +121,14 @@ class AutoAttack:
 
         frame_roi = frame[start_y:end_y, start_x:end_x]
 
+        hsv_image = cv2.cvtColor(frame_roi, cv2.COLOR_BGR2HSV)
+
         # Window name in which image is displayed
         window_name = 'image'
 
         # Using cv2.imshow() method
         # Displaying the image
-        cv2.imshow(window_name, frame_roi)
+        cv2.imshow(window_name, hsv_image)
 
         # waits for user to press any key
         # (this is necessary to avoid Python kernel form crashing)
