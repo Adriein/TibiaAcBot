@@ -121,17 +121,15 @@ class AutoAttack:
 
         frame_roi = frame[start_y:end_y, start_x:end_x]
 
-        # Define the lower and upper bounds for blue color in HSV
-        lower_blue = np.array([90, 50, 50])
-        upper_blue = np.array([130, 255, 255])
+        mask = cv2.cvtColor(frame_roi, cv2.COLOR_BGR2RGB)
 
-        # Create a mask based on the color threshold
-        mask = cv2.inRange(frame_roi, lower_blue, upper_blue)
+        # Define the RGB value of the color you want to find
+        color_to_find = (76, 111, 204)  # Corresponding to #416fcc in RGB
 
-        # Count the number of blue pixels
-        print(np.any(mask > 0))
+        # Check if the color is present in the image
+        color_found = np.any(np.all(mask == color_to_find, axis=-1))
 
-        blue_present = np.any(mask > 0)
+        print(color_found)
 
         # Determine if the image contains blue color
-        return blue_present
+        return color_found
