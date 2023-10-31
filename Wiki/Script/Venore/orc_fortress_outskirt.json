@@ -32,9 +32,34 @@
   ],
   "creatures": [
     {
-      "name": "wasp",
+      "name": "orc_warrior",
+      "runner": true,
+      "loot": false
+    },
+    {
+      "name": "orc",
+      "runner": true,
+      "loot": false
+    },
+    {
+      "name": "orc_shaman",
       "runner": true,
       "loot": true
+    },
+    {
+      "name": "orc_berserker",
+      "runner": true,
+      "loot": false
+    },
+    {
+      "name": "orc_spearman",
+      "runner": true,
+      "loot": false
+    },
+    {
+      "name": "orc_leader",
+      "runner": true,
+      "loot": false
     }
   ],
   "ring": true
