@@ -14,8 +14,7 @@ class AutoTrainner:
 
     def train(self) -> None:
         TibiaAcBotLogger.info('AutoTraining starting')
-
-        # player = Player.create()
+        player = Player.create()
 
         # combat_event = Event()
 
@@ -38,9 +37,19 @@ class AutoTrainner:
 
             # Log a message to the console
             TibiaAcBotLogger.info(f'Slept for {sleep_duration} seconds. Eating and casting spells')
-            player = Player.create()
-            player.eat()
-            player.heal()
+
+            random_health_times = self.generate_random_heal_time()
+
+            for _ in range(random_health_times):
+                player.eat()
+
+                random = self.generate_random_sleep_time()
+                time.sleep(random)
+
+                player.heal()
 
     def generate_random_sleep_time(self):
-        return random.randint(1, 15)
+        return random.randint(1, 12)
+
+    def generate_random_heal_time(self):
+        return random.randint(1, 10)
