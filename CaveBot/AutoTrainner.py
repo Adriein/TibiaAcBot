@@ -53,4 +53,4 @@ class AutoTrainner:
         return random.randint(1, 12)
 
     def generate_random_heal_time(self):
-        return random.randint(1, 20)
+        return random.randint(15, 20)
