@@ -4,6 +4,7 @@ from CaveBot.Player import Player
 from ScreenAnalizerPackage import ScreenRegion
 from ScreenAnalizerPackage import PositionError
 from ScreenAnalizerPackage import Coordinate
+import random
 
 
 class AutoLoot:
@@ -33,6 +34,8 @@ class AutoLoot:
     def __create_looting_area(self) -> list[Coordinate]:
         center_game_window_coordinate = Coordinate.from_screen_region(self.game_window)
 
+        random_number = random.randint(1, 10)
+
         first_looting_point = Coordinate(center_game_window_coordinate.x, center_game_window_coordinate.y - 44)
         second_looting_point = Coordinate(center_game_window_coordinate.x + 44, first_looting_point.y)
         third_looting_point = Coordinate(center_game_window_coordinate.x + 44, center_game_window_coordinate.y)
@@ -44,13 +47,44 @@ class AutoLoot:
 
         result = list()
 
-        result.append(first_looting_point)
-        result.append(second_looting_point)
-        result.append(third_looting_point)
-        result.append(fourth_looting_point)
-        result.append(fifth_looting_point)
-        result.append(six_looting_point)
-        result.append(seven_looting_point)
-        result.append(eight_looting_point)
+        if random_number in range(0, 3):
+            result.append(first_looting_point)
+            result.append(second_looting_point)
+            result.append(third_looting_point)
+            result.append(fourth_looting_point)
+            result.append(fifth_looting_point)
+            result.append(six_looting_point)
+            result.append(seven_looting_point)
+            result.append(eight_looting_point)
+
+        if random_number in range(3, 6):
+            result.append(eight_looting_point)
+            result.append(seven_looting_point)
+            result.append(six_looting_point)
+            result.append(fifth_looting_point)
+            result.append(fourth_looting_point)
+            result.append(third_looting_point)
+            result.append(second_looting_point)
+            result.append(first_looting_point)
+
+        if random_number in range(6, 9):
+            result.append(third_looting_point)
+            result.append(fourth_looting_point)
+            result.append(fifth_looting_point)
+            result.append(six_looting_point)
+            result.append(seven_looting_point)
+            result.append(eight_looting_point)
+            result.append(first_looting_point)
+            result.append(second_looting_point)
+
+        if random_number in range(9, 11):
+            result.append(seven_looting_point)
+            result.append(six_looting_point)
+            result.append(fifth_looting_point)
+            result.append(fourth_looting_point)
+            result.append(third_looting_point)
+            result.append(second_looting_point)
+            result.append(first_looting_point)
+            result.append(eight_looting_point)
 
         return result

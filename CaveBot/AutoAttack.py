@@ -42,12 +42,11 @@ class AutoAttack:
                 for enemy in enemies_in_battle_list:
                     self.runner_enemy = enemy.runner
 
-                    # if self.runner_enemy:
-                      #  self.player.chase_opponent()
-
                     self.__activate_chase_opponent(enemy)
 
                     self.player.attack()
+
+                    self.player.heal()
 
                     time.sleep(1)
 
@@ -72,6 +71,7 @@ class AutoAttack:
                 if not self.runner_enemy:
                     self.auto_loot.loot()
 
+                self.player.eat()
                 self.combat_event.clear()
                 self.walk_event.set()
 
