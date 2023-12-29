@@ -32,11 +32,12 @@ class AutoTrainner:
             # Generate a random sleep time between 5 and 15 seconds
             sleep_duration = self.generate_random_sleep_time()
 
+            TibiaAcBotLogger.info(f'Going to sleep for {sleep_duration} minutes')
             # Sleep for the randomly generated time
             time.sleep(sleep_duration * 60)
 
             # Log a message to the console
-            TibiaAcBotLogger.info(f'Slept for {sleep_duration} seconds. Eating and casting spells')
+            TibiaAcBotLogger.info(f'Slept for {sleep_duration} minutes. Eating and casting spells')
 
             random_health_times = self.generate_random_heal_time()
 
