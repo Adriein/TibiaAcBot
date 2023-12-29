@@ -30,7 +30,7 @@ class AutoTrainner:
         # pass
         while True:
             # Generate a random sleep time between 5 and 15 seconds
-            sleep_duration = generate_random_sleep_time()
+            sleep_duration = self.generate_random_sleep_time()
 
             # Sleep for the randomly generated time
             time.sleep(sleep_duration * 60)
