@@ -16,7 +16,7 @@ class AutoWalk:
     __waypoints: LinkedList = LinkedList()
     __previous_waypoint = None
 
-    FLOOR_LEVEL = 8
+    FLOOR_LEVEL = 7
 
     FLOORS_LEVELS: set[int] = set()
 
@@ -62,7 +62,7 @@ class AutoWalk:
 
                     command: MoveCommand = walk_instructions.current.data
 
-                    time.sleep(0.2)
+                    # time.sleep(0.2)
 
                     self.player.move(command)
 

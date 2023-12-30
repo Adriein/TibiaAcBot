@@ -8,7 +8,21 @@ import numpy as np
 
 
 class Scanner:
+    @staticmethod
+    def ring_position(frame: np.array) -> tuple[int, int, int, int]:
+        grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
+        soul_anchor = Cv2File.load_image('Wiki/Ui/GameWindow/soul.png')
+
+        match = cv2.matchTemplate(grey_scale_frame, soul_anchor, cv2.TM_CCOEFF_NORMED)
+
+        [_, _, _, max_coordinates] = cv2.minMaxLoc(match)
+
+        (x, y) = max_coordinates
+
+        height, width = soul_anchor.shape
+
+        return x, x + width, y - 39, y + height
     @staticmethod
     def combat_stance_position(frame: np.array) -> tuple[int, int, int, int]:
         grey_scale_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
